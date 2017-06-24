@@ -15,6 +15,7 @@ export default class Experiment
 
   init(canvas) {
     if (!Detector.webgl) {
+      Detector.addGetWebGLMessage();
       return false;
     }
 
