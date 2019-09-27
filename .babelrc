@@ -1,4 +1,11 @@
 {
-  "presets": ["@babel/preset-env"],
+  "presets": [[
+    "@babel/preset-env", {
+      "forceAllTransforms": true,
+      "shippedProposals": true,
+      "modules": false
+    }
+  ]],
+
   "plugins": ["@babel/plugin-proposal-object-rest-spread"]
 }

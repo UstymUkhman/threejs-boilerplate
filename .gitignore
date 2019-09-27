@@ -8,6 +8,7 @@ pids
 .idea
 .vscode
 
+build/*.gz
 build/*.js
 build/*.map
 
