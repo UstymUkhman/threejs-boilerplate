@@ -1,48 +1,46 @@
-import Detector from 'three/examples/js/Detector';
-import Stats from 'three/examples/js/libs/stats.min';
+// import Stats from 'three/examples/js/libs/stats.min';
 
-export default class Experiment
-{
-  constructor() {
-    this._name = 'Experiment';
+// export default class Experiment {
+//   constructor() {
+//     this._name = 'Experiment';
 
-    this._canvas = null;
-    this._stats = null;
+//     this._canvas = null;
+//     this._stats = null;
 
-    this._width = null;
-    this._height = null;
-  }
+//     this._width = null;
+//     this._height = null;
+//   }
 
-  init(canvas) {
-    if (!Detector.webgl) {
-      Detector.addGetWebGLMessage();
-      return false;
-    }
+//   init(canvas) {
+//     if (!Detector.webgl) {
+//       Detector.addGetWebGLMessage();
+//       return false;
+//     }
 
-    this._canvas = canvas;
-    return true;
-  }
+//     this._canvas = canvas;
+//     return true;
+//   }
 
-  startExperiment() {
-  }
+//   startExperiment() {
+//   }
 
-  showStats() {
-    if (!this._stats) {
-      this._stats = new Stats();
-    }
+//   showStats() {
+//     if (!this._stats) {
+//       this._stats = new Stats();
+//     }
 
-    document.body.appendChild(this._stats.dom);
-  }
+//     document.body.appendChild(this._stats.dom);
+//   }
 
-  hideStats() {
-    this._stats.dom.parentNode.removeChild(this._stats.dom);
-  }
+//   hideStats() {
+//     this._stats.dom.parentNode.removeChild(this._stats.dom);
+//   }
 
-  resize(width, height) {
-    this._width = width;
-    this._height = height;
+//   resize(width, height) {
+//     this._width = width;
+//     this._height = height;
 
-    this._canvas.width = this._width;
-    this._canvas.height = this._height;
-  }
-}
+//     this._canvas.width = this._width;
+//     this._canvas.height = this._height;
+//   }
+// }

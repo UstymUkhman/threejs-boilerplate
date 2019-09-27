@@ -1,43 +1,38 @@
 {
-  "name": "Experiment",
+  "name": "experiment-boilerplate",
   "version": "1.0.0",
-  "description": "Experiment",
-  "author": "Ustym Ukhman",
-  "homepage": "",
-  "license": "MIT",
+  "author": "Ustym Ukhman <ustym.ukhman@gmail.com>",
+  "description": "A Boilerplate for WebGL Experiments",
+  "homepage": "https://github.com/UstymUkhman/experiment-boilerplate",
   "main": "index.js",
+  "license": "MIT",
   "scripts": {
-    "build": "webpack --env build",
-    "dev": "concurrently -k -r \"webpack --progress --colors --watch --env dev\" \"browser-sync start --config bs-config.js\"",
-    "serve": "browser-sync start --config bs-config.js",
-    "test": "mocha --compilers js:babel-core/register --colors ./test/*.spec.js",
-    "test:watch": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js"
+    "start": "concurrently -k -r \"webpack --progress --colors --watch --env dev\" \"browser-sync start --config bs-config.js\"",
+    "build": "webpack --env build"
   },
-  "dependencies": {
-    "glsl-blend": "^1.0.3",
-    "gsap": "^1.19.1",
-    "three": "^0.84.0",
-    "three-orbit-controls": "^82.1.0",
-    "web-audio-analyser": "^2.0.1",
-    "xhr-request": "^1.0.1"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "babel": "6.5.2",
-    "babel-core": "6.22.1",
-    "babel-eslint": "7.1.1",
-    "babel-loader": "6.2.10",
-    "babel-plugin-add-module-exports": "0.1.2",
-    "babel-preset-es2015": "6.22.0",
-    "browser-sync": "^2.18.8",
-    "chai": "3.4.1",
-    "concurrently": "^3.3.0",
-    "eslint": "1.7.2",
-    "eslint-loader": "1.6.1",
-    "glslify": "^6.0.1",
-    "glslify-loader": "^1.0.2",
-    "mocha": "2.3.4",
-    "raw-loader": "^0.5.1",
-    "webpack": "2.2.1",
-    "yargs": "6.6.0"
+    "@babel/cli": "^7.6.0",
+    "@babel/core": "^7.6.0",
+    "@babel/node": "^7.6.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/preset-env": "^7.6.0",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "browser-sync": "^2.26.7",
+    "concurrently": "^4.1.2",
+    "eslint": "^6.3.0",
+    "eslint-loader": "^3.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "glslify": "^7.0.0",
+    "glslify-loader": "^2.0.0",
+    "raw-loader": "^3.1.0",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-server": "^3.8.0"
+  },
+  "engines": {
+    "node": ">= 9.10.0",
+    "npm": ">= 5.5.0"
   }
 }

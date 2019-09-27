@@ -1,3 +1,7 @@
-# Experiment #
+# experiment-boilerplate #
 
-*npm run build && npm run dev*
+`yarn`
+
+`yarn start`
+
+`yarn build`
