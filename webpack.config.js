@@ -3,40 +3,97 @@ const webpack = require('webpack');
 const config = require('./package.json');
 const build = require('yargs').argv.env === 'build';
 
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const webpackConfig = {
+const HOST = process.env.HOST;
+const PORT = process.env.PORT && Number(process.env.PORT);
+process.env.NODE_ENV = build ? 'production' : 'development';
+
+const productionPlugins = [
+  new UglifyJsPlugin({
+    sourceMap: true,
+    parallel: true,
+
+    uglifyOptions: {
+      sourceMap: true,
+      parallel: true,
+
+      compress: {
+        drop_console: true,
+        conditionals: true,
+        comparisons: true,
+        dead_code: true,
+        if_return: true,
+        join_vars: true,
+        warnings: false,
+        unused: true
+      },
+
+      output: {
+        comments: false
+      }
+    }
+  }),
+
+  new webpack.optimize.ModuleConcatenationPlugin()
+];
+
+module.exports = {
+  devtool: build ? '#source-map' : 'cheap-module-eval-source-map',
   mode: build ? 'production' : 'development',
-  entry: __dirname + '/src/index.js',
-  devtool: 'inline-source-map',
+  entry: path.resolve('./src/index.js'),
 
   module: {
     rules: [{
-      test: /(\.glsl|\.frag|\.vert)$/,
-      exclude: /node_modules/,
-      loader: 'raw-loader'
-    }, {
-      test: /(\.glsl|\.frag|\.vert)$/,
-      exclude: /node_modules/,
-      loader: 'glslify'
-    }, {
-      exclude: /(node_modules)/,
-      loader: 'babel-loader',
-      test: /(\.jsx|\.js)$/
-    }, {
-      test: /(\.jsx|\.js)$/,
+      enforce: 'pre',
+      test: /(\.js)$/,
       loader: 'eslint-loader',
-      exclude: /node_modules/
+      include: [path.resolve('./src')],
+
+      options: {
+        emitWarning: !build,
+        formatter: require('eslint-friendly-formatter')
+      }
+    }, {
+      test: /\.(js|jsx)$/,
+      loader: 'babel-loader',
+      include: [
+        path.resolve('./src'),
+        path.resolve('./node_modules/webpack-dev-server/client'),
+        path.resolve('./node_modules/three/src')
+      ]
+    }, {
+      test: /\.(glsl|vert|frag)$/i,
+      loader: 'threejs-glsl-loader'
+    }, {
+      test: /\.(gltf)$/i,
+      loader: 'gltf-loader-2'
+    }, {
+      test: /assets.*\.(bin|png|jpe?g|gif|glb)$/i,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            name: path.posix.join('assets', 'assets-3d/[name].[hash:7].[ext]')
+          }
+        }
+      ]
+    }, {
+      test: /\.(cube)$/i,
+      use: [{
+        loader: 'file-loader',
+        options: {
+          name: path.posix.join('assets', 'assets-3d/[name].[hash:7].png')
+        }
+      }, {
+        loader: 'lut-loader'
+      }]
     }]
   },
 
   resolve: {
-    modules: [
-      path.resolve('./node_modules'),
-      path.resolve('./src')
-    ],
-
+    modules: [path.resolve('./node_modules'), path.resolve('./src')],
     extensions: ['.js', '.json'],
 
     alias: {
@@ -45,96 +102,73 @@ const webpackConfig = {
     }
   },
 
+  plugins: [
+    new webpack.DefinePlugin({
+      BROWSER_SUPPORTS_HTML5: true,
+      PRODUCTION: JSON.stringify(build),
+      VERSION: JSON.stringify(config.version),
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+    }),
+
+    ...(build ? productionPlugins : [
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NamedModulesPlugin(),
+      new webpack.NoEmitOnErrorsPlugin()
+    ]),
+
+    new CopyWebpackPlugin([{
+      from: path.resolve(__dirname, './src/assets'),
+      ignore: ['.*'],
+      to: 'assets'
+    }])
+  ],
+
+  output: {
+    globalObject: build ? 'typeof self !== \'undefined\' ? self : this' : 'window',
+    filename: (build ? `${config.name}.min` : 'main') + '.js',
+    libraryTarget: build ? 'umd' : 'var',
+    library: build ? config.name : '',
+
+    path: path.resolve('./build'),
+    libraryExport: 'default',
+    umdNamedDefine: true,
+    publicPath: '/'
+  },
+
   optimization: {
     mergeDuplicateChunks: true,
     flagIncludedChunks: true,
     removeEmptyChunks: true,
-    runtimeChunk: 'single',
     namedModules: true,
     namedChunks: true,
-    minimize: build,
+    minimize: build
+  },
 
-    splitChunks: {
-      maxInitialRequests: Infinity,
-      chunks: 'all',
-      minSize: 0,
+  devServer: {
+    contentBase: path.join(__dirname, './build'),
+    clientLogLevel: 'warning',
+    host: HOST || 'localhost',
+    watchContentBase: true,
+    port: PORT || 8080,
+    publicPath: '/',
 
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          // name: 'vendor',
-          enforce: true,
+    compress: true,
+    overlay: true,
+    quiet: false,
+    open: false,
+    hot: true,
 
-          name (module) {
-            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
-            return `npm.${packageName.replace('@', '')}`;
-          }
-        }
-      }
+    watchOptions: {
+      poll: false,
     }
   },
 
-  output: {
-    globalObject: 'typeof self !== \'undefined\' ? self : this',
-    filename: config.name + (build ? '.min' : '') + '.js',
-    publicPath: build ? '../build/' : '/',
-    path: __dirname + '/build',
-    umdNamedDefine: true,
-
-    libraryExport: 'default',
-    library: config.name,
-    libraryTarget: 'umd'
-  },
-
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: '"production"' }
-    }),
-
-    /* eslint-disable camelcase */
-
-    // new UglifyJsPlugin({
-    //   sourceMap: true,
-    //   parallel: true,
-
-    //   uglifyOptions: {
-    //     sourceMap: true,
-    //     parallel: true,
-    //     ecma: 2019,
-
-    //     compress: {
-    //       drop_console: true,
-    //       conditionals: true,
-    //       comparisons: true,
-    //       dead_code: true,
-    //       if_return: true,
-    //       join_vars: true,
-    //       // warnings: false,
-    //       unused: true
-    //     },
-
-    //     output: {
-    //       comments: false
-    //     }
-    //   }
-    // }),
-
-    /* eslint-enable camelcase */
-
-    new webpack.HashedModuleIdsPlugin(),
-    new webpack.optimize.ModuleConcatenationPlugin()
-  ]
+  node: {
+    child_process: 'empty',
+    setImmediate: false,
+    dgram: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    fs: 'empty'
+  }
 };
-
-if (build) {
-  webpackConfig.plugins.push(
-    new CompressionWebpackPlugin({
-      test: new RegExp('\\.(js)$'),
-      algorithm: 'gzip',
-      threshold: 10240,
-      minRatio: 0.8
-    })
-  );
-}
-
-module.exports = webpackConfig;

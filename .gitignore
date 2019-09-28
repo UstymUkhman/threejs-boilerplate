@@ -8,10 +8,10 @@ pids
 .idea
 .vscode
 
-build/*.gz
 build/*.js
 build/*.map
 
 node_modules
 
 .lock-wscript
+.sublime-workspace
