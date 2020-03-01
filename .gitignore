@@ -8,9 +8,7 @@ pids
 .idea
 .vscode
 
-build/*.js
 build/*.map
-
 node_modules
 
 .lock-wscript

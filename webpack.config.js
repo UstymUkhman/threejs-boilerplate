@@ -1,48 +1,19 @@
 const path = require('path');
 const webpack = require('webpack');
 const config = require('./package.json');
+
 const build = require('yargs').argv.env === 'build';
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-
-const HOST = process.env.HOST;
-const PORT = process.env.PORT && Number(process.env.PORT);
 process.env.NODE_ENV = build ? 'production' : 'development';
-
-const productionPlugins = [
-  new UglifyJsPlugin({
-    sourceMap: true,
-    parallel: true,
-
-    uglifyOptions: {
-      sourceMap: true,
-      parallel: true,
-
-      compress: {
-        drop_console: true,
-        conditionals: true,
-        comparisons: true,
-        dead_code: true,
-        if_return: true,
-        join_vars: true,
-        warnings: false,
-        unused: true
-      },
-
-      output: {
-        comments: false
-      }
-    }
-  }),
-
-  new webpack.optimize.ModuleConcatenationPlugin()
-];
+const PORT = process.env.PORT && Number(process.env.PORT);
+const HOST = process.env.HOST;
 
 module.exports = {
   devtool: build ? '#source-map' : 'cheap-module-eval-source-map',
   mode: build ? 'production' : 'development',
-  entry: path.resolve('./src/index.js'),
+  entry: path.resolve('./src/main.js'),
 
   module: {
     rules: [{
@@ -56,6 +27,12 @@ module.exports = {
         formatter: require('eslint-friendly-formatter')
       }
     }, {
+      test: /\.css$/,
+      use: [
+        build ? MiniCssExtractPlugin.loader : 'style-loader',
+        'css-loader'
+      ]
+    }, {
       test: /\.(js|jsx)$/,
       loader: 'babel-loader',
       include: [
@@ -64,27 +41,44 @@ module.exports = {
         path.resolve('./node_modules/three/src')
       ]
     }, {
+      test: /\.(mp4|webm)(\?.*)?$/i,
+      loader: 'url-loader',
+      options: {
+        limit: 10000,
+        name: path.posix.join('assets/videos', '[name].[ext]')
+      }
+    }, {
+      test: /\.(ogg|mp3|wav|flac|aac)(\?.*)?$/i,
+      loader: 'url-loader',
+      options: {
+        limit: 10000,
+        name: path.posix.join('assets/sounds', '[name].[ext]')
+      }
+    }, {
       test: /\.(glsl|vert|frag)$/i,
       loader: 'threejs-glsl-loader'
+    }, {
+      test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/i,
+      loader: 'url-loader',
+      options: {
+        limit: 10000,
+        name: path.posix.join('assets/fonts', '[name].[ext]')
+      }
     }, {
       test: /\.(gltf)$/i,
       loader: 'gltf-loader-2'
     }, {
-      test: /assets.*\.(bin|png|jpe?g|gif|glb)$/i,
-      use: [
-        {
-          loader: 'file-loader',
-          options: {
-            name: path.posix.join('assets', 'assets-3d/[name].[hash:7].[ext]')
-          }
-        }
-      ]
+      test: /\.(bin|gif|glb)(\?.*)?$/i,
+      loader: 'file-loader',
+      options: {
+        name: path.posix.join('assets/models', '[name].[ext]')
+      }
     }, {
-      test: /\.(cube)$/i,
+      test: /\.(png|jpe?g|cube)$/i,
       use: [{
         loader: 'file-loader',
         options: {
-          name: path.posix.join('assets', 'assets-3d/[name].[hash:7].png')
+          name: path.posix.join('assets/images', '[name].png')
         }
       }, {
         loader: 'lut-loader'
@@ -94,15 +88,23 @@ module.exports = {
 
   resolve: {
     modules: [path.resolve('./node_modules'), path.resolve('./src')],
+    mainFields: ['browser', 'module', 'main'],
     extensions: ['.js', '.json'],
 
     alias: {
+      '@controls': path.resolve('./node_modules/three/examples/jsm/controls'),
+      '@loaders': path.resolve('./node_modules/three/examples/jsm/loaders'),
+      '@utils': path.resolve('./node_modules/three/examples/jsm/utils'),
       '@three': path.resolve('./node_modules/three/src'),
       '@': path.resolve('./src')
     }
   },
 
   plugins: [
+    new MiniCssExtractPlugin({
+			filename: 'main.css'
+		}),
+
     new webpack.DefinePlugin({
       BROWSER_SUPPORTS_HTML5: true,
       PRODUCTION: JSON.stringify(build),
@@ -110,29 +112,25 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
 
-    ...(build ? productionPlugins : [
+    ...(build ? [
+      new webpack.optimize.ModuleConcatenationPlugin()
+    ] : [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),
       new webpack.NoEmitOnErrorsPlugin()
-    ]),
-
-    new CopyWebpackPlugin([{
-      from: path.resolve(__dirname, './src/assets'),
-      ignore: ['.*'],
-      to: 'assets'
-    }])
+    ])
   ],
 
   output: {
     globalObject: build ? 'typeof self !== \'undefined\' ? self : this' : 'window',
-    filename: (build ? `${config.name}.min` : 'main') + '.js',
     libraryTarget: build ? 'umd' : 'var',
     library: build ? config.name : '',
+    publicPath: build ? './' : '/',
 
     path: path.resolve('./build'),
     libraryExport: 'default',
     umdNamedDefine: true,
-    publicPath: '/'
+    filename: 'main.js'
   },
 
   optimization: {
@@ -141,7 +139,31 @@ module.exports = {
     removeEmptyChunks: true,
     namedModules: true,
     namedChunks: true,
-    minimize: build
+    minimize: build,
+
+    minimizer: [
+      new TerserPlugin({
+        sourceMap: true,
+        parallel: true,
+
+        terserOptions: {
+          toplevel: true,
+
+          parse: {
+            html5_comments: false
+          },
+
+          compress: {
+            keep_infinity: true,
+            drop_console: true
+          },
+
+          output: {
+            comments: false
+          }
+        }
+      })
+    ]
   },
 
   devServer: {
