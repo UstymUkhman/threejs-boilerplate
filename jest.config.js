@@ -150,7 +150,7 @@ module.exports = {
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
   // snapshotSerializers: [],
 
-  // The test environment that will be used for testing: 'jsdom' | 'node'
+  // The test environment that will be used for testing: 'jsdom' | jest-environment-jsdom-fourteen | 'node'
   testEnvironment: 'jsdom',
 
   // Options that will be passed to the testEnvironment
