@@ -92,7 +92,9 @@ module.exports = {
     extensions: ['.js', '.json'],
 
     alias: {
+      '@postprocessing': path.resolve('./node_modules/three/examples/jsm/postprocessing'),
       '@controls': path.resolve('./node_modules/three/examples/jsm/controls'),
+      '@shaders': path.resolve('./node_modules/three/examples/jsm/shaders'),
       '@loaders': path.resolve('./node_modules/three/examples/jsm/loaders'),
       '@utils': path.resolve('./node_modules/three/examples/jsm/utils'),
       '@three': path.resolve('./node_modules/three/src'),

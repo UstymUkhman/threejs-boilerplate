@@ -1,17 +1,18 @@
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { MeshPhongMaterial } from 'three/src/materials/MeshPhongMaterial';
-import { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera';
-import { DirectionalLight } from 'three/src/lights/DirectionalLight';
-import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer';
-import { BoxGeometry } from 'three/src/geometries/BoxGeometry';
-import { AmbientLight } from 'three/src/lights/AmbientLight';
-import { GridHelper } from 'three/src/helpers/GridHelper';
+import { MeshPhongMaterial } from '@three/materials/MeshPhongMaterial';
+import { PerspectiveCamera } from '@three/cameras/PerspectiveCamera';
+import { DirectionalLight } from '@three/lights/DirectionalLight';
+import { WebGLRenderer } from '@three/renderers/WebGLRenderer';
 
+import { BoxGeometry } from '@three/geometries/BoxGeometry';
+import { AmbientLight } from '@three/lights/AmbientLight';
+import { OrbitControls } from '@controls/OrbitControls';
+import { GridHelper } from '@three/helpers/GridHelper';
 import Stats from 'three/examples/js/libs/stats.min';
-import { Scene } from 'three/src/scenes/Scene';
-import { Mesh } from 'three/src/objects/Mesh';
-import { Color } from 'three/src/math/Color';
-import { Fog } from 'three/src/scenes/Fog';
+
+import { Scene } from '@three/scenes/Scene';
+import { Mesh } from '@three/objects/Mesh';
+import { Color } from '@three/math/Color';
+import { Fog } from '@three/scenes/Fog';
 
 const GROUND = 0x888888;
 const WHITE = 0xFFFFFF;
@@ -20,7 +21,6 @@ const FOG = 0xA0A0A0;
 export default class Playground {
   constructor () {
     this.setSize();
-
     this.createScene();
     this.createCamera();
     this.createLights();

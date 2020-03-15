@@ -1,2 +1,3 @@
+tests/**/*.*
 build/**/*.*
 webpack.config.js
