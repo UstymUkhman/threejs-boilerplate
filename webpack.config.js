@@ -13,32 +13,18 @@ const HOST = process.env.HOST;
 module.exports = {
   devtool: build ? '#source-map' : 'cheap-module-eval-source-map',
   mode: build ? 'production' : 'development',
-  entry: path.resolve('./src/main.js'),
+  entry: path.resolve('./src/main.ts'),
 
   module: {
     rules: [{
-      enforce: 'pre',
-      test: /(\.js)$/,
-      loader: 'eslint-loader',
-      include: [path.resolve('./src')],
-
-      options: {
-        emitWarning: !build,
-        formatter: require('eslint-friendly-formatter')
-      }
+      test: /\.tsx?$/,
+      loader: 'ts-loader',
+      exclude: /node_modules/
     }, {
       test: /\.css$/,
       use: [
         build ? MiniCssExtractPlugin.loader : 'style-loader',
         'css-loader'
-      ]
-    }, {
-      test: /\.(js|jsx)$/,
-      loader: 'babel-loader',
-      include: [
-        path.resolve('./src'),
-        path.resolve('./node_modules/webpack-dev-server/client'),
-        path.resolve('./node_modules/three/src')
       ]
     }, {
       test: /\.(mp4|webm)(\?.*)?$/i,
@@ -88,8 +74,8 @@ module.exports = {
 
   resolve: {
     modules: [path.resolve('./node_modules'), path.resolve('./src')],
+    extensions: ['.ts', '.tsx', '.js', '.json'],
     mainFields: ['browser', 'module', 'main'],
-    extensions: ['.js', '.json'],
 
     alias: {
       '@postprocessing': path.resolve('./node_modules/three/examples/jsm/postprocessing'),
