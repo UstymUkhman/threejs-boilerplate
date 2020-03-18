@@ -1,51 +1,63 @@
-// import { MeshPhongMaterial } from '@three/materials/MeshPhongMaterial';
-// import { PerspectiveCamera } from '@three/cameras/PerspectiveCamera';
-// import { DirectionalLight } from '@three/lights/DirectionalLight';
-// import { WebGLRenderer } from '@three/renderers/WebGLRenderer';
+import { MeshPhongMaterial } from '@three/materials/MeshPhongMaterial';
+import { PerspectiveCamera } from '@three/cameras/PerspectiveCamera';
+import { DirectionalLight } from '@three/lights/DirectionalLight';
+import { WebGLRenderer } from '@three/renderers/WebGLRenderer';
 
-// import { BoxGeometry } from '@three/geometries/BoxGeometry';
-// import { AmbientLight } from '@three/lights/AmbientLight';
-// import { OrbitControls } from '@controls/OrbitControls';
-// import { GridHelper } from '@three/helpers/GridHelper';
-// import Stats from 'three/examples/js/libs/stats.min';
+import { BoxGeometry } from '@three/geometries/BoxGeometry';
+import { AmbientLight } from '@three/lights/AmbientLight';
+import { OrbitControls } from '@controls/OrbitControls';
+import { GridHelper } from '@three/helpers/GridHelper';
+import Stats from 'three/examples/js/libs/stats.min';
 
-// import { Scene } from '@three/scenes/Scene';
-// import { Mesh } from '@three/objects/Mesh';
-// import { Color } from '@three/math/Color';
-// import { Fog } from '@three/scenes/Fog';
+import { Scene } from '@three/scenes/Scene';
+import { Mesh } from '@three/objects/Mesh';
+import { Color } from '@three/math/Color';
+import { Fog } from '@three/scenes/Fog';
 
-// const GROUND = 0x888888;
-// const WHITE = 0xFFFFFF;
-// const FOG = 0xA0A0A0;
+const GROUND = 0x888888;
+const WHITE = 0xFFFFFF;
+const FOG = 0xA0A0A0;
 
 export default class Playground {
+  private stats: any;
+  private raf: number;
+  public scene = new Scene();
+
   private width: number = window.innerWidth;
   private height: number = window.innerHeight;
   private ratio: number = this.width / this.height;
 
+  public camera = new PerspectiveCamera(45, this.ratio, 1, 500);
+  private _onResize: EventListenerOrEventListenerObject = () => null;
+  private renderer = new WebGLRenderer({ antialias: true, alpha: false });
+  private orbitControls = new OrbitControls(this.camera, this.renderer.domElement);
+
   constructor () {
-    // this.createScene();
-    // this.createCamera();
-    // this.createLights();
-    // this.createGround();
+    this.createScene();
+    this.createCamera();
+    this.createLights();
+    this.createGround();
 
-    // this.createRenderer();
-    // this.createControls();
-    // this.createEvents();
-    // this.createStats();
+    this.createRenderer();
+    this.createControls();
+    this.createEvents();
+    this.createStats();
 
-    console.log(this.width, this.height, this.ratio);
-    // this.raf = requestAnimationFrame(this.render.bind(this));
+    this.raf = requestAnimationFrame(this.render.bind(this));
   }
 
-  /* createScene () {
-    this.scene = new Scene();
+  setSize () {
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+    this.ratio = this.width / this.height;
+  }
+
+  createScene () {
     this.scene.background = new Color(FOG);
     this.scene.fog = new Fog(FOG, 50, 500);
   }
 
   createCamera () {
-    this.camera = new PerspectiveCamera(45, this.ratio, 1, 500);
     this.camera.position.set(0, 10, -50);
     this.camera.lookAt(0, 0, 0);
   }
@@ -86,13 +98,12 @@ export default class Playground {
     this.scene.add(ground);
 
     const grid = new GridHelper(500, 50, 0, 0);
-    grid.material.transparent = true;
-    grid.material.opacity = 0.2;
+    (<any>grid.material).transparent = true;
+    (<any>grid.material).opacity = 0.2;
     this.scene.add(grid);
   }
 
   createRenderer () {
-    this.renderer = new WebGLRenderer({ antialias: true, alpha: false });
     this.renderer.setPixelRatio(window.devicePixelRatio || 1);
     this.renderer.setSize(this.width, this.height);
     this.renderer.shadowMap.enabled = true;
@@ -101,7 +112,6 @@ export default class Playground {
   }
 
   createControls () {
-    this.orbitControls = new OrbitControls(this.camera, this.renderer.domElement);
     this.orbitControls.target.set(0, 0, 25);
     this.orbitControls.update();
   }
@@ -144,5 +154,5 @@ export default class Playground {
     delete this.camera;
     delete this.scene;
     delete this.stats;
-  } */
+  }
 }
