@@ -41,6 +41,9 @@
     "webpack-glsl-loader": "^1.0.1",
     "worker-loader": "^2.0.0"
   },
+  "resolutions": {
+    "minimist": "^1.2.5"
+  },
   "engines": {
     "node": ">= 9.10.0",
     "npm": ">= 5.5.0"
