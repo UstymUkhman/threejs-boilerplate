@@ -1,5 +1,7 @@
 # experiment-boilerplate #
 
+>  ### *TypeScript* ###
+
 `yarn`
 
 `yarn start`

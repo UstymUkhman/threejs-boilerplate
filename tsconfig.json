@@ -5,20 +5,19 @@
     "esModuleInterop": true,
     "importHelpers": true,
     "noImplicitAny": true,
-
     "sourceMap": true,
+
     "jsx": "preserve",
     "module": "amd",
     "target": "es5",
     "allowJs": true,
     "baseUrl": ".",
     "strict": true,
-
+    
+    "types": [],
     "typeRoots": [
       "./node_modules/@types"
     ],
-
-    "types": [],
 
     "paths": {
       "@postprocessing/*": ["node_modules/three/examples/jsm/postprocessing/*"],

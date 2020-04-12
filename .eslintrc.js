@@ -1,12 +1,10 @@
 module.exports = {
+  root: true,
+  plugins: [],
+
   parserOptions: {
     parser: '@typescript-eslint/parser',
     sourceType: 'module'
-  },
-
-  env: {
-    browser: true,
-    node: true
   },
 
   globals: {
@@ -23,9 +21,10 @@ module.exports = {
     it: true
   },
 
-  plugins: [],
-
-  root: true,
+  env: {
+    browser: true,
+    node: true
+  },
 
   rules: {
     'block-scoped-var': 2,
