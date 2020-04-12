@@ -1,13 +1,7 @@
 # experiment-boilerplate #
 
->  ### *TypeScript* ###
+>  ### *AssemblyScript* ###
 
-`yarn`
+`npm i`
 
-`yarn start`
-
-`yarn test`
-
-`yarn build`
-
-`yarn server`
+`npm run build`

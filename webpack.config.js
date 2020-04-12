@@ -19,7 +19,14 @@ module.exports = {
     rules: [{
       test: /\.tsx?$/,
       loader: 'ts-loader',
-      exclude: /node_modules/
+      exclude: /(node_modules)|(src\/assembly)/
+    }, {
+      test: /\.wasm$/,
+      type: 'javascript/auto',
+      loader: 'arraybuffer-loader'
+      // test: /\.wasm$/,
+      // loader: 'base64-loader',
+      // type: 'javascript/auto',
     }, {
       test: /\.css$/,
       use: [

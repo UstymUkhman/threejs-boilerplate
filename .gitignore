@@ -8,10 +8,13 @@ pids
 
 .idea
 .vscode
-
 coverage
-build/*.map
 node_modules
+
+build/*.map
+build/*.wasm
+build/*.asm.js
+build/*.wasm.map
 
 .lock-wscript
 .sublime-workspace

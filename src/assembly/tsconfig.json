@@ -1,0 +1,5 @@
+{
+  "extends": "../../node_modules/assemblyscript/std/assembly.json",
+  "typeRoots": ["../../node_modules/@types"],
+  "include": ["./**/*.ts"]
+}
