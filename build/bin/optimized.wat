@@ -1,53 +1,38 @@
 (module
+ (type $i32_=>_i32 (func (param i32) (result i32)))
  (type $i32_=>_none (func (param i32)))
  (type $i32_i32_=>_none (func (param i32 i32)))
- (type $i32_=>_i32 (func (param i32) (result i32)))
- (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
+ (type $i32_i32_=>_i32 (func (param i32 i32) (result i32)))
  (type $none_=>_none (func))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
  (type $none_=>_i32 (func (result i32)))
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
+ (import "module" "log" (func $src/assembly/module/log (param i32)))
  (memory $0 1)
  (data (i32.const 16) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00t\00l\00s\00f\00.\00t\00s")
  (data (i32.const 64) "(\00\00\00\01\00\00\00\01\00\00\00(\00\00\00a\00l\00l\00o\00c\00a\00t\00i\00o\00n\00 \00t\00o\00o\00 \00l\00a\00r\00g\00e")
  (data (i32.const 128) "\1e\00\00\00\01\00\00\00\01\00\00\00\1e\00\00\00~\00l\00i\00b\00/\00r\00t\00/\00p\00u\00r\00e\00.\00t\00s")
- (data (i32.const 176) "\0b\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\001\04\00\00\02\00\00\001\00\00\00\02\00\00\00Q\04\00\00\02\00\00\00Q\00\00\00\02\00\00\00\91\04\00\00\02\00\00\00\91\00\00\00\02\00\00\00\91\0c\00\00\02\00\00\00\11\0d\00\00\02")
+ (data (i32.const 176) "\02\00\00\00\01\00\00\00\01\00\00\00\02\00\00\00v")
+ (data (i32.const 208) "\08\00\00\00\01\00\00\00\01\00\00\00\08\00\00\00n\00u\00l\00l")
+ (data (i32.const 244) "\01\00\00\00\01")
+ (data (i32.const 256) "\03\00\00\00\10\00\00\00\00\00\00\00\10\00\00\00\00\00\00\00\10")
  (global $~lib/rt/tlsf/ROOT (mut i32) (i32.const 0))
  (global $~lib/rt/tlsf/collectLock (mut i32) (i32.const 0))
- (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_String_ID i32 (i32.const 1))
- (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_ArrayBuffer_ID i32 (i32.const 0))
- (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_ArrayBufferView_ID i32 (i32.const 2))
- (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_Int8Array_ID i32 (i32.const 3))
- (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_Uint8Array_ID i32 (i32.const 4))
- (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_Int16Array_ID i32 (i32.const 5))
- (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_Uint16Array_ID i32 (i32.const 6))
- (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_Int32Array_ID i32 (i32.const 7))
- (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_Uint32Array_ID i32 (i32.const 8))
- (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_Float32Array_ID i32 (i32.const 9))
- (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_Float64Array_ID i32 (i32.const 10))
- (global $~lib/rt/__rtti_base i32 (i32.const 176))
+ (global $~lib/rt/__rtti_base i32 (i32.const 256))
  (export "memory" (memory $0))
  (export "__alloc" (func $~lib/rt/tlsf/__alloc))
  (export "__retain" (func $~lib/rt/pure/__retain))
  (export "__release" (func $~lib/rt/pure/__release))
  (export "__collect" (func $~lib/rt/pure/__collect))
  (export "__rtti_base" (global $~lib/rt/__rtti_base))
- (export "__asbind_String_ID" (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_String_ID))
- (export "__asbind_ArrayBuffer_ID" (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_ArrayBuffer_ID))
- (export "__asbind_ArrayBufferView_ID" (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_ArrayBufferView_ID))
- (export "__asbind_Int8Array_ID" (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_Int8Array_ID))
- (export "__asbind_Uint8Array_ID" (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_Uint8Array_ID))
- (export "__asbind_Int16Array_ID" (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_Int16Array_ID))
- (export "__asbind_Uint16Array_ID" (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_Uint16Array_ID))
- (export "__asbind_Int32Array_ID" (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_Int32Array_ID))
- (export "__asbind_Uint32Array_ID" (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_Uint32Array_ID))
- (export "__asbind_Float32Array_ID" (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_Float32Array_ID))
- (export "__asbind_Float64Array_ID" (global $node_modules/as-bind/lib/assembly/as-bind/__asbind_Float64Array_ID))
+ (export "version" (func $src/assembly/index/version))
+ (export "print" (func $src/assembly/index/print))
  (export "add" (func $src/assembly/index/add))
  (export "fib" (func $src/assembly/index/fib))
- (func $~lib/rt/tlsf/removeBlock (; 1 ;) (param $0 i32) (param $1 i32)
+ (export "fact" (func $src/assembly/index/fact))
+ (func $~lib/rt/tlsf/removeBlock (; 2 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -213,7 +198,7 @@
    end
   end
  )
- (func $~lib/rt/tlsf/insertBlock (; 2 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/tlsf/insertBlock (; 3 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
@@ -496,7 +481,7 @@
   i32.or
   i32.store offset=4
  )
- (func $~lib/rt/tlsf/addMemory (; 3 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/rt/tlsf/addMemory (; 4 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   local.get $2
@@ -610,7 +595,7 @@
   local.get $1
   call $~lib/rt/tlsf/insertBlock
  )
- (func $~lib/rt/tlsf/maybeInitialize (; 4 ;) (result i32)
+ (func $~lib/rt/tlsf/maybeInitialize (; 5 ;) (result i32)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -635,11 +620,11 @@
    if
     unreachable
    end
-   i32.const 272
+   i32.const 288
    local.tee $0
    i32.const 0
    i32.store
-   i32.const 1840
+   i32.const 1856
    i32.const 0
    i32.store
    loop $for-loop|0
@@ -650,7 +635,7 @@
      local.get $1
      i32.const 2
      i32.shl
-     i32.const 272
+     i32.const 288
      i32.add
      i32.const 0
      i32.store offset=4
@@ -668,7 +653,7 @@
        i32.add
        i32.const 2
        i32.shl
-       i32.const 272
+       i32.const 288
        i32.add
        i32.const 0
        i32.store offset=96
@@ -686,18 +671,18 @@
      br $for-loop|0
     end
    end
-   i32.const 272
-   i32.const 1856
+   i32.const 288
+   i32.const 1872
    memory.size
    i32.const 16
    i32.shl
    call $~lib/rt/tlsf/addMemory
-   i32.const 272
+   i32.const 288
    global.set $~lib/rt/tlsf/ROOT
   end
   local.get $0
  )
- (func $~lib/rt/tlsf/prepareSize (; 5 ;) (param $0 i32) (result i32)
+ (func $~lib/rt/tlsf/prepareSize (; 6 ;) (param $0 i32) (result i32)
   local.get $0
   i32.const 1073741808
   i32.ge_u
@@ -721,7 +706,7 @@
   i32.gt_u
   select
  )
- (func $~lib/rt/tlsf/searchBlock (; 6 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/rt/tlsf/searchBlock (; 7 ;) (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
   local.get $1
   i32.const 256
@@ -852,7 +837,7 @@
    end
   end
  )
- (func $~lib/rt/tlsf/growMemory (; 7 ;) (param $0 i32) (param $1 i32)
+ (func $~lib/rt/tlsf/growMemory (; 8 ;) (param $0 i32) (param $1 i32)
   (local $2 i32)
   memory.size
   local.tee $2
@@ -914,7 +899,7 @@
   i32.shl
   call $~lib/rt/tlsf/addMemory
  )
- (func $~lib/rt/tlsf/prepareBlock (; 8 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+ (func $~lib/rt/tlsf/prepareBlock (; 9 ;) (param $0 i32) (param $1 i32) (param $2 i32)
   (local $3 i32)
   (local $4 i32)
   local.get $1
@@ -990,7 +975,7 @@
    i32.store
   end
  )
- (func $~lib/rt/tlsf/allocateBlock (; 9 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+ (func $~lib/rt/tlsf/allocateBlock (; 10 ;) (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   (local $4 i32)
   global.get $~lib/rt/tlsf/collectLock
@@ -1070,7 +1055,7 @@
   call $~lib/rt/tlsf/prepareBlock
   local.get $3
  )
- (func $~lib/rt/tlsf/__alloc (; 10 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/rt/tlsf/__alloc (; 11 ;) (param $0 i32) (param $1 i32) (result i32)
   call $~lib/rt/tlsf/maybeInitialize
   local.get $0
   local.get $1
@@ -1078,7 +1063,7 @@
   i32.const 16
   i32.add
  )
- (func $~lib/rt/pure/increment (; 11 ;) (param $0 i32)
+ (func $~lib/rt/pure/increment (; 12 ;) (param $0 i32)
   (local $1 i32)
   local.get $0
   i32.load offset=4
@@ -1117,9 +1102,9 @@
    unreachable
   end
  )
- (func $~lib/rt/pure/__retain (; 12 ;) (param $0 i32) (result i32)
+ (func $~lib/rt/pure/__retain (; 13 ;) (param $0 i32) (result i32)
   local.get $0
-  i32.const 268
+  i32.const 284
   i32.gt_u
   if
    local.get $0
@@ -1129,9 +1114,9 @@
   end
   local.get $0
  )
- (func $~lib/rt/pure/__release (; 13 ;) (param $0 i32)
+ (func $~lib/rt/pure/__release (; 14 ;) (param $0 i32)
   local.get $0
-  i32.const 268
+  i32.const 284
   i32.gt_u
   if
    local.get $0
@@ -1140,12 +1125,260 @@
    call $~lib/rt/pure/decrement
   end
  )
- (func $src/assembly/index/add (; 14 ;) (param $0 i32) (param $1 i32) (result i32)
+ (func $~lib/string/String#get:length (; 15 ;) (param $0 i32) (result i32)
+  local.get $0
+  i32.const 16
+  i32.sub
+  i32.load offset=12
+  i32.const 1
+  i32.shr_u
+ )
+ (func $~lib/memory/memory.copy (; 16 ;) (param $0 i32) (param $1 i32) (param $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  block $~lib/util/memory/memmove|inlined.0
+   local.get $2
+   local.set $3
+   local.get $0
+   local.get $1
+   i32.eq
+   br_if $~lib/util/memory/memmove|inlined.0
+   local.get $0
+   local.get $1
+   i32.lt_u
+   if
+    local.get $1
+    i32.const 7
+    i32.and
+    local.get $0
+    i32.const 7
+    i32.and
+    i32.eq
+    if
+     loop $while-continue|0
+      local.get $0
+      i32.const 7
+      i32.and
+      if
+       local.get $3
+       i32.eqz
+       br_if $~lib/util/memory/memmove|inlined.0
+       local.get $3
+       i32.const 1
+       i32.sub
+       local.set $3
+       local.get $0
+       local.tee $2
+       i32.const 1
+       i32.add
+       local.set $0
+       local.get $1
+       local.tee $4
+       i32.const 1
+       i32.add
+       local.set $1
+       local.get $2
+       local.get $4
+       i32.load8_u
+       i32.store8
+       br $while-continue|0
+      end
+     end
+     loop $while-continue|1
+      local.get $3
+      i32.const 8
+      i32.ge_u
+      if
+       local.get $0
+       local.get $1
+       i64.load
+       i64.store
+       local.get $3
+       i32.const 8
+       i32.sub
+       local.set $3
+       local.get $0
+       i32.const 8
+       i32.add
+       local.set $0
+       local.get $1
+       i32.const 8
+       i32.add
+       local.set $1
+       br $while-continue|1
+      end
+     end
+    end
+    loop $while-continue|2
+     local.get $3
+     if
+      local.get $0
+      local.tee $2
+      i32.const 1
+      i32.add
+      local.set $0
+      local.get $1
+      local.tee $4
+      i32.const 1
+      i32.add
+      local.set $1
+      local.get $2
+      local.get $4
+      i32.load8_u
+      i32.store8
+      local.get $3
+      i32.const 1
+      i32.sub
+      local.set $3
+      br $while-continue|2
+     end
+    end
+   else
+    local.get $1
+    i32.const 7
+    i32.and
+    local.get $0
+    i32.const 7
+    i32.and
+    i32.eq
+    if
+     loop $while-continue|3
+      local.get $0
+      local.get $3
+      i32.add
+      i32.const 7
+      i32.and
+      if
+       local.get $3
+       i32.eqz
+       br_if $~lib/util/memory/memmove|inlined.0
+       local.get $3
+       i32.const 1
+       i32.sub
+       local.tee $3
+       local.get $0
+       i32.add
+       local.get $1
+       local.get $3
+       i32.add
+       i32.load8_u
+       i32.store8
+       br $while-continue|3
+      end
+     end
+     loop $while-continue|4
+      local.get $3
+      i32.const 8
+      i32.ge_u
+      if
+       local.get $3
+       i32.const 8
+       i32.sub
+       local.tee $3
+       local.get $0
+       i32.add
+       local.get $1
+       local.get $3
+       i32.add
+       i64.load
+       i64.store
+       br $while-continue|4
+      end
+     end
+    end
+    loop $while-continue|5
+     local.get $3
+     if
+      local.get $3
+      i32.const 1
+      i32.sub
+      local.tee $3
+      local.get $0
+      i32.add
+      local.get $1
+      local.get $3
+      i32.add
+      i32.load8_u
+      i32.store8
+      br $while-continue|5
+     end
+    end
+   end
+  end
+ )
+ (func $~lib/string/String#concat (; 17 ;) (param $0 i32) (result i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  local.get $0
+  call $~lib/rt/pure/__retain
+  local.tee $0
+  i32.eqz
+  if
+   i32.const 224
+   local.set $1
+   local.get $0
+   i32.const 224
+   i32.ne
+   if
+    local.get $0
+    call $~lib/rt/pure/__release
+   end
+   i32.const 224
+   local.set $0
+  end
+  i32.const 192
+  call $~lib/string/String#get:length
+  i32.const 1
+  i32.shl
+  local.tee $1
+  local.get $0
+  call $~lib/string/String#get:length
+  i32.const 1
+  i32.shl
+  local.tee $3
+  i32.add
+  local.tee $2
+  i32.eqz
+  if
+   local.get $0
+   call $~lib/rt/pure/__release
+   i32.const 256
+   local.tee $1
+   return
+  end
+  local.get $2
+  i32.const 1
+  call $~lib/rt/tlsf/__alloc
+  call $~lib/rt/pure/__retain
+  local.tee $2
+  i32.const 192
+  local.get $1
+  call $~lib/memory/memory.copy
+  local.get $1
+  local.get $2
+  i32.add
+  local.get $0
+  local.get $3
+  call $~lib/memory/memory.copy
+  local.get $0
+  call $~lib/rt/pure/__release
+  local.get $2
+ )
+ (func $src/assembly/index/version (; 18 ;) (param $0 i32) (result i32)
+  local.get $0
+  call $~lib/string/String#concat
+ )
+ (func $src/assembly/index/print (; 19 ;) (param $0 i32)
+  local.get $0
+  call $src/assembly/module/log
+ )
+ (func $src/assembly/index/add (; 20 ;) (param $0 i32) (param $1 i32) (result i32)
   local.get $0
   local.get $1
   i32.add
  )
- (func $src/assembly/index/fib (; 15 ;) (param $0 i32) (result i32)
+ (func $src/assembly/index/fib (; 21 ;) (param $0 i32) (result i32)
   (local $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -1172,10 +1405,30 @@
   end
   local.get $1
  )
- (func $~lib/rt/pure/__collect (; 16 ;)
+ (func $src/assembly/index/fact (; 22 ;) (param $0 i32) (result i32)
+  local.get $0
+  i32.const 0
+  i32.lt_s
+  if (result i32)
+   i32.const -1
+  else
+   local.get $0
+   if (result i32)
+    local.get $0
+    i32.const 1
+    i32.sub
+    call $src/assembly/index/fact
+    local.get $0
+    i32.mul
+   else
+    i32.const 1
+   end
+  end
+ )
+ (func $~lib/rt/pure/__collect (; 23 ;)
   nop
  )
- (func $~lib/rt/pure/decrement (; 17 ;) (param $0 i32)
+ (func $~lib/rt/pure/decrement (; 24 ;) (param $0 i32)
   (local $1 i32)
   (local $2 i32)
   local.get $0
@@ -1247,7 +1500,7 @@
    i32.store offset=4
   end
  )
- (func $~lib/rt/__visit_members (; 18 ;) (param $0 i32)
+ (func $~lib/rt/__visit_members (; 25 ;) (param $0 i32)
   block $switch$1$default
    block $switch$1$case$4
     block $switch$1$case$2
@@ -1255,7 +1508,7 @@
      i32.const 8
      i32.sub
      i32.load
-     br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$case$4 $switch$1$default
+     br_table $switch$1$case$2 $switch$1$case$2 $switch$1$case$4 $switch$1$default
     end
     return
    end
@@ -1264,7 +1517,7 @@
    local.tee $0
    if
     local.get $0
-    i32.const 268
+    i32.const 284
     i32.ge_u
     if
      local.get $0

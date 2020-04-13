@@ -21,13 +21,6 @@ module.exports = {
       loader: 'ts-loader',
       exclude: /(node_modules)|(src\/assembly)/
     }, {
-      test: /\.wasm$/,
-      type: 'javascript/auto',
-      loader: 'arraybuffer-loader'
-      // test: /\.wasm$/,
-      // loader: 'base64-loader',
-      // type: 'javascript/auto',
-    }, {
       test: /\.css$/,
       use: [
         build ? MiniCssExtractPlugin.loader : 'style-loader',
@@ -81,7 +74,7 @@ module.exports = {
 
   resolve: {
     modules: [path.resolve('./node_modules'), path.resolve('./src')],
-    extensions: ['.ts', '.tsx', '.js', '.json'],
+    extensions: ['.ts', '.tsx', '.js', '.json', '.wasm'],
     mainFields: ['browser', 'module', 'main'],
 
     alias: {
@@ -98,7 +91,7 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
 			filename: 'main.css'
-		}),
+    }),
 
     new webpack.DefinePlugin({
       BROWSER_SUPPORTS_HTML5: true,
