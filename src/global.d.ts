@@ -29,5 +29,5 @@ declare module "*.json" {
 }
 
 declare module 'three/*'
-declare module 'lodash/*'
-declare module 'animejs/*'
+declare module 'animejs'
+declare module 'as-bind/*'

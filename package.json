@@ -7,8 +7,8 @@
   "main": "src/main.ts",
   "license": "WTFPL",
   "scripts": {
-    "asbuild:optimized": "asc src/assembly/index.ts -b build/bin/optimized.wasm -t build/bin/optimized.wat --validate --sourceMap --optimize",
-    "asbuild:untouched": "asc src/assembly/index.ts -b build/bin/untouched.wasm -t build/bin/untouched.wat --validate --sourceMap --debug",
+    "asbuild:optimized": "asc ./node_modules/as-bind/lib/assembly/as-bind.ts src/assembly/index.ts -b build/bin/optimized.wasm -t build/bin/optimized.wat --validate --sourceMap --optimize",
+    "asbuild:untouched": "asc ./node_modules/as-bind/lib/assembly/as-bind.ts src/assembly/index.ts -b build/bin/untouched.wasm -t build/bin/untouched.wat --validate --sourceMap --debug",
     "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized",
     "start": "webpack-dev-server --inline --progress",
     "build": "npm run asbuild && webpack --env build",
@@ -17,12 +17,13 @@
     "test:cover": "yarn test --coverage"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.149",
     "animejs": "^3.2.0",
     "await-to-js": "^2.1.1",
-    "lodash": "^4.17.15",
     "three": "^0.115.0"
   },
   "devDependencies": {
+    "as-bind": "^0.2.0",
     "assemblyscript": "^0.9.4",
     "css-loader": "^3.2.0",
     "eslint": "^6.3.0",
