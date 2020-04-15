@@ -2,6 +2,14 @@
 
 >  ### *AssemblyScript* ###
 
-`npm i`
+`yarn`
 
-`npm run build`
+`yarn asbuild`
+
+`yarn start`
+
+`yarn test`
+
+`yarn build`
+
+`yarn server`
