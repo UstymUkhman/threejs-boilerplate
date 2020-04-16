@@ -19,20 +19,20 @@ const WHITE = 0xFFFFFF;
 const FOG = 0xA0A0A0;
 
 export default class Playground {
-  private stats: any;
   private raf: number;
-  public scene = new Scene();
+  public scene = new Scene;
+  private stats = new Stats;
 
   private width: number = window.innerWidth;
   private height: number = window.innerHeight;
   private ratio: number = this.width / this.height;
 
-  public camera = new PerspectiveCamera(45, this.ratio, 1, 500);
+  private camera = new PerspectiveCamera(45, this.ratio, 1, 500);
   private _onResize: EventListenerOrEventListenerObject = () => null;
   private renderer = new WebGLRenderer({ antialias: true, alpha: false });
-  private orbitControls = new OrbitControls(this.camera, this.renderer.domElement);
+  private controls = new OrbitControls(this.camera, this.renderer.domElement);
 
-  constructor () {
+  public constructor () {
     this.createScene();
     this.createCamera();
     this.createLights();
@@ -46,23 +46,23 @@ export default class Playground {
     this.raf = requestAnimationFrame(this.render.bind(this));
   }
 
-  setSize () {
+  private setSize (): void {
     this.width = window.innerWidth;
     this.height = window.innerHeight;
     this.ratio = this.width / this.height;
   }
 
-  createScene () {
+  private createScene (): void {
     this.scene.background = new Color(FOG);
     this.scene.fog = new Fog(FOG, 50, 500);
   }
 
-  createCamera () {
+  private createCamera (): void {
     this.camera.position.set(0, 10, -50);
     this.camera.lookAt(0, 0, 0);
   }
 
-  createLights () {
+  private createLights (): void {
     const directional = new DirectionalLight(WHITE, 1);
     const ambient = new AmbientLight(WHITE);
 
@@ -84,7 +84,7 @@ export default class Playground {
     this.scene.add(ambient);
   }
 
-  createGround () {
+  private createGround (): void {
     const ground = new Mesh(
       new BoxGeometry(500, 500, 1),
       new MeshPhongMaterial({
@@ -103,53 +103,55 @@ export default class Playground {
     this.scene.add(grid);
   }
 
-  createRenderer () {
+  private createRenderer (): void {
     this.renderer.setPixelRatio(window.devicePixelRatio || 1);
+    document.body.appendChild(this.renderer.domElement);
     this.renderer.setSize(this.width, this.height);
     this.renderer.shadowMap.enabled = true;
-
-    document.body.appendChild(this.renderer.domElement);
   }
 
-  createControls () {
-    this.orbitControls.target.set(0, 0, 25);
-    this.orbitControls.update();
+  private createControls (): void {
+    this.controls.target.set(0, 0, 25);
+    this.controls.update();
   }
 
-  createEvents () {
+  private createEvents (): void {
     this._onResize = this.onResize.bind(this);
     window.addEventListener('resize', this._onResize, false);
   }
 
-  createStats () {
-    this.stats = new Stats();
+  private createStats (): void {
     this.stats.showPanel(0);
     document.body.appendChild(this.stats.domElement);
   }
 
-  render () {
+  private render (): void {
     this.stats.begin();
-    this.orbitControls.update();
+    this.controls.update();
     this.renderer.render(this.scene, this.camera);
 
     this.raf = requestAnimationFrame(this.render.bind(this));
     this.stats.end();
   }
 
-  onResize () {
+  private onResize (): void {
     this.setSize();
     this.camera.aspect = this.ratio;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(this.width, this.height);
   }
 
-  destroy () {
+  public destroy (): void {
     window.removeEventListener('resize', this._onResize, false);
     document.body.removeChild(this.renderer.domElement);
     document.body.removeChild(this.stats.domElement);
     cancelAnimationFrame(this.raf);
 
-    delete this.orbitControls;
+    this.controls.dispose();
+    this.renderer.dispose();
+    this.scene.dispose();
+
+    delete this.controls;
     delete this.renderer;
     delete this.camera;
     delete this.scene;

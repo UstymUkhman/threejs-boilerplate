@@ -10,10 +10,10 @@ pids
 .vscode
 coverage
 node_modules
-
 .lock-wscript
 .sublime-workspace
 
+build/*txt
 build/bin/*.map
 build/bin/*.wasm
 build/bin/*.asm.js
