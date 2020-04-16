@@ -1,4 +1,4 @@
-import { WebGLRenderer, setPixelRatio, render } from '@three/renderers/WebGLRenderer';
+import { WebGLRenderer, setPixelRatio, render } from './__mocks__/@three/renderers/WebGLRenderer';
 import Playground from '@/Playground';
 
 jest.mock('@three/renderers/WebGLRenderer');

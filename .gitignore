@@ -9,9 +9,10 @@ pids
 .idea
 .vscode
 
-coverage
+build/*.txt
 build/*.map
-node_modules
 
+coverage
+node_modules
 .lock-wscript
 .sublime-workspace

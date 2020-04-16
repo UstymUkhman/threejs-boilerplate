@@ -20,7 +20,7 @@ const FOG = 0xA0A0A0;
 
 export default class Playground {
   private raf: number;
-  public scene = new Scene;
+  private scene = new Scene;
   private stats = new Stats;
 
   private width: number = window.innerWidth;
@@ -125,7 +125,7 @@ export default class Playground {
     document.body.appendChild(this.stats.domElement);
   }
 
-  private render (): void {
+  public render (): void {
     this.stats.begin();
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
@@ -134,7 +134,7 @@ export default class Playground {
     this.stats.end();
   }
 
-  private onResize (): void {
+  public onResize (): void {
     this.setSize();
     this.camera.aspect = this.ratio;
     this.camera.updateProjectionMatrix();
