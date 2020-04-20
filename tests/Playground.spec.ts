@@ -1,15 +1,7 @@
-import { WebGLRenderer, setPixelRatio, render } from './__mocks__/@three/renderers/WebGLRenderer';
+jest.mock('@three/renderers/WebGLRenderer');
 import Playground from '@/Playground';
 
-jest.mock('@three/renderers/WebGLRenderer');
-
 describe('Playground', () => {
-  beforeEach(() => {
-    WebGLRenderer.mockClear();
-    setPixelRatio.mockClear();
-    render.mockClear();
-  });
-
   it('Importing Playground', () => {
     expect(Playground).toBeDefined();
   });
