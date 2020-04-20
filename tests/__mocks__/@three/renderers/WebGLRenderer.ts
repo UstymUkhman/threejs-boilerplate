@@ -1,5 +1,6 @@
 const setPixelRatio = jest.fn();
 const setSize = jest.fn();
+const dispose = jest.fn();
 const render = jest.fn();
 
 const WebGLRenderer = jest.fn().mockImplementation(() => {
@@ -10,6 +11,7 @@ const WebGLRenderer = jest.fn().mockImplementation(() => {
     setPixelRatio: setPixelRatio,
     domElement: canvas,
     setSize: setSize,
+    dispose: dispose,
     render: render
   };
 });

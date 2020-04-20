@@ -14,10 +14,8 @@
     "baseUrl": ".",
     "strict": true,
     
-    "types": [],
-    "typeRoots": [
-      "./node_modules/@types"
-    ],
+    "typeRoots": ["./node_modules/@types"],
+    "types": ["jest"],
 
     "paths": {
       "@postprocessing/*": ["node_modules/three/examples/jsm/postprocessing/*"],
