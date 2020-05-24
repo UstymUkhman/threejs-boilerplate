@@ -9,8 +9,8 @@
   "scripts": {
     "start": "webpack-dev-server --inline --progress",
     "test": "./node_modules/.bin/jest --notify",
-    "server": "cd build && npx http-server",
     "test:cover": "yarn test --coverage",
+    "serve": "npx http-server ./build",
     "build": "webpack --env build"
   },
   "dependencies": {
