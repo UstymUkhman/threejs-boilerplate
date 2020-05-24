@@ -15,4 +15,3 @@ build/*.map
 coverage
 node_modules
 .lock-wscript
-.sublime-workspace
