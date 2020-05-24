@@ -13,8 +13,8 @@
     "start": "webpack-dev-server --inline --progress",
     "build": "yarn asbuild && webpack --env build",
     "test": "./node_modules/.bin/jest --notify",
-    "server": "cd build && npx http-server",
-    "test:cover": "yarn test --coverage"
+    "test:cover": "yarn test --coverage",
+    "serve": "npx http-server ./build"
   },
   "dependencies": {
     "@types/lodash": "^4.14.149",

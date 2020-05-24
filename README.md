@@ -12,4 +12,4 @@
 
 `yarn build`
 
-`yarn server`
+`yarn serve`
