@@ -90,7 +90,7 @@ module.exports = {
 
   plugins: [
     new MiniCssExtractPlugin({
-			filename: 'main.css'
+			filename: 'index.css'
     }),
 
     new webpack.DefinePlugin({
@@ -118,7 +118,7 @@ module.exports = {
     path: path.resolve('./build'),
     libraryExport: 'default',
     umdNamedDefine: true,
-    filename: 'main.js'
+    filename: 'index.js'
   },
 
   optimization: {

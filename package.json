@@ -1,9 +1,9 @@
 {
-  "name": "experiment-boilerplate",
   "version": "1.0.0",
+  "name": "threejs-boilerplate",
   "author": "Ustym Ukhman <ustym.ukhman@gmail.com>",
-  "description": "A Boilerplate for WebGL Experiments",
-  "homepage": "https://github.com/UstymUkhman/experiment-boilerplate",
+  "description": "A Boilerplate for Three.js Experiments",
+  "homepage": "https://github.com/UstymUkhman/threejs-boilerplate",
   "main": "src/main.ts",
   "license": "WTFPL",
   "scripts": {

@@ -1,4 +1,4 @@
-# experiment-boilerplate #
+# threejs-boilerplate #
 
 >  ### *AssemblyScript* ###
 

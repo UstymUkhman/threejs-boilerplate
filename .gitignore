@@ -11,10 +11,10 @@ pids
 coverage
 node_modules
 .lock-wscript
-.sublime-workspace
 
 build/*txt
-build/bin/*.map
+build/*.js
+build/*.map
 build/bin/*.wasm
 build/bin/*.asm.js
 build/bin/*.wasm.map

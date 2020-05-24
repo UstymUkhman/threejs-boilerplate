@@ -1,8 +1,8 @@
 import { REVISION } from '@three/constants';
 import Playground from '@/Playground';
 import { VERSION } from 'lodash';
-import anime from 'animejs';
 
+import anime from 'animejs';
 import WASM from '@/wasm';
 
 WASM.then((wasm: any) => {
