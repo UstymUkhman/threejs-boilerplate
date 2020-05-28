@@ -12,8 +12,8 @@ coverage
 node_modules
 .lock-wscript
 
-build/*txt
-build/*.map
-build/bin/*.wasm
-build/bin/*.asm.js
-build/bin/*.wasm.map
+public/*txt
+public/*.map
+public/bin/*.wasm
+public/bin/*.asm.js
+public/bin/*.wasm.map

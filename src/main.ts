@@ -5,6 +5,7 @@ import { VERSION } from 'lodash';
 import anime from 'animejs';
 import WASM from '@/wasm';
 
+// tslint:disable: space-within-parens
 WASM.then((wasm: any) => {
   for (let l = 0; l < 3; l++) console.log();
   wasm.print('🔥🔥🔥 AssemblyScript rulez! 🔥🔥🔥\n');
@@ -15,5 +16,6 @@ WASM.then((wasm: any) => {
 
   for (let l = 0; l < 3; l++) console.log();
 });
+// tslint:enable: space-within-parens
 
 export default new Playground();

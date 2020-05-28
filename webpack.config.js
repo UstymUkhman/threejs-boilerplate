@@ -115,7 +115,7 @@ module.exports = {
     library: build ? config.name : '',
     publicPath: build ? './' : '/',
 
-    path: path.resolve('./build'),
+    path: path.resolve('./public'),
     libraryExport: 'default',
     umdNamedDefine: true,
     filename: 'index.js'
@@ -155,7 +155,7 @@ module.exports = {
   },
 
   devServer: {
-    contentBase: path.join(__dirname, './build'),
+    contentBase: path.join(__dirname, './public'),
     clientLogLevel: 'warning',
     host: HOST || 'localhost',
     watchContentBase: true,

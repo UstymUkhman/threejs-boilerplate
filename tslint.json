@@ -1,0 +1,22 @@
+{
+  "extends": "tslint:latest",
+  "jsRules": true,
+  "linterOptions": {
+    "exclude": [
+      "public/*"
+    ]
+  },
+  "rules": {
+    "no-implicit-dependencies": false,
+    "no-submodule-imports": false,
+    "no-console": false,
+
+    "no-debugger": {
+      "severity": "warning"
+    },
+
+    "max-line-length": {
+      "options": [150]
+    }
+  }
+}

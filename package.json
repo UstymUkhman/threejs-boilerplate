@@ -7,14 +7,16 @@
   "main": "src/main.ts",
   "license": "WTFPL",
   "scripts": {
-    "asbuild:optimized": "asc ./node_modules/as-bind/lib/assembly/as-bind.ts src/assembly/index.ts -b build/bin/optimized.wasm -t build/bin/optimized.wat --validate --sourceMap --optimize",
-    "asbuild:untouched": "asc ./node_modules/as-bind/lib/assembly/as-bind.ts src/assembly/index.ts -b build/bin/untouched.wasm -t build/bin/untouched.wat --validate --sourceMap --debug",
+    "asbuild:optimized": "asc ./node_modules/as-bind/lib/assembly/as-bind.ts src/assembly/index.ts -b public/bin/optimized.wasm -t public/bin/optimized.wat --validate --sourceMap --optimize",
+    "asbuild:untouched": "asc ./node_modules/as-bind/lib/assembly/as-bind.ts src/assembly/index.ts -b public/bin/untouched.wasm -t public/bin/untouched.wat --validate --sourceMap --debug",
     "asbuild": "yarn asbuild:untouched && yarn asbuild:optimized",
+    "lint:ts": "tslint -c tslint.json -p tsconfig.json",
     "start": "webpack-dev-server --inline --progress",
     "build": "yarn asbuild && webpack --env build",
     "test": "./node_modules/.bin/jest --notify",
+    "lint:css": "stylelint **/*.{html,css}",
     "test:cover": "yarn test --coverage",
-    "serve": "npx http-server ./build"
+    "serve": "npx http-server"
   },
   "dependencies": {
     "@types/lodash": "^4.14.149",
@@ -39,11 +41,13 @@
     "mini-css-extract-plugin": "^0.9.0",
     "minimist": "^1.2.5",
     "style-loader": "^1.0.0",
+    "stylelint": "^13.5.0",
     "stylelint-config-standard": "^20.0.0",
     "terser-webpack-plugin": "^2.3.5",
     "threejs-glsl-loader": "^1.0.4",
     "ts-jest": "^25.3.1",
     "ts-loader": "^6.2.1",
+    "tslint": "^6.1.2",
     "typescript": "^3.8.3",
     "url-loader": "^4.0.0",
     "webpack": "^4.42.0",

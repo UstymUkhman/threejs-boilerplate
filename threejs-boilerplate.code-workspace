@@ -1,6 +1,8 @@
 {
 	"settings": {
 		"git.ignoreLimitWarning": true,
+		"tslint.typeCheck": true,
+    "tslint.jsEnable": true,
 		"js-import.alias": {
 			"@three": "three/src",
 			"@": "/src"
