@@ -8,11 +8,11 @@ const WebGLRenderer = jest.fn().mockImplementation(() => {
 
   return {
     shadowMap: { enabled: false },
-    setPixelRatio: setPixelRatio,
     domElement: canvas,
-    setSize: setSize,
-    dispose: dispose,
-    render: render
+    setPixelRatio,
+    setSize,
+    dispose,
+    render
   };
 });
 

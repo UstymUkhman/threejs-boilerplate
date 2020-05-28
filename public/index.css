@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   -webkit-text-rendering: optimizeLegibility;
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;

@@ -9,8 +9,8 @@ pids
 .idea
 .vscode
 
-build/*.txt
-build/*.map
+public/*.txt
+public/*.map
 
 coverage
 node_modules

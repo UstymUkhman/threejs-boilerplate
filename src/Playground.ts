@@ -20,8 +20,8 @@ const FOG = 0xA0A0A0;
 
 export default class Playground {
   private raf: number;
-  private scene = new Scene;
-  private stats = new Stats;
+  private scene = new Scene();
+  private stats = new Stats();
 
   private width: number = window.innerWidth;
   private height: number = window.innerHeight;
@@ -98,8 +98,8 @@ export default class Playground {
     this.scene.add(ground);
 
     const grid = new GridHelper(500, 50, 0, 0);
-    (<any>grid.material).transparent = true;
-    (<any>grid.material).opacity = 0.2;
+    (grid.material as any).transparent = true;
+    (grid.material as any).opacity = 0.2;
     this.scene.add(grid);
   }
 
