@@ -1,7 +1,6 @@
 import { AsBind } from 'as-bind/dist/as-bind.esm';
 
-// tslint:disable-next-line: space-within-parens
-export default (async () => {
+export default (async (): Promise<unknown> => {
   return (
     await AsBind.instantiate(fetch('/bin/optimized.wasm'), {
       index: {

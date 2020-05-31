@@ -6,6 +6,6 @@ export function version (current: string): string {
 
 export function print (message: string): void {
   log(message);
-};
+}
 
 export * from './number'

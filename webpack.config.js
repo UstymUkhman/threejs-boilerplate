@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const webpack = require('webpack');
 const config = require('./package.json');
@@ -5,6 +6,7 @@ const config = require('./package.json');
 const build = require('yargs').argv.env === 'build';
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+/* eslint-enable @typescript-eslint/no-var-requires */
 
 process.env.NODE_ENV = build ? 'production' : 'development';
 const PORT = process.env.PORT && Number(process.env.PORT);
@@ -17,6 +19,16 @@ module.exports = {
 
   module: {
     rules: [{
+      enforce: 'pre',
+      test: /\.tsx?$/,
+      loader: 'eslint-loader',
+      include: [path.resolve('./src')],
+
+      options: {
+        emitWarning: !build,
+        formatter: require('eslint-friendly-formatter')
+      }
+    }, {
       test: /\.tsx?$/,
       loader: 'ts-loader',
       exclude: /(node_modules)|(src\/assembly)/
