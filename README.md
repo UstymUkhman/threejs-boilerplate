@@ -6,7 +6,7 @@
 
 `yarn start`
 
-`yarn lint:ts`
+`yarn lint:js`
 
 `yarn lint:css`
 

@@ -7,12 +7,18 @@ import { BoxGeometry } from '@three/geometries/BoxGeometry';
 import { AmbientLight } from '@three/lights/AmbientLight';
 import { OrbitControls } from '@controls/OrbitControls';
 import { GridHelper } from '@three/helpers/GridHelper';
+import { Material } from '@three/materials/Material';
 import Stats from 'three/examples/js/libs/stats.min';
 
 import { Scene } from '@three/scenes/Scene';
 import { Mesh } from '@three/objects/Mesh';
 import { Color } from '@three/math/Color';
 import { Fog } from '@three/scenes/Fog';
+
+interface GridMaterial extends Material {
+  transparent: boolean
+  opacity: number
+}
 
 const GROUND = 0x888888;
 const WHITE = 0xFFFFFF;
@@ -98,8 +104,8 @@ export default class Playground {
     this.scene.add(ground);
 
     const grid = new GridHelper(500, 50, 0, 0);
-    (grid.material as any).transparent = true;
-    (grid.material as any).opacity = 0.2;
+    (grid.material as GridMaterial).transparent = true;
+    (grid.material as GridMaterial).opacity = 0.2;
     this.scene.add(grid);
   }
 
