@@ -22,7 +22,7 @@
     "@types/lodash": "^4.14.158",
     "animejs": "^3.2.0",
     "await-to-js": "^2.1.1",
-    "three": "^0.118.3"
+    "three": "^0.125.0"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.10.4",
