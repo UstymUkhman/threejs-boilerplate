@@ -1,2 +1,4 @@
-public/*.js
-tests/**/*
+dist/*
+public/*
+coverage/*
+src/**/*.svelte

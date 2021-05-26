@@ -1,0 +1,51 @@
+# exceptions
+!istanbul-reports/**/assets
+!@types/three/examples
+!three/examples
+
+# configs
+codeship-services.yml
+.yarn-metadata.json
+codeship-steps.yml
+.documentup.json
+.gitattributes
+.editorconfig
+.tern-project
+appveyor.yml
+.flowconfig
+.travis.yml
+wercker.yml
+circle.yml
+.eslintrc
+.jshintrc
+.*ignore
+
+# build scripts
+Gruntfile.js
+Gulpfile.js
+Makefile
+
+# code coverage
+.nyc_output
+coverage
+
+# examples
+examples
+example
+
+# tests
+powered-test
+__tests__
+tests
+test
+
+# assets
+website
+assets
+images
+docs
+doc
+
+# misc
+*.gz
+*.md

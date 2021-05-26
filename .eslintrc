@@ -1,0 +1,51 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "eslint:recommended"
+  ],
+
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "sourceType": "module"
+  },
+
+  "plugins": ["@typescript-eslint"],
+
+  "rules": {
+    "@typescript-eslint/no-unused-vars": [2, {"vars": "local", "args": "after-used"}],
+    "@typescript-eslint/no-redeclare": 2,
+    "@typescript-eslint/no-namespace": 0,
+    "generator-star-spacing": 0,
+    "quotes": [2, "single"],
+    "no-unused-vars": 0,
+    "no-redeclare": 0,
+    "comma-dangle": 2,
+    "no-debugger": 1,
+    "no-console": 0,
+    "no-undef": 0,
+    "semi": 2
+  },
+
+  "globals": {
+    "navigator": false,
+    "document": false,
+    "unescape": false,
+    "describe": true,
+    "escape": false,
+    "window": false,
+    "before": true,
+    "expect": true,
+    "THREE": false,
+    "sinon": true,
+    "it": true
+  },
+
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  }
+}

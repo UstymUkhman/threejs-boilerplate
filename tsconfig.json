@@ -1,31 +1,36 @@
 {
   "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
+    "importsNotUsedAsValues": "error",
+    "noUnusedParameters": false,
     "moduleResolution": "node",
+
+    "resolveJsonModule": true,
     "strictNullChecks": true,
     "esModuleInterop": true,
+    "isolatedModules": true,
+    "noUnusedLocals": true,
     "importHelpers": true,
     "noImplicitAny": true,
-    "sourceMap": true,
+    "skipLibCheck": true,
 
+    "module": "esnext",
+    "target": "esnext",
+    "sourceMap": true,
     "jsx": "preserve",
-    "module": "amd",
-    "target": "es5",
+    "checkJs": true,
     "allowJs": true,
     "baseUrl": ".",
     "strict": true,
-    
-    "typeRoots": ["./node_modules/@types"],
-    "types": ["jest"],
+
+    "typeRoots": ["node_modules/@types"],
+    "types": ["svelte", "jest", "node"],
 
     "paths": {
-      "@postprocessing/*": ["node_modules/three/examples/jsm/postprocessing/*"],
-      "@controls/*": ["node_modules/three/examples/jsm/controls/*"],
-      "@shaders/*": ["node_modules/three/examples/jsm/shaders/*"],
-      "@loaders/*": ["node_modules/three/examples/jsm/loaders/*"],
-      "@utils/*": ["node_modules/three/examples/jsm/utils/*"],
-      "@three/*": ["node_modules/three/src/*"],
-      "@/*": ["./src/*"]
+      "@assets/*": ["src/assets/*"],
+      "@scss/*": ["src/scss/*"],
+      "@/*": ["src/*"]
     },
 
     "lib": [
@@ -35,16 +40,24 @@
   },
 
   "include": [
-    "./src/**/*",
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-    "./tests/**/*.ts",
-    "./tests/**/*.tsx"
+    "src/**/*.js",
+    "src/**/*.ts",
+    "src/**/*.jsx",
+    "src/**/*.tsx",
+    "src/**/*.d.ts",
+    "src/**/*.svelte",
+    "tests/**/*.jsx",
+    "tests/**/*.tsx",
+    "tests/**/*.ts",
+    "tests/**/*.js"
   ],
 
   "exclude": [
     "node_modules",
-    "src/assembly",
-    "public"
+    "typings",
+    "public",
+    "build",
+    "dist",
+    "app"
   ]
 }

@@ -1,10 +1,10 @@
+[*.{ts,tsx,js,jsx,svelte}]
+
 root = true
-
-[*.{js,jsx,ts,tsx}]
-
 charset = utf-8
 indent_size = 2
 end_of_line = lf
+
 indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true

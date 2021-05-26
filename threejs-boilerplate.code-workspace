@@ -1,13 +1,38 @@
 {
 	"settings": {
+		"js-import.plainFileSuffix": "css,fbx,frag,glb,glsl,gltf,less,sass,scss,svg,vert,wasm,wat",
+		"svelte.language-server.runtime": "C:/Program Files/nodejs/node.exe",
+    "js-import.filesToScan": "**/*.{svelte,ts,tsx,js,jsx}",
+
+		"svelte.plugin.typescript.enable": true,
+		"svelte.plugin.svelte.enable": true,
+		"vetur.validation.template": false,
 		"git.ignoreLimitWarning": true,
+		"js-import.semicolon": true,
+
+		"[svelte]": {
+			"editor.defaultFormatter": "svelte.svelte-vscode"
+		},
+
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": false
+		},
+
 		"js-import.alias": {
-			"@three": "three/src",
-			"@": "/src"
-		}
+			"@assets": "/src/assets",
+      "@scss": "/src/scss",
+      "@": "/src"
+    },
+
+		"eslint.validate": [
+      "typescript",
+      "javascript",
+      "svelte"
+    ],
   },
 
   "folders": [{
+		"name": "Three.js Boilerplate",
     "path": "."
 	}]
 }

@@ -1,19 +1,16 @@
 tmp
 logs
-*.log
-
 pids
+
+*.log
 *.pid
 *.seed
 
 .idea
 .vscode
-coverage
-node_modules
+.DS_Store
 .lock-wscript
 
-public/*txt
-public/*.map
-public/bin/*.wasm
-public/bin/*.asm.js
-public/bin/*.wasm.map
+dist
+coverage
+node_modules

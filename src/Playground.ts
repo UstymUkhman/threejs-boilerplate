@@ -1,33 +1,34 @@
-import { MeshPhongMaterial } from '@three/materials/MeshPhongMaterial';
-import { PerspectiveCamera } from '@three/cameras/PerspectiveCamera';
-import { DirectionalLight } from '@three/lights/DirectionalLight';
-import { WebGLRenderer } from '@three/renderers/WebGLRenderer';
+import { ReinhardToneMapping, PCFSoftShadowMap, sRGBEncoding } from 'three/src/constants';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { MeshPhongMaterial } from 'three/src/materials/MeshPhongMaterial';
+import { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera';
+import { DirectionalLight } from 'three/src/lights/DirectionalLight';
+import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer';
 
-import { BoxGeometry } from '@three/geometries/BoxGeometry';
-import { AmbientLight } from '@three/lights/AmbientLight';
-import { OrbitControls } from '@controls/OrbitControls';
-import { GridHelper } from '@three/helpers/GridHelper';
-import { Material } from '@three/materials/Material';
-import Stats from 'three/examples/js/libs/stats.min';
+import { BoxGeometry } from 'three/src/geometries/BoxGeometry';
+import type { Material } from 'three/src/materials/Material';
+import { AmbientLight } from 'three/src/lights/AmbientLight';
+import { GridHelper } from 'three/src/helpers/GridHelper';
+import Stats from 'three/examples/jsm/libs/stats.module';
 
-import { Scene } from '@three/scenes/Scene';
-import { Mesh } from '@three/objects/Mesh';
-import { Color } from '@three/math/Color';
-import { Fog } from '@three/scenes/Fog';
+import { Scene } from 'three/src/scenes/Scene';
+import { Mesh } from 'three/src/objects/Mesh';
+import { Color } from 'three/src/math/Color';
+import { Fog } from 'three/src/scenes/Fog';
 
 interface GridMaterial extends Material {
   transparent: boolean
   opacity: number
 }
 
-const GROUND = 0x888888;
+const GROUND = 0xBBBBBB;
 const WHITE = 0xFFFFFF;
-const FOG = 0xA0A0A0;
+const FOG = 0xBBBBBB;
 
 export default class Playground {
   private raf: number;
+  private stats = Stats();
   private scene = new Scene();
-  private stats = new Stats();
 
   private width: number = window.innerWidth;
   private height: number = window.innerHeight;
@@ -60,7 +61,7 @@ export default class Playground {
 
   private createScene (): void {
     this.scene.background = new Color(FOG);
-    this.scene.fog = new Fog(FOG, 50, 500);
+    this.scene.fog = new Fog(FOG, 50, 250);
   }
 
   private createCamera (): void {
@@ -83,7 +84,7 @@ export default class Playground {
     directional.shadow.mapSize.x = 1024;
     directional.shadow.mapSize.y = 1024;
 
-    directional.shadow.camera.near = 2;
+    directional.shadow.camera.near = 1;
     directional.shadow.camera.far = 50;
 
     this.scene.add(directional);
@@ -105,15 +106,23 @@ export default class Playground {
 
     const grid = new GridHelper(500, 50, 0, 0);
     (grid.material as GridMaterial).transparent = true;
-    (grid.material as GridMaterial).opacity = 0.2;
+    (grid.material as GridMaterial).opacity = 0.25;
     this.scene.add(grid);
   }
 
   private createRenderer (): void {
     this.renderer.setPixelRatio(window.devicePixelRatio || 1);
     document.body.appendChild(this.renderer.domElement);
+    this.renderer.shadowMap.type = PCFSoftShadowMap;
+    this.renderer.toneMapping = ReinhardToneMapping;
+
     this.renderer.setSize(this.width, this.height);
+    this.renderer.outputEncoding = sRGBEncoding;
+    this.renderer.setClearColor(0x222222, 1);
+
     this.renderer.shadowMap.enabled = true;
+    this.renderer.toneMappingExposure = 1;
+    this.renderer.domElement.focus();
   }
 
   private createControls (): void {
@@ -151,16 +160,11 @@ export default class Playground {
     window.removeEventListener('resize', this._onResize, false);
     document.body.removeChild(this.renderer.domElement);
     document.body.removeChild(this.stats.domElement);
+
     cancelAnimationFrame(this.raf);
 
     this.controls.dispose();
     this.renderer.dispose();
-    this.scene.dispose();
-
-    delete this.controls;
-    delete this.renderer;
-    delete this.camera;
-    delete this.scene;
-    delete this.stats;
+    this.scene.clear();
   }
 }

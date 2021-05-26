@@ -1,4 +1,4 @@
-jest.mock('@three/renderers/WebGLRenderer');
+jest.mock('three/src/renderers/WebGLRenderer');
 import Playground from '@/Playground';
 
 describe('Playground', () => {

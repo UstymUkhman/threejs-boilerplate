@@ -87,16 +87,11 @@ module.exports = {
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
   moduleNameMapper: {
-    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/tests/__mocks__/fileMock.js',
-    '\\.(css|less)$': '<rootDir>/tests/__mocks__/styleMock.js',
+    '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/tests/__mocks__/fileMock.ts',
+    '\\.(sass|s?css|less)$': '<rootDir>/tests/__mocks__/styleMock.ts',
 
-    '^@postprocessing/(.*)': '<rootDir>/node_modules/three/examples/jsm/postprocessing/$1',
-    '^@controls/(.*)': '<rootDir>/node_modules/three/examples/jsm/controls/$1',
-    '^@shaders/(.*)': '<rootDir>/node_modules/three/examples/jsm/shaders/$1',
-    '^@loaders/(.*)': '<rootDir>/node_modules/three/examples/jsm/loaders/$1',
-    '^@utils/(.*)': '<rootDir>/node_modules/three/examples/jsm/utils/$1',
-    '^@three/(.*)': '<rootDir>/node_modules/three/src/$1',
-
+    '@assets/(.*)': '<rootDir>/src/assets/$1',
+    '@scss/(.*)': '<rootDir>/src/scss/$1',
     '@/(.*)': '<rootDir>/src/$1'
   },
 
