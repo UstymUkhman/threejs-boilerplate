@@ -1,14 +1,36 @@
-<div>
-  <!-- <h1>Hello Typescript!</h1> -->
-  <img src={Logo} alt="Three.js Logo" />
-</div>
+{#if visibleLogo}
+  <div transition:fade="{{
+    easing: quartOut,
+    duration: 1000,
+    delay: 1000
+  }}">
+    <Logo />
+  </div>
+{/if}
 
 <script lang="ts">
-  import Logo from '/img/logo.png';
+  import { onMount } from 'svelte';
+  import { quartOut } from 'svelte/easing';
+  import { fade } from 'svelte/transition';
+
+  import Logo from '@/components/Logo.svelte';
   import Playground from '@/Playground';
 
-  new Playground();
+  onMount(() => setTimeout(() => visibleLogo = false));
+
+  export let root: HTMLElement;
+  let visibleLogo = true;
+
+  if (root.firstElementChild?.tagName !== 'CANVAS') {
+    const scene = new Playground().domElement;
+    root.appendChild(scene);
+    scene.focus();
+  }
 </script>
 
-<!-- <style>
-</style> -->
+<style lang="scss" global>
+  body > div#stats:last-child {
+    left: auto !important;
+    right: 0 !important;
+  }
+</style>

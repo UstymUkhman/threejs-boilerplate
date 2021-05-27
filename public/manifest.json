@@ -5,6 +5,7 @@
   "orientation": "portrait",
   "name": "Three.js Boilerplate",
   "short_name": "Three.js Boilerplate",
+  "description": "Three.js + TypeScript + Svelte + Jest + Vite",
   "icons": [{
     "src": "\/favicon\/android-icon-36x36.png",
     "purpose": "any maskable",
@@ -43,7 +44,7 @@
     "density": "4.0"
   }, {
     "purpose": "any maskable",
-    "src": "img\/logo.png",
+    "src": "\/img\/logo.png",
     "type": "image\/png",
     "sizes": "512x512",
     "density": "5.0"

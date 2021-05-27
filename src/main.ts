@@ -1,5 +1,8 @@
 import App from './App.svelte';
 
+const root = document.getElementById('root') as Element;
+
 export default new App({
-  target: document.getElementById('root') as Element
+  props: { root },
+  target: root
 });

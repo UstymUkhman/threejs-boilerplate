@@ -23,7 +23,7 @@ interface GridMaterial extends Material {
 
 export default class Playground {
   private raf: number;
-  private stats = Stats();
+  private stats?: Stats;
   private scene = new Scene();
 
   private width: number = window.innerWidth;
@@ -108,15 +108,12 @@ export default class Playground {
 
   private createRenderer (): void {
     this.renderer.setPixelRatio(window.devicePixelRatio || 1);
-    document.body.appendChild(this.renderer.domElement);
     this.renderer.shadowMap.type = PCFSoftShadowMap;
-
     this.renderer.setSize(this.width, this.height);
+
     this.renderer.outputEncoding = sRGBEncoding;
     this.renderer.setClearColor(0x222222, 1);
-
     this.renderer.shadowMap.enabled = true;
-    this.renderer.domElement.focus();
   }
 
   private createControls (): void {
@@ -130,17 +127,22 @@ export default class Playground {
   }
 
   private createStats (): void {
-    this.stats.showPanel(0);
-    document.body.appendChild(this.stats.domElement);
+    if (document.body.lastElementChild?.id !== 'stats') {
+      this.stats = Stats();
+      this.stats.showPanel(0);
+
+      this.stats.domElement.id = 'stats';
+      document.body.appendChild(this.stats.domElement);
+    }
   }
 
   public render (): void {
-    this.stats.begin();
+    this.stats?.begin();
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
 
     this.raf = requestAnimationFrame(this.render.bind(this));
-    this.stats.end();
+    this.stats?.end();
   }
 
   public onResize (): void {
@@ -151,14 +153,18 @@ export default class Playground {
   }
 
   public destroy (): void {
+    this.renderer.domElement.parentNode?.removeChild(this.renderer.domElement);
+    this.stats && document.body.removeChild(this.stats.domElement);
     window.removeEventListener('resize', this._onResize, false);
-    document.body.removeChild(this.renderer.domElement);
-    document.body.removeChild(this.stats.domElement);
 
     cancelAnimationFrame(this.raf);
 
     this.controls.dispose();
     this.renderer.dispose();
     this.scene.clear();
+  }
+
+  public get domElement (): HTMLCanvasElement {
+    return this.renderer.domElement;
   }
 }
