@@ -1,8 +1,5 @@
 import App from './App.svelte';
 
 export default new App({
-  target: document.getElementById('app') as Element
+  target: document.getElementById('root') as Element
 });
-
-// import Playground from '@/Playground';
-// export default new Playground();

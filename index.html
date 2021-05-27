@@ -1,13 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us" class="no-js" amp>
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Svelte + TS + Vite App</title>
+    <base href="/" />
+    <title>Three.js Boilerplate</title>
+
+    <!-- Meta Tags: -->
+    <meta charset="utf-8" />
+    <meta name="fragment" content="!" />
+    <meta property="og:url" content="/" />
+
+    <meta http-equiv="cleartype" content="on" />
+    <meta name="author" content="Ustym Ukhman" />
+    <meta name="theme-color" content="#222222" />
+
+    <meta name="MobileOptimized" content="320" />
+    <meta property="og:type" content="website" />
+    <meta name="HandheldFriendly" content="True" />
+    
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <!-- <meta property="og:image" content="/img/preview.jpg" />
+    <meta name="twitter:image" content="/img/preview.jpg" /> -->
+    <meta name="msapplication-TileColor" content="#bbbbbb" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:title" content="Three.js Boilerplate" />
+    <meta name="twitter:title" content="Three.js Boilerplate" />
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="#222222" />
+    <meta name="apple-mobile-web-app-title" content="Three.js Boilerplate" />
+
+    <meta name="keywords" content="webgl,threejs,boilerplate,starter,template" />
+    <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+
+    <meta name="description" content="Three.js + TypeScript + Svelte + Jest + Vite" />
+    <meta property="og:description" content="Three.js + TypeScript + Svelte + Jest + Vite" />
+    <meta name="twitter:description" content="Three.js + TypeScript + Svelte + Jest + Vite" />
+
+    <!-- Favicons: -->
+    <link rel="icon" type="image/png" sizes="16x16"   href="/favicon/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32"   href="/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96"   href="/favicon/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/img/logo.png" />
+
+    <link rel="apple-touch-icon" type="image/png" sizes="57x57" href="/favicon/apple-icon-57x57.png" />
+    <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="/favicon/apple-icon-60x60.png" />
+    <link rel="apple-touch-icon" type="image/png" sizes="72x72" href="/favicon/apple-icon-72x72.png" />
+    <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="/favicon/apple-icon-76x76.png" />
+
+    <link rel="apple-touch-icon" type="image/png" sizes="114x114" href="/favicon/apple-icon-114x114.png" />
+    <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="/favicon/apple-icon-120x120.png" />
+    <link rel="apple-touch-icon" type="image/png" sizes="144x144" href="/favicon/apple-icon-144x144.png" />
+    <link rel="apple-touch-icon" type="image/png" sizes="152x152" href="/favicon/apple-icon-152x152.png" />
+    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/favicon/apple-icon-180x180.png" />
+
+    <!-- Fonts: -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Roboto+Mono&display=swap" rel="stylesheet" />
+
+    <!-- Disabled JavaScript and unsupported browser styling: -->
+    <link type="text/css" rel="stylesheet" href="/css/initial.css" />
+
+    <!-- Manifest: -->
+    <link rel="manifest" href="/manifest.json" />
   </head>
+
   <body>
-    <div id="app"></div>
+    <div class="not-supported">
+      <div class="not-supported-copy">
+        <strong>Sorry, this browser is not supported</strong>
+        <span>Please make sure to update it or use a <a href="https://www.google.com/chrome/" target="_blank" rel="noopener">better one</a> to visit this website.</span>
+      </div>
+    </div>
+
+    <noscript>
+      <div class="disabled-js">
+        <div class="disabled-js-copy">
+          <strong>Oops.., it seems you've disabled JavaScript on this browser</strong>
+          <span>Please make sure to enable it and<br />reload the page to visit this website.</span>
+        </div>
+      </div>
+    </noscript>
+
+    <!-- Application container: -->
+    <main id="root"></main>
+
+    <!-- JavaScript browser support check: -->
+    <script type="text/javascript" src="/js/initial.js"></script>
+
+    <!-- Application main script: -->
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

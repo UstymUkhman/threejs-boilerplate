@@ -1,7 +1,7 @@
-import { ReinhardToneMapping, PCFSoftShadowMap, sRGBEncoding } from 'three/src/constants';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { MeshPhongMaterial } from 'three/src/materials/MeshPhongMaterial';
 import { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera';
+import { PCFSoftShadowMap, sRGBEncoding } from 'three/src/constants';
 import { DirectionalLight } from 'three/src/lights/DirectionalLight';
 import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer';
 
@@ -13,17 +13,13 @@ import Stats from 'three/examples/jsm/libs/stats.module';
 
 import { Scene } from 'three/src/scenes/Scene';
 import { Mesh } from 'three/src/objects/Mesh';
-import { Color } from 'three/src/math/Color';
 import { Fog } from 'three/src/scenes/Fog';
+import { Color } from '@/utils/Color';
 
 interface GridMaterial extends Material {
   transparent: boolean
   opacity: number
 }
-
-const GROUND = 0xBBBBBB;
-const WHITE = 0xFFFFFF;
-const FOG = 0xBBBBBB;
 
 export default class Playground {
   private raf: number;
@@ -60,8 +56,8 @@ export default class Playground {
   }
 
   private createScene (): void {
-    this.scene.background = new Color(FOG);
-    this.scene.fog = new Fog(FOG, 50, 250);
+    this.scene.background = Color.getClass(Color.LIGHT);
+    this.scene.fog = new Fog(Color.LIGHT, 50, 250);
   }
 
   private createCamera (): void {
@@ -70,8 +66,8 @@ export default class Playground {
   }
 
   private createLights (): void {
-    const directional = new DirectionalLight(WHITE, 1);
-    const ambient = new AmbientLight(WHITE);
+    const directional = new DirectionalLight(Color.WHITE, 1);
+    const ambient = new AmbientLight(Color.WHITE);
 
     directional.position.set(-5, 10, 15);
     directional.castShadow = true;
@@ -95,8 +91,8 @@ export default class Playground {
     const ground = new Mesh(
       new BoxGeometry(500, 500, 1),
       new MeshPhongMaterial({
-        depthWrite: false,
-        color: GROUND
+        color: Color.LIGHT,
+        depthWrite: false
       })
     );
 
@@ -114,14 +110,12 @@ export default class Playground {
     this.renderer.setPixelRatio(window.devicePixelRatio || 1);
     document.body.appendChild(this.renderer.domElement);
     this.renderer.shadowMap.type = PCFSoftShadowMap;
-    this.renderer.toneMapping = ReinhardToneMapping;
 
     this.renderer.setSize(this.width, this.height);
     this.renderer.outputEncoding = sRGBEncoding;
     this.renderer.setClearColor(0x222222, 1);
 
     this.renderer.shadowMap.enabled = true;
-    this.renderer.toneMappingExposure = 1;
     this.renderer.domElement.focus();
   }
 

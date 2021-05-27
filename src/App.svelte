@@ -1,10 +1,10 @@
-<main>
+<div>
   <!-- <h1>Hello Typescript!</h1> -->
   <img src={Logo} alt="Three.js Logo" />
-</main>
+</div>
 
 <script lang="ts">
-  import Logo from '/favicon/android-icon-512x512.png';
+  import Logo from '/img/logo.png';
   import Playground from '@/Playground';
 
   new Playground();
