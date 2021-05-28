@@ -1,11 +1,13 @@
 import path from 'path';
 import { defineConfig } from 'vite';
+
+import glsl from 'vite-plugin-glsl';
 import { version } from './package.json';
 import svelte from '@sveltejs/vite-plugin-svelte';
 
 export default defineConfig({
   assetsInclude: ['fbx', 'glb', 'gltf', 'wat'],
-  plugins: [svelte()],
+  plugins: [svelte(), glsl()],
 
   define: {
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
