@@ -7,11 +7,11 @@ import svelte from '@sveltejs/vite-plugin-svelte';
 
 export default defineConfig({
   assetsInclude: ['fbx', 'glb', 'gltf', 'wat'],
+  build: { polyfillDynamicImport: true },
   plugins: [svelte(), glsl()],
 
   define: {
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-    __BUILD_VERSION__: JSON.stringify(version)
+    'import.meta.env.BUILD': JSON.stringify(version)
   },
 
   resolve: { alias: {
@@ -19,10 +19,6 @@ export default defineConfig({
     '@scss': path.resolve(__dirname, 'src/scss'),
     '@': path.resolve(__dirname, 'src')
   }},
-
-  build: {
-    polyfillDynamicImport: true
-  },
 
   server: {
     host: '0.0.0.0',

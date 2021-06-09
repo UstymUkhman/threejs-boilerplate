@@ -8,11 +8,16 @@
   </div>
 {/if}
 
+{#if import.meta.env.DEV}
+  <Version />
+{/if}
+
 <script lang="ts">
   import { onMount } from 'svelte';
   import { quartOut } from 'svelte/easing';
   import { fade } from 'svelte/transition';
 
+  import Version from '@/components/Version.svelte';
   import Logo from '@/components/Logo.svelte';
   import Playground from '@/Playground';
 

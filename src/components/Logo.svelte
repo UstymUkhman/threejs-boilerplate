@@ -8,8 +8,8 @@
 </script>
 
 <style lang="scss">
-  @import '@scss/variables.scss';
-  $background: rgba($light, 0.5);
+  @use '@scss/variables.scss' as var;
+  $background: rgba(var.$light, 0.5);
 
   div {
     box-shadow: 0px 0px 5px 15px $background;
@@ -43,8 +43,8 @@
 
     h1 {
       font-family: 'Roboto Mono', monospace;
+      color: var.$dark;
       font-size: 20px;
-      color: $dark;
     }
   }
 </style>

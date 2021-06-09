@@ -18,13 +18,9 @@
 
     "at-rule-no-unknown": [true, {
       "ignoreAtRules": [
-        "include", "function", "mixin", "content", "at-root",
-        "for", "if", "else", "each", "return"
+        "at-root", "content", "each", "else", "for",
+        "function", "if", "mixin", "return", "use"
       ]
-    }],
-
-    "selector-pseudo-element-no-unknown": [true, {
-      "ignorePseudoElements": ["v-deep"]
     }],
 
     "selector-pseudo-class-no-unknown": [true, {
