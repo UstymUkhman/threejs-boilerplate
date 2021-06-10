@@ -9,6 +9,7 @@ export default defineConfig({
   assetsInclude: ['fbx', 'glb', 'gltf', 'wat'],
   build: { polyfillDynamicImport: true },
   plugins: [svelte(), glsl()],
+  base: './',
 
   define: {
     'import.meta.env.BUILD': JSON.stringify(version)
