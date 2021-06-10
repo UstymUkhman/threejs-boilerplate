@@ -11,6 +11,5 @@ pids
 .DS_Store
 .lock-wscript
 
-dist
 coverage
 node_modules

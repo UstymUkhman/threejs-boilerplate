@@ -1,0 +1,56 @@
+{
+  "scope": "/",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "name": "Three.js Boilerplate",
+  "short_name": "Three.js Boilerplate",
+  "description": "Three.js + TypeScript + Svelte + Jest + Vite",
+  "icons": [{
+    "src": "\/favicon\/android-icon-36x36.png",
+    "purpose": "any maskable",
+    "type": "image\/png",
+    "sizes": "36x36",
+    "density": "0.75"
+  }, {
+    "src": "\/favicon\/android-icon-48x48.png",
+    "purpose": "any maskable",
+    "type": "image\/png",
+    "sizes": "48x48",
+    "density": "1.0"
+  }, {
+    "src": "\/favicon\/android-icon-72x72.png",
+    "purpose": "any maskable",
+    "type": "image\/png",
+    "sizes": "72x72",
+    "density": "1.5"
+  }, {
+    "src": "\/favicon\/android-icon-96x96.png",
+    "purpose": "any maskable",
+    "type": "image\/png",
+    "sizes": "96x96",
+    "density": "2.0"
+  }, {
+    "src": "\/favicon\/android-icon-144x144.png",
+    "purpose": "any maskable",
+    "type": "image\/png",
+    "sizes": "144x144",
+    "density": "3.0"
+  }, {
+    "src": "\/favicon\/android-icon-192x192.png",
+    "purpose": "any maskable",
+    "type": "image\/png",
+    "sizes": "192x192",
+    "density": "4.0"
+  }, {
+    "purpose": "any maskable",
+    "src": "\/img\/logo.png",
+    "type": "image\/png",
+    "sizes": "512x512",
+    "density": "5.0"
+  }],
+  "prefer_related_applications": false,
+  "background_color": "#222222",
+  "related_applications": [],
+  "theme_color": "#222222"
+}

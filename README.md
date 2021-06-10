@@ -1,8 +1,10 @@
-# Three.js Boilerplate #
+# [Three.js Boilerplate](https://ustymukhman.github.io/threejs-boilerplate/dist) #
 
 *Three.js + TypeScript + Svelte + Jest + Vite*
 
+![GitHub deployments](https://img.shields.io/github/deployments/UstymUkhman/threejs-boilerplate/github-pages)
 ![GitHub repo size](https://img.shields.io/github/repo-size/UstymUkhman/threejs-boilerplate)
+![](https://img.shields.io/badge/coverage-96.74%25-green)
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/UstymUkhman/threejs-boilerplate?color=brightgreen)
 ![GitHub](https://img.shields.io/github/license/UstymUkhman/threejs-boilerplate)
 
