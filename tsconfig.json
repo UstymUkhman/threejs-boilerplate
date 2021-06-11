@@ -4,6 +4,7 @@
     "allowSyntheticDefaultImports": true,
     "importsNotUsedAsValues": "error",
     "noUnusedParameters": false,
+    "noImplicitOverride": true,
     "moduleResolution": "node",
 
     "noImplicitReturns": true,

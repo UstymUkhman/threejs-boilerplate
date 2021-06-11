@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 
 import glsl from 'vite-plugin-glsl';
 import { version } from './package.json';
-import svelte from '@sveltejs/vite-plugin-svelte';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 export default defineConfig({
   assetsInclude: ['fbx', 'glb', 'gltf', 'wat'],

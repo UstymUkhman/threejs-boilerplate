@@ -6,6 +6,7 @@ import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import { CubeTexture } from 'three/src/textures/CubeTexture';
 import { AudioLoader } from 'three/src/loaders/AudioLoader';
 
+import { generateUUID } from 'three/src/math/MathUtils';
 import { CustomEvents } from '@/utils/CustomEvents';
 import { RGBFormat } from 'three/src/constants';
 
@@ -38,6 +39,8 @@ export namespace Assets
     private readonly textureBasePath = './assets/images';
     private readonly modelBasePath = './assets/models/';
     private readonly audioBasePath = './assets/sounds/';
+
+    private readonly uuid = generateUUID();
 
     private readonly cubeTextures = [
       'px.jpg', 'nx.jpg',
@@ -99,22 +102,25 @@ export namespace Assets
       });
     }
 
-    public onProgress = (url: string, loaded: number, total: number): void => {
+    public override onProgress = (url: string, loaded: number, total: number): void => {
       const progress = loaded * 100 / total;
 
-      CustomEvents.dispatch('loading:progress', { progress });
+      CustomEvents.dispatch('loading:progress', {
+        uuid: this.uuid,
+        progress
+      });
     }
 
-    public onStart = (): void => {
-      CustomEvents.dispatch('loading:start');
+    public override onStart = (): void => {
+      CustomEvents.dispatch('loading:start', this.uuid);
     }
 
-    public onError = (url: string): void => {
+    public override onError = (url: string): void => {
       console.error(`Error occurred loading ${url}.`);
     }
 
-    public onLoad = (): void => {
-      CustomEvents.dispatch('loading:end');
+    public override onLoad = (): void => {
+      CustomEvents.dispatch('loading:end', this.uuid);
     }
   }
 }

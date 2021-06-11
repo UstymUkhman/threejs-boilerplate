@@ -1,8 +1,7 @@
 {#if visibleLogo}
   <div transition:fade="{{
     easing: quartOut,
-    duration: 1000,
-    delay: 1000
+    duration: 1000
   }}">
     <Logo />
   </div>
@@ -21,7 +20,7 @@
   import Logo from '@/components/Logo.svelte';
   import Playground from '@/Playground';
 
-  onMount(() => setTimeout(() => visibleLogo = false));
+  onMount(() => setTimeout(() => visibleLogo = false, 1000));
 
   export let root: HTMLElement;
   let visibleLogo = true;

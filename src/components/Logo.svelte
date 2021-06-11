@@ -9,11 +9,10 @@
 
 <style lang="scss">
   @use '@scss/variables.scss' as var;
-  $background: rgba(var.$light, 0.5);
 
   div {
-    box-shadow: 0px 0px 5px 15px $background;
-    background-color: $background;
+    box-shadow: 0px 0px 5px var.$dark;
+    backdrop-filter: blur(5px);
 
     justify-content: center;
     pointer-events: none;
@@ -21,6 +20,7 @@
     justify-self: center;
     align-items: center;
 
+    border-radius: 10px;
     position: absolute;
     padding: 25px 50px;
 
