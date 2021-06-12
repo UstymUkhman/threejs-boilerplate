@@ -17,8 +17,8 @@
     "noImplicitAny": true,
     "skipLibCheck": true,
 
-    "module": "esnext",
-    "target": "esnext",
+    "module": "ESNext",
+    "target": "ES2020",
     "sourceMap": true,
     "jsx": "preserve",
     "checkJs": true,
