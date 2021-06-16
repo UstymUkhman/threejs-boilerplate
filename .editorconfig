@@ -1,4 +1,4 @@
-[*.{ts,tsx,js,jsx,svelte}]
+[*.{svelte,ts,tsx,js,jsx,vs,fs,vert,frag,glsl}]
 
 root = true
 charset = utf-8

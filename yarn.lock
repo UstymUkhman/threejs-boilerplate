@@ -4196,10 +4196,10 @@ vfile@^4.0.0:
     unist-util-stringify-position "^2.0.0"
     vfile-message "^2.0.0"
 
-vite-plugin-glsl@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/vite-plugin-glsl/-/vite-plugin-glsl-0.0.3.tgz#935450046ea40ee5c8b10b28abe9a2b3b7c020c8"
-  integrity sha512-z36lovV2klD6z3t5CGfUuHC4TLaBaZ2TxQK8sjz/67nHwQ7ioZOjvKmE4QEtMjZVh6o10xAcW77hRlr9suGhVA==
+vite-plugin-glsl@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/vite-plugin-glsl/-/vite-plugin-glsl-0.0.4.tgz#da630bc7cf0e75d418c4e53287cc77bd756c2d07"
+  integrity sha512-JFdtxE5FwkON/xQqC8/he+7d9lFvFC5x6fexOdH0YCztIiRVdO5qQifbdgS0sT3Py4iioziRWQ4yCzQvLiYh0Q==
   dependencies:
     "@rollup/pluginutils" "^4.1.0"
 
