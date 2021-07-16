@@ -14,6 +14,7 @@ import Stats from 'three/examples/jsm/libs/stats.module';
 import { Scene } from 'three/src/scenes/Scene';
 import { Mesh } from 'three/src/objects/Mesh';
 import { Fog } from 'three/src/scenes/Fog';
+import Viewport from '@/utils/Viewport';
 import { Color } from '@/utils/Color';
 
 interface GridMaterial extends Material {
@@ -26,13 +27,8 @@ export default class Playground {
   private stats?: Stats;
   private scene = new Scene();
 
-  private width: number = window.innerWidth;
-  private height: number = window.innerHeight;
-  private ratio: number = this.width / this.height;
-
-  private camera = new PerspectiveCamera(45, this.ratio, 1, 500);
-  private _onResize: EventListenerOrEventListenerObject = () => null;
   private renderer = new WebGLRenderer({ antialias: true, alpha: false });
+  private camera   = new PerspectiveCamera(45, Viewport.size.ratio, 1, 500);
   private controls = new OrbitControls(this.camera, this.renderer.domElement);
 
   public constructor () {
@@ -43,16 +39,10 @@ export default class Playground {
 
     this.createRenderer();
     this.createControls();
-    this.createEvents();
     this.createStats();
 
+    Viewport.addResizeCallback(this.resize.bind(this));
     this.raf = requestAnimationFrame(this.render.bind(this));
-  }
-
-  private setSize (): void {
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
-    this.ratio = this.width / this.height;
   }
 
   private createScene (): void {
@@ -107,23 +97,20 @@ export default class Playground {
   }
 
   private createRenderer (): void {
+    const { width, height } = Viewport.size;
+
     this.renderer.setPixelRatio(window.devicePixelRatio || 1);
     this.renderer.shadowMap.type = PCFSoftShadowMap;
-    this.renderer.setSize(this.width, this.height);
-
     this.renderer.outputEncoding = sRGBEncoding;
+
     this.renderer.setClearColor(0x222222, 1);
     this.renderer.shadowMap.enabled = true;
+    this.renderer.setSize(width, height);
   }
 
   private createControls (): void {
     this.controls.target.set(0, 0, 25);
     this.controls.update();
-  }
-
-  private createEvents (): void {
-    this._onResize = this.onResize.bind(this);
-    window.addEventListener('resize', this._onResize, false);
   }
 
   private createStats (): void {
@@ -136,6 +123,12 @@ export default class Playground {
     }
   }
 
+  private resize (width: number, height: number, ratio: number): void {
+    this.camera.aspect = ratio;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(width, height);
+  }
+
   public render (): void {
     this.stats?.begin();
     this.controls.update();
@@ -145,17 +138,9 @@ export default class Playground {
     this.stats?.end();
   }
 
-  public onResize (): void {
-    this.setSize();
-    this.camera.aspect = this.ratio;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(this.width, this.height);
-  }
-
   public destroy (): void {
     this.renderer.domElement.parentNode?.removeChild(this.renderer.domElement);
     this.stats && document.body.removeChild(this.stats.domElement);
-    window.removeEventListener('resize', this._onResize, false);
 
     cancelAnimationFrame(this.raf);
 

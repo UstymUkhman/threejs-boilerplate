@@ -10,6 +10,7 @@ describe('deepFreeze', () => {
         propriety: 'value',
         deep: { propriety: 'value' }
       }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     }) as any;
 
     expect(Object.isFrozen(deepFreeze({}))).toStrictEqual(true);
