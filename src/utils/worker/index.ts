@@ -18,7 +18,13 @@ export default class Worker
     this.events.set(event, { callback, params });
   }
 
-  public get (event: string, params?: EventParams): void {
+  public transfer (element: Transferable, params?: EventParams): void {
+    this.worker.postMessage({ event: 'transfer',
+      params: { element, ...params }
+    }, [element]);
+  }
+
+  public post (event: string, params?: EventParams): void {
     const eventParams = this.events.get(event)?.params;
 
     this.worker.postMessage({ event, params: {

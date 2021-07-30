@@ -13,23 +13,15 @@
 
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { quartOut } from 'svelte/easing';
   import { fade } from 'svelte/transition';
+  import { quartOut } from 'svelte/easing';
 
-  import Version from '@/components/Version.svelte';
   import Logo from '@/components/Logo.svelte';
-  import Playground from '@/Playground';
+  import Version from '@/components/Version.svelte';
 
-  onMount(() => setTimeout(() => visibleLogo = false, 1000));
-
-  export let root: HTMLElement;
   let visibleLogo = true;
 
-  if (root.firstElementChild?.tagName !== 'CANVAS') {
-    const scene = new Playground().domElement;
-    root.appendChild(scene);
-    scene.focus();
-  }
+  onMount(() => setTimeout(() => visibleLogo = false, 1000));
 </script>
 
 <style lang="scss" global>

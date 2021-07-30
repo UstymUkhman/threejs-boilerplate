@@ -13,10 +13,18 @@ describe('Worker', () => {
     expect(add).toHaveReturnedWith(undefined);
   });
 
-  test('get', () => {
-    const get = jest.fn(worker.get.bind(worker, 'message'));
-    get();
-    expect(get).toHaveReturnedWith(undefined);
+  test('transfer', () => {
+    const canvas = document.createElement('canvas');
+    const transfer = jest.fn(worker.transfer.bind(worker));
+
+    transfer(canvas as unknown as Transferable);
+    expect(transfer).toHaveReturnedWith(undefined);
+  });
+
+  test('post', () => {
+    const post = jest.fn(worker.post.bind(worker, 'message'));
+    post();
+    expect(post).toHaveReturnedWith(undefined);
   });
 
   test('onMessage', () => {

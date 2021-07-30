@@ -1,4 +1,5 @@
 const showPanel = jest.fn();
+const update = jest.fn();
 const begin = jest.fn();
 const end = jest.fn();
 
@@ -8,6 +9,7 @@ export default jest.fn().mockImplementation(() => {
   return {
     domElement: canvas,
     showPanel,
+    update,
     begin,
     end
   };

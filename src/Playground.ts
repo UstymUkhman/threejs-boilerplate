@@ -1,4 +1,4 @@
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { MeshPhongMaterial } from 'three/src/materials/MeshPhongMaterial';
 import { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera';
 import { PCFSoftShadowMap, sRGBEncoding } from 'three/src/constants';
@@ -6,15 +6,14 @@ import { DirectionalLight } from 'three/src/lights/DirectionalLight';
 import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer';
 
 import { BoxGeometry } from 'three/src/geometries/BoxGeometry';
+import type Stats from 'three/examples/jsm/libs/stats.module';
 import type { Material } from 'three/src/materials/Material';
 import { AmbientLight } from 'three/src/lights/AmbientLight';
 import { GridHelper } from 'three/src/helpers/GridHelper';
-import Stats from 'three/examples/jsm/libs/stats.module';
 
 import { Scene } from 'three/src/scenes/Scene';
 import { Mesh } from 'three/src/objects/Mesh';
 import { Fog } from 'three/src/scenes/Fog';
-import Viewport from '@/utils/Viewport';
 import { Color } from '@/utils/Color';
 
 interface GridMaterial extends Material {
@@ -25,24 +24,22 @@ interface GridMaterial extends Material {
 export default class Playground {
   private raf: number;
   private stats?: Stats;
-  private scene = new Scene();
+  private controls?: OrbitControls;
 
-  private renderer = new WebGLRenderer({ antialias: true, alpha: false });
-  private camera   = new PerspectiveCamera(45, Viewport.size.ratio, 1, 500);
-  private controls = new OrbitControls(this.camera, this.renderer.domElement);
+  private renderer!: WebGLRenderer;
+  private camera!: PerspectiveCamera;
 
-  public constructor () {
+  private readonly scene = new Scene();
+  private onRender = this.render.bind(this);
+
+  public constructor (private readonly canvas: HTMLCanvasElement, pixelRatio?: number) {
     this.createScene();
     this.createCamera();
     this.createLights();
     this.createGround();
 
-    this.createRenderer();
-    this.createControls();
-    this.createStats();
-
-    Viewport.addResizeCallback(this.resize.bind(this));
-    this.raf = requestAnimationFrame(this.render.bind(this));
+    this.createRenderer(pixelRatio);
+    this.raf = requestAnimationFrame(this.onRender);
   }
 
   private createScene (): void {
@@ -51,6 +48,9 @@ export default class Playground {
   }
 
   private createCamera (): void {
+    const aspect = this.canvas.width / this.canvas.height;
+    this.camera = new PerspectiveCamera(45, aspect, 1, 500);
+
     this.camera.position.set(0, 10, -50);
     this.camera.lookAt(0, 0, 0);
   }
@@ -96,60 +96,62 @@ export default class Playground {
     this.scene.add(grid);
   }
 
-  private createRenderer (): void {
-    const { width, height } = Viewport.size;
+  private createRenderer (pixelRatio?: number): void {
+    const { width, height } = this.canvas;
 
-    this.renderer.setPixelRatio(window.devicePixelRatio || 1);
+    this.renderer = new WebGLRenderer({
+      canvas: this.canvas,
+      antialias: true,
+      alpha: false
+    });
+
     this.renderer.shadowMap.type = PCFSoftShadowMap;
-    this.renderer.outputEncoding = sRGBEncoding;
+    this.renderer.setPixelRatio(pixelRatio || 1.0);
+    this.renderer.setSize(width, height, false);
 
+    this.renderer.outputEncoding = sRGBEncoding;
     this.renderer.setClearColor(0x222222, 1);
     this.renderer.shadowMap.enabled = true;
-    this.renderer.setSize(width, height);
   }
 
-  private createControls (): void {
-    this.controls.target.set(0, 0, 25);
-    this.controls.update();
+  private render (): void {
+    this.raf = requestAnimationFrame(this.onRender);
+    this.renderer.render(this.scene, this.camera);
+
+    this.controls?.update();
+    this.stats?.update();
   }
 
-  private createStats (): void {
-    if (document.body.lastElementChild?.id !== 'stats') {
-      this.stats = Stats();
+  public createControls (target = this.renderer.domElement): void {
+    import('three/examples/jsm/controls/OrbitControls').then(Controls => {
+      this.controls = new Controls.OrbitControls(this.camera, target);
+      this.controls.target.set(0, 0, 25);
+      this.controls.update();
+    });
+  }
+
+  public createStats (onCreate?: (stats: HTMLDivElement) => void): void {
+    import('three/examples/jsm/libs/stats.module').then(Stats => {
+      this.stats = Stats.default();
       this.stats.showPanel(0);
 
       this.stats.domElement.id = 'stats';
-      document.body.appendChild(this.stats.domElement);
-    }
+      onCreate && onCreate(this.stats.domElement);
+    });
   }
 
-  private resize (width: number, height: number, ratio: number): void {
+  public resize (width: number, height: number, ratio: number): void {
     this.camera.aspect = ratio;
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
-  }
-
-  public render (): void {
-    this.stats?.begin();
-    this.controls.update();
-    this.renderer.render(this.scene, this.camera);
-
-    this.raf = requestAnimationFrame(this.render.bind(this));
-    this.stats?.end();
+    this.renderer.setSize(width, height, false);
   }
 
   public destroy (): void {
     this.renderer.domElement.parentNode?.removeChild(this.renderer.domElement);
-    this.stats && document.body.removeChild(this.stats.domElement);
-
     cancelAnimationFrame(this.raf);
 
-    this.controls.dispose();
+    this.controls?.dispose();
     this.renderer.dispose();
     this.scene.clear();
-  }
-
-  public get domElement (): HTMLCanvasElement {
-    return this.renderer.domElement;
   }
 }

@@ -2,7 +2,7 @@ jest.mock('three/src/renderers/WebGLRenderer');
 import Playground from '@/Playground';
 
 describe('Playground', () => {
-  const playground = new Playground();
+  const playground = new Playground(document.createElement('canvas'));
   const playgroundPrototype = Object.getPrototypeOf(playground);
 
   test('Create', () => {
@@ -40,6 +40,12 @@ describe('Playground', () => {
     expect(createRenderer).toHaveReturnedWith(undefined);
   });
 
+  test('render', () => {
+    const render = jest.fn(playgroundPrototype.render.bind(playground));
+    render();
+    expect(render).toHaveReturnedWith(undefined);
+  });
+
   test('createControls', () => {
     const createControls = jest.fn(playgroundPrototype.createControls.bind(playground));
     createControls();
@@ -48,29 +54,24 @@ describe('Playground', () => {
 
   test('createStats', () => {
     const createStats = jest.fn(playgroundPrototype.createStats.bind(playground));
-    createStats();
+    const onCreate = jest.fn();
+
+    createStats(onCreate);
+    expect(onCreate).not.toBeCalled();
     expect(createStats).toHaveReturnedWith(undefined);
   });
 
   test('resize', () => {
-    const resize = jest.fn(playgroundPrototype.resize.bind(playground));
-    resize();
-    expect(resize).toHaveReturnedWith(undefined);
-  });
+    const ratio = window.innerWidth / window.innerHeight;
+    const resize = jest.fn(playground.resize.bind(playground));
 
-  it('render', () => {
-    const render = jest.fn(playground.render.bind(playground));
-    render();
-    expect(render).toHaveReturnedWith(undefined);
+    resize(window.innerWidth, window.innerHeight, ratio);
+    expect(resize).toHaveReturnedWith(undefined);
   });
 
   test('destroy', () => {
     const destroy = jest.fn(playground.destroy.bind(playground));
     destroy();
     expect(destroy).toHaveReturnedWith(undefined);
-  });
-
-  test('domElement', () => {
-    expect(playground.domElement.tagName).toStrictEqual('CANVAS');
   });
 });
