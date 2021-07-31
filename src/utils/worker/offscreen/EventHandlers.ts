@@ -20,8 +20,8 @@ export type EventCallback = (data: EventData) => void;
 type EventHandler = (event: Event, callback: EventCallback) => void;
 
 export const onMouseEvent = eventPropsHandler([
+  'button', 'pointerType', 'pointerId',
   'ctrlKey', 'metaKey', 'shiftKey',
-  'button', 'pointerType',
   'clientX', 'clientY',
   'pageX', 'pageY'
 ]);

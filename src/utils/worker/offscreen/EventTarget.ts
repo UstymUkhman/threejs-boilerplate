@@ -20,9 +20,14 @@ export default class EventTarget extends EventDispatcher
   private width = 0.0;
   private height = 0.0;
 
+  private readonly noop = (): void => void 0;
   private readonly styleRules: Styles = {};
-  private readonly noop = () => void 0;
   public readonly focus = this.noop;
+
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  public readonly setPointerCapture = (pointerId: number): void => void 0;
+  public readonly releasePointerCapture = (pointerId: number): void => void 0;
+  /* eslint-enable @typescript-eslint/no-unused-vars */
 
   public constructor () {
     super();

@@ -10,12 +10,7 @@ export class EventsManager
   }
 
   public getTarget (id: string): HTMLElement {
-    const target = this.targets[id];
-
-    return (
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (target as any).ownerDocument = target
-    ) as unknown as HTMLElement;
+    return this.targets[id] as unknown as HTMLElement;
   }
 
   public handleEvent (data: EventData): void {
