@@ -13,6 +13,9 @@ const eventPropsHandler = (props: Array<string>): EventHandler =>
     callback(data);
   };
 
+export const preventDefault = (event: Event): void =>
+  event.preventDefault();
+
 // Mouse Events:
 
 type EventData = Record<string, unknown>;
@@ -75,6 +78,3 @@ export function onTouchEvent (event: Event, callback: EventCallback): void {
 
   callback({ type: event.type, touches });
 }
-
-export const preventDefault = (event: Event): void =>
-  event.preventDefault();
