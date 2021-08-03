@@ -47,18 +47,9 @@ describe('Playground', () => {
   });
 
   test('createControls', () => {
-    const createControls = jest.fn(playgroundPrototype.createControls.bind(playground));
+    const createControls = jest.fn(playground.createControls.bind(playground));
     createControls();
     expect(createControls).toHaveReturnedWith(undefined);
-  });
-
-  test('createStats', () => {
-    const createStats = jest.fn(playgroundPrototype.createStats.bind(playground));
-    const onCreate = jest.fn();
-
-    createStats(onCreate);
-    expect(onCreate).not.toBeCalled();
-    expect(createStats).toHaveReturnedWith(undefined);
   });
 
   test('resize', () => {

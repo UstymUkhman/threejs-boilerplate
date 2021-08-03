@@ -13,7 +13,7 @@ class PlaygroundWorker
     const target = this.events.getTarget(params.elementId);
     const canvas = params.element as unknown as HTMLCanvasElement;
 
-    this.playground = new Playground(canvas, params.pixelRatio);
+    this.playground = new Playground(canvas, null, params.pixelRatio);
     this.playground.createControls(target as HTMLCanvasElement);
   }
 

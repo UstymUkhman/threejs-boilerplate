@@ -1,4 +1,4 @@
-import type { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { MeshPhongMaterial } from 'three/src/materials/MeshPhongMaterial';
 import { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera';
 import { PCFSoftShadowMap, sRGBEncoding } from 'three/src/constants';
@@ -17,22 +17,26 @@ import { Fog } from 'three/src/scenes/Fog';
 import { Color } from '@/utils/Color';
 
 interface GridMaterial extends Material {
-  transparent: boolean
+  transparent: boolean,
   opacity: number
 }
 
+type Monitor = Stats | null | undefined;
+
 export default class Playground {
   private raf: number;
-  private stats?: Stats;
   private controls?: OrbitControls;
-
   private renderer!: WebGLRenderer;
-  private camera!: PerspectiveCamera;
 
+  private camera!: PerspectiveCamera;
   private readonly scene = new Scene();
   private onRender = this.render.bind(this);
 
-  public constructor (private readonly canvas: HTMLCanvasElement, pixelRatio?: number) {
+  public constructor (
+    private readonly canvas: HTMLCanvasElement,
+    private readonly stats?: Monitor,
+    pixelRatio?: number
+  ) {
     this.createScene();
     this.createCamera();
     this.createLights();
@@ -123,21 +127,9 @@ export default class Playground {
   }
 
   public createControls (target = this.renderer.domElement): void {
-    import('three/examples/jsm/controls/OrbitControls').then(Controls => {
-      this.controls = new Controls.OrbitControls(this.camera, target);
-      this.controls.target.set(0, 0, 25);
-      this.controls.update();
-    });
-  }
-
-  public createStats (onCreate?: (stats: HTMLDivElement) => void): void {
-    import('three/examples/jsm/libs/stats.module').then(Stats => {
-      this.stats = Stats.default();
-      this.stats.showPanel(0);
-
-      this.stats.domElement.id = 'stats';
-      onCreate && onCreate(this.stats.domElement);
-    });
+    this.controls = new OrbitControls(this.camera, target);
+    this.controls.target.set(0.0, 0.0, 25.0);
+    this.controls.update();
   }
 
   public resize (width: number, height: number, ratio: number): void {
