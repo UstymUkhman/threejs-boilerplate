@@ -1,7 +1,7 @@
 <aside>v{import.meta.env.BUILD}</aside>
 
 <style lang="scss">
-  @use '@scss/variables.scss' as var;
+  @use "@scss/variables.scss" as var;
 
   aside {
     background-color: var.$dark;

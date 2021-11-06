@@ -8,7 +8,7 @@
 </script>
 
 <style lang="scss">
-  @use '@scss/variables.scss' as var;
+  @use "@scss/variables.scss" as var;
 
   div {
     box-shadow: 0px 0px 5px var.$dark;
@@ -42,7 +42,7 @@
     }
 
     h1 {
-      font-family: 'Roboto Mono', monospace;
+      font-family: "Roboto Mono", monospace;
       color: var.$dark;
       font-size: 20px;
     }

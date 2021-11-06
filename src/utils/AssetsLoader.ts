@@ -109,18 +109,18 @@ export namespace Assets
         uuid: this.uuid,
         progress
       });
-    }
+    };
 
     public override onStart = (): void => {
       CustomEvents.dispatch('loading:start', this.uuid);
-    }
+    };
 
     public override onError = (url: string): void => {
       console.error(`Error occurred loading ${url}.`);
-    }
+    };
 
     public override onLoad = (): void => {
       CustomEvents.dispatch('loading:end', this.uuid);
-    }
+    };
   }
 }

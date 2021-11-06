@@ -1,6 +1,12 @@
 {
   "root": true,
+  "customSyntax": "postcss-scss",
   "extends": "stylelint-config-standard",
+
+  "overrides": [{
+    "files": ["**/*.svelte"],
+    "customSyntax": "postcss-html"
+  }],
 
   "rules": {
     "block-closing-brace-newline-after": null,
