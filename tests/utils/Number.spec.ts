@@ -1,4 +1,4 @@
-import { smoothstep, mix, map, randomInt, clamp, random, lerp, PI } from '@/utils/Number';
+import { smoothstep, mix, map, randomInt, clamp, random, lerp, toFixed, PI } from '@/utils/Number';
 
 describe('Number', () => {
   test('smoothstep', () => {
@@ -43,6 +43,12 @@ describe('Number', () => {
     expect(lerp(1, 2, 0)).toStrictEqual(1);
     expect(lerp(1, 2, 0.5)).toStrictEqual(1.5);
     expect(lerp(1, 2, 1)).toStrictEqual(2);
+  });
+
+  test('toFixed', () => {
+    expect(toFixed(12)).toStrictEqual(12);
+    expect(toFixed(1.123456789)).toStrictEqual(1.12);
+    expect(toFixed(-0.987654321, 3)).toStrictEqual(-0.987);
   });
 
   test('PI', () => {

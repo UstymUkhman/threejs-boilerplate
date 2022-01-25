@@ -1,6 +1,6 @@
 import App from './App.svelte';
 
-const root = document.getElementById('root') as Element;
+const root = document.getElementById('root') as HTMLElement;
 
 export default new App({
   props: { root },

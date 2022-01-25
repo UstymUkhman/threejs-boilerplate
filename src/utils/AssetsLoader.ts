@@ -59,7 +59,7 @@ export namespace Assets
         },
 
         onProgress: event => this.onProgress(
-          (event.target as ProgressEventTarget).responseURL, event.loaded, event.total
+          (event.target as ProgressEventTarget)?.responseURL, event.loaded, event.total
         ),
 
         onError: error => reject(error)

@@ -8,3 +8,8 @@ export const random = (min: number, max: number): number => Math.random() * (max
 export const lerp = (v0: number, v1: number, t: number): number => v0 + t * (v1 - v0);
 
 export const PI = Object.freeze({ m2: Math.PI * 2, d2: Math.PI / 2 });
+
+export const toFixed = (value: number, mantissa = 2) => {
+  const pow10 = Math.pow(10, mantissa);
+  return ~~(pow10 * value) / pow10;
+};
