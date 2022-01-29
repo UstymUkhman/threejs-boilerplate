@@ -4,7 +4,7 @@
   "description": "Three.js + TypeScript + Svelte + Jest + Vite",
   "homepage": "https://github.com/UstymUkhman/threejs-boilerplate#readme",
   "main": "src/main.ts",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "private": false,
   "repository": {

@@ -4,7 +4,7 @@
 
 ![GitHub deployments](https://img.shields.io/github/deployments/UstymUkhman/threejs-boilerplate/github-pages)
 ![GitHub repo size](https://img.shields.io/github/repo-size/UstymUkhman/threejs-boilerplate)
-![](https://img.shields.io/badge/coverage-97.85%25-green)
+![](https://img.shields.io/badge/coverage-98.5%25-green)
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/UstymUkhman/threejs-boilerplate?color=brightgreen)
 ![GitHub](https://img.shields.io/github/license/UstymUkhman/threejs-boilerplate?color=brightgreen)
 

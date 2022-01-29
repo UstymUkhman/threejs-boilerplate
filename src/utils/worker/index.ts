@@ -30,7 +30,7 @@ export default class Worker
     const { name, response } = event.data;
     const callback = this.events?.get(name)?.callback;
 
-    callback && callback(response);
+    callback?.(response);
   }
 
   private onError (error: ErrorEvent): void {
