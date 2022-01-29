@@ -8,7 +8,7 @@ import { AudioLoader } from 'three/src/loaders/AudioLoader';
 
 import { generateUUID } from 'three/src/math/MathUtils';
 import { CustomEvents } from '@/utils/CustomEvents';
-import { RGBFormat } from 'three/src/constants';
+import { RGBAFormat } from 'three/src/constants';
 
 export namespace Assets
 {
@@ -52,7 +52,7 @@ export namespace Assets
       return {
         onLoad: asset => {
           if (asset instanceof CubeTexture) {
-            asset.format = RGBFormat;
+            asset.format = RGBAFormat;
           }
 
           resolve(asset);
