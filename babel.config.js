@@ -1,10 +1,7 @@
 module.exports = {
-  env: {
-    test: {
-      plugins: [
-        '@babel/plugin-transform-modules-commonjs',
-        '@babel/plugin-proposal-export-namespace-from'
-      ]
-    }
-  }
+  presets: [
+    '@babel/preset-env',
+    'babel-preset-solid',
+    '@babel/preset-typescript'
+  ]
 };

@@ -130,9 +130,7 @@ module.exports = {
   // rootDir: undefined,
 
   // A list of paths to directories that Jest should use to search for files in
-  roots: [
-    '<rootDir>/tests/'
-  ],
+  roots: ['<rootDir>/tests/'],
 
   // Allows you to use a custom runner instead of Jest's default test runner
   // runner: 'jest-runner',
@@ -141,7 +139,7 @@ module.exports = {
   // setupFiles: [],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  // setupFilesAfterEnv: [],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
   // snapshotSerializers: [],
@@ -190,7 +188,7 @@ module.exports = {
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: [
-    '/node_modules/(?!three).+\\.js$'
+    '/node_modules/(?!(.*three)).+\\.js$'
   ],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them

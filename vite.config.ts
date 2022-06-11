@@ -2,17 +2,13 @@ import path from 'path';
 import { defineConfig } from 'vite';
 
 import glsl from 'vite-plugin-glsl';
+import solid from 'vite-plugin-solid';
 import { version } from './package.json';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 export default defineConfig({
-  assetsInclude: ['fbx', 'glb', 'gltf', 'wat'],
-  plugins: [svelte(), glsl()],
   base: './',
-
-  define: {
-    'import.meta.env.BUILD': JSON.stringify(version)
-  },
+  plugins: [solid(), glsl()],
+  assetsInclude: ['fbx', 'glb', 'gltf'],
 
   resolve: {
     alias: {
@@ -20,6 +16,15 @@ export default defineConfig({
       '@scss': path.resolve(__dirname, 'src/scss'),
       '@': path.resolve(__dirname, 'src')
     }
+  },
+
+  define: {
+    'import.meta.env.BUILD': JSON.stringify(version)
+  },
+
+  build: {
+    polyfillDynamicImport: false,
+    target: 'esnext'
   },
 
   server: {

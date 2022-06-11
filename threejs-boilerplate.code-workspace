@@ -4,7 +4,9 @@
 		"svelte.language-server.runtime": "C:/Program Files/nodejs/node.exe",
     "js-import.filesToScan": "**/*.{svelte,ts,tsx,js,jsx}",
 
+		"editor.bracketPairColorization.enabled": false,
 		"svelte.plugin.typescript.enable": true,
+
 		"svelte.plugin.svelte.enable": true,
 		"vetur.validation.template": false,
 		"git.ignoreLimitWarning": true,
