@@ -1,0 +1,16 @@
+@use "@scss/variables.scss" as var;
+
+aside.version {
+  background-color: var.$dark;
+  pointer-events: none;
+
+  padding: 3px 10px;
+  color: var.$light;
+  font-size: 12px;
+
+  position: fixed;
+  display: block;
+
+  bottom: 0;
+  right: 0;
+}
