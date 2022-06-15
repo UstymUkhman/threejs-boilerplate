@@ -3,13 +3,13 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "typeRoots": ["node_modules/@types"],
-    "types": ["svelte", "jest", "node"],
     "importsNotUsedAsValues": "error",
-
+    
     "jsxImportSource": "solid-js",
     "noUnusedParameters": false,
     "noImplicitOverride": true,
     "moduleResolution": "node",
+    "types": ["jest", "node"],
 
     "noImplicitReturns": true,
     "resolveJsonModule": true,

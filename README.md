@@ -1,6 +1,6 @@
 # [Three.js Boilerplate](https://ustymukhman.github.io/threejs-boilerplate/dist) #
 
-*Three.js + TypeScript + Svelte + Jest + Vite*
+*Three.js + TypeScript + SolidJS + Jest + Vite*
 
 ![GitHub deployments](https://img.shields.io/github/deployments/UstymUkhman/threejs-boilerplate/github-pages)
 ![GitHub repo size](https://img.shields.io/github/repo-size/UstymUkhman/threejs-boilerplate)

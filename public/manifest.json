@@ -5,7 +5,7 @@
   "orientation": "portrait",
   "name": "Three.js Boilerplate",
   "short_name": "Three.js Boilerplate",
-  "description": "Three.js + TypeScript + Svelte + Jest + Vite",
+  "description": "Three.js + TypeScript + SolidJS + Jest + Vite",
   "icons": [{
     "src": "\/favicon\/android-icon-36x36.png",
     "purpose": "any maskable",
