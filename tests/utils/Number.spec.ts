@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest';
 import { smoothstep, mix, map, randomInt, clamp, random, lerp, toFixed, PI } from '@/utils/Number';
 
 describe('Number', () => {

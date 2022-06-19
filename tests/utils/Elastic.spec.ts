@@ -1,6 +1,7 @@
+import { Elastic } from '@/utils/Elastic';
+import { describe, test, expect } from 'vitest';
 import { Vector2 } from 'three/src/math/Vector2';
 import { Vector3 } from 'three/src/math/Vector3';
-import { Elastic } from '@/utils/Elastic';
 
 describe('Elastic', () => {
   test('Number', () => {

@@ -1,5 +1,6 @@
-import { Vector3 } from 'three/src/math/Vector3';
 import { Vector } from '@/utils/Vector';
+import { describe, test, expect } from 'vitest';
+import { Vector3 } from 'three/src/math/Vector3';
 
 describe('Vector', () => {
   test('UP', () => {

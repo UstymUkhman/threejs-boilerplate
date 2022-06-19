@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 declare module '*.vs' {
   const value: string;
   export default value;

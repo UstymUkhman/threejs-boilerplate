@@ -1,10 +1,11 @@
-import { Color as TColor } from 'three/src/math/Color';
 import { Color } from '@/utils/Color';
+import { describe, test, expect } from 'vitest';
+import { Color as TColor } from 'three/src/math/Color';
 
 describe('Color', () => {
   const rgb: Color.RGB = { r: 138, g: 7, b: 7 };
-  const hexString: string = '#8A0707';
-  const hexNumber: number = 0x8A0707;
+  const hexString = '#8A0707';
+  const hexNumber = 0x8A0707;
 
   test('blend', () => {
     const BLACK = '#000000';

@@ -1,4 +1,5 @@
 import deepFreeze from '@/utils/deepFreeze';
+import { describe, test, expect } from 'vitest';
 
 describe('deepFreeze', () => {
   test('Create', () => {

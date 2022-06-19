@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest';
 import { capitalize, camelCase } from '@/utils/String';
 
 describe('String', () => {

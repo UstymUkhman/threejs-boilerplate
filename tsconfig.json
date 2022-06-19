@@ -4,25 +4,25 @@
     "allowSyntheticDefaultImports": true,
     "typeRoots": ["node_modules/@types"],
     "importsNotUsedAsValues": "error",
-    
+    "types": ["vite/client", "node"],
+
     "jsxImportSource": "solid-js",
     "noUnusedParameters": false,
     "noImplicitOverride": true,
     "moduleResolution": "node",
-    "types": ["jest", "node"],
-
+    
     "noImplicitReturns": true,
     "resolveJsonModule": true,
     "strictNullChecks": true,
     "lib": ["esnext", "dom"],
-
+    
     "esModuleInterop": true,
     "isolatedModules": true,
     "noUnusedLocals": true,
     "importHelpers": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
-
+    
     "module": "ESNext",
     "target": "ESNext",
     "sourceMap": true,

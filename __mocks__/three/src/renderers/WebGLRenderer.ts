@@ -1,11 +1,13 @@
-const setPixelRatio = jest.fn();
-const setClearColor = jest.fn();
+import { vi } from 'vitest';
 
-const setSize = jest.fn();
-const dispose = jest.fn();
-const render = jest.fn();
+const setPixelRatio = vi.fn();
+const setClearColor = vi.fn();
 
-const WebGLRenderer = jest.fn().mockImplementation(() => {
+const setSize = vi.fn();
+const dispose = vi.fn();
+const render = vi.fn();
+
+const WebGLRenderer = vi.fn().mockImplementation(() => {
   const canvas = document.createElementNS('http://www.w3.org/1999/xhtml', 'canvas');
 
   return {
