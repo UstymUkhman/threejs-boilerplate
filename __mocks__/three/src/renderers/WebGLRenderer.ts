@@ -1,28 +1,16 @@
 import { vi } from 'vitest';
 
-const setPixelRatio = vi.fn();
-const setClearColor = vi.fn();
-
-const setSize = vi.fn();
-const dispose = vi.fn();
-const render = vi.fn();
-
-const WebGLRenderer = vi.fn().mockImplementation(() => {
+export const WebGLRenderer = vi.fn().mockImplementation(() => {
   const canvas = document.createElementNS('http://www.w3.org/1999/xhtml', 'canvas');
 
   return {
     shadowMap: { enabled: false },
+    setPixelRatio: vi.fn(),
+    setClearColor: vi.fn(),
     domElement: canvas,
-    setPixelRatio,
-    setClearColor,
-    setSize,
-    dispose,
-    render
+
+    setSize: vi.fn(),
+    dispose: vi.fn(),
+    render: vi.fn()
   };
 });
-
-export {
-  WebGLRenderer,
-  setPixelRatio,
-  render
-};

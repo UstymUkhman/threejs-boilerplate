@@ -1,4 +1,6 @@
+import '@vitest/web-worker';
 import Worker from '@/utils/worker';
+import { describe, test, expect, vi } from 'vitest';
 
 describe('Worker', () => {
   const worker = new Worker();
@@ -8,13 +10,13 @@ describe('Worker', () => {
   });
 
   test('add', () => {
-    const add = jest.fn(worker.add.bind(worker, 'message', () => null));
+    const add = vi.fn(worker.add.bind(worker, 'message', () => null));
     add();
     expect(add).toHaveReturnedWith(undefined);
   });
 
   test('get', () => {
-    const get = jest.fn(worker.get.bind(worker, 'message'));
+    const get = vi.fn(worker.get.bind(worker, 'message'));
     get();
     expect(get).toHaveReturnedWith(undefined);
   });
@@ -25,7 +27,7 @@ describe('Worker', () => {
     });
 
     const workerPrototype = Object.getPrototypeOf(worker);
-    const onMessage = jest.fn(workerPrototype.onMessage.bind(workerPrototype, event));
+    const onMessage = vi.fn(workerPrototype.onMessage.bind(workerPrototype, event));
 
     onMessage(event);
     expect(onMessage).toHaveReturnedWith(undefined);
@@ -34,14 +36,14 @@ describe('Worker', () => {
   test('onError', () => {
     const event = new MessageEvent('error');
     const workerPrototype = Object.getPrototypeOf(worker);
-    const onError = jest.fn(workerPrototype.onError.bind(workerPrototype, event));
+    const onError = vi.fn(workerPrototype.onError.bind(workerPrototype, event));
 
     onError(event);
     expect(onError).toHaveReturnedWith(undefined);
   });
 
   test('remove', () => {
-    const remove = jest.fn(worker.remove.bind(worker));
+    const remove = vi.fn(worker.remove.bind(worker));
     remove('message');
     expect(remove).toHaveReturnedWith(undefined);
   });
