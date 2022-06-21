@@ -1,9 +1,8 @@
 import './App.scss';
-import Logo from '@/components/Logo';
 import Playground from '@/Playground';
 import { createSignal } from 'solid-js';
 import type { AppProps } from './types.d';
-import Version from '@/components/Version';
+import { Logo, Version } from '@/components';
 
 export default ({ root }: AppProps) => {
   setTimeout(() => setVisibleLogo(false), 2e3);

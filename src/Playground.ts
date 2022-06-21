@@ -99,8 +99,8 @@ export default class Playground {
   private createRenderer (): void {
     const { width, height } = Viewport.size;
 
-    this.renderer.setPixelRatio(window.devicePixelRatio || 1);
     this.renderer.shadowMap.type = PCFSoftShadowMap;
+    this.renderer.setPixelRatio(devicePixelRatio);
     this.renderer.outputEncoding = sRGBEncoding;
 
     this.renderer.setClearColor(0x222222, 1);

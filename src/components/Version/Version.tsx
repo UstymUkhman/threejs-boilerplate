@@ -1,6 +1,5 @@
-import './Version.scss';
+import Style from './Version.module.scss';
 
-export default () => {
-  const version = `v${import.meta.env.BUILD}`;
-  return <aside class="version">{version}</aside>;
-};
+export default () => (
+  <aside class={Style.version}>v{VERSION}</aside>
+);

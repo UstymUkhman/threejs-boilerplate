@@ -4,7 +4,7 @@
   "description": "Three.js + TypeScript + SolidJS + Jest + Vite",
   "homepage": "https://github.com/UstymUkhman/threejs-boilerplate#readme",
   "main": "src/main.tsx",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "license": "MIT",
   "private": false,
   "repository": {
@@ -54,6 +54,7 @@
     "postcss": "^8.4.14",
     "postcss-scss": "^4.0.4",
     "sass": "^1.52.3",
+    "solid-testing-library": "^0.3.0",
     "stylelint": "^14.9.1",
     "stylelint-config-standard": "^26.0.0",
     "typescript": "^4.7.3",

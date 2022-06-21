@@ -1,6 +1,6 @@
 @use "@scss/variables.scss" as var;
 
-div.logo {
+.logo {
   animation: fade-out 1s var.$ease-out-quart 1s;
   box-shadow: 0px 0px 5px var.$dark;
   backdrop-filter: blur(5px);
