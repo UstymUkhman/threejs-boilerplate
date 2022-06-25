@@ -1,7 +1,7 @@
 {
   "name": "threejs-boilerplate",
   "author": "Ustym Ukhman <ustym.ukhman@gmail.com>",
-  "description": "Three.js + TypeScript + SolidJS + Jest + Vite",
+  "description": "Three.js + TypeScript + SolidJS + Vite + Vitest",
   "homepage": "https://github.com/UstymUkhman/threejs-boilerplate#readme",
   "main": "src/main.tsx",
   "version": "2.0.0",
@@ -19,11 +19,13 @@
     "vite",
     "webgl",
     "webgl2",
-    "solidjs",
     "threejs",
+    "solidjs",
     "template",
-    "javascript",
-    "typescript"
+    "boilerplate",
+    "typescript",
+    "vitest",
+    "pnpm"
   ],
   "scripts": {
     "start": "vite",

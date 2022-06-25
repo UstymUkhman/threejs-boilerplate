@@ -139,8 +139,8 @@ export default class Playground {
   }
 
   public destroy (): void {
-    this.renderer.domElement.parentNode?.removeChild(this.renderer.domElement);
-    this.stats && document.body.removeChild(this.stats.domElement);
+    this.renderer.domElement.remove();
+    this.stats?.domElement.remove();
 
     cancelAnimationFrame(this.raf);
 
