@@ -10,19 +10,17 @@ describe('Worker', () => {
   });
 
   test('add', () => {
-    const add = vi.fn(worker.add.bind(worker, 'message', () => null));
-    add();
-    expect(add).toHaveReturnedWith(undefined);
+    const add = worker.add('event', vi.fn);
+    expect(add).toStrictEqual(undefined);
   });
 
   test('get', () => {
-    const get = vi.fn(worker.get.bind(worker, 'message'));
-    get();
-    expect(get).toHaveReturnedWith(undefined);
+    const get = worker.get('event');
+    expect(get).toStrictEqual(undefined);
   });
 
   test('onMessage', () => {
-    const event = new MessageEvent('error', {
+    const event = new MessageEvent('message', {
       data: { name: 'message', response: null }
     });
 

@@ -1,3 +1,4 @@
+import { describe, test, expect, vi } from 'vitest';
 import { CustomEvents, Event } from '@/utils/CustomEvents';
 
 const timestamp = Date.now();
@@ -17,7 +18,7 @@ describe('CustomEvents', () => {
   const event = new Event('time');
   event.data = timestamp;
 
-  const callback = jest.fn((event: Event) => {
+  const callback = vi.fn((event: Event) => {
     expect(event).toStrictEqual(event);
     expect(event.data).toStrictEqual(timestamp);
   });
@@ -35,14 +36,15 @@ describe('CustomEvents', () => {
   test('remove', () => {
     CustomEvents.remove('time');
     CustomEvents.dispatch('time', timestamp);
-    expect(callback).not.toHaveBeenCalled();
+    expect(callback).toHaveBeenCalledOnce();
   });
 
   test('dispose', () => {
-    CustomEvents.add('time', callback);
+    const callback = vi.fn();
+    CustomEvents.add('event', callback);
     CustomEvents.dispose();
 
-    CustomEvents.dispatch('time', timestamp);
+    CustomEvents.dispatch('event');
     expect(callback).not.toHaveBeenCalled();
   });
 });
