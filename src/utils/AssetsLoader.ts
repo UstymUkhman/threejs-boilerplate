@@ -33,8 +33,8 @@ export namespace Assets
   {
     private readonly cubeTexture = new CubeTextureLoader(this);
     private readonly texture = new TextureLoader(this);
+    private readonly audio = new AudioLoader(this);
     private readonly gltf = new GLTFLoader(this);
-    private readonly audio = new AudioLoader();
 
     private readonly textureBasePath = './assets/images';
     private readonly modelBasePath = './assets/models/';
