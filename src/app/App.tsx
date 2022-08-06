@@ -4,18 +4,17 @@ import { createSignal } from 'solid-js';
 import type { AppProps } from './types.d';
 import { Logo, Version } from '@/components';
 
-export default ({ root }: AppProps) => {
-  setTimeout(() => setVisibleLogo(false), 2e3);
+export default ({ root }: AppProps) =>
+{
+  const scene = new Playground().domElement;
   const [visibleLogo, setVisibleLogo] = createSignal(true);
 
-  const scene = new Playground().domElement;
+  setTimeout(setVisibleLogo, 2500);
   root.appendChild(scene);
   scene.focus();
 
-  return (
-    <>
-      {visibleLogo() && <Logo />}
-      {import.meta.env.DEV && <Version />}
-    </>
-  );
+  return <>
+    {visibleLogo() && <Logo />}
+    {import.meta.env.DEV && <Version />}
+  </>;
 };

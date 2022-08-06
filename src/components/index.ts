@@ -1,4 +1,2 @@
-import { Logo } from '@/components/Logo';
-import { Version } from '@/components/Version';
-
-export { Logo, Version };
+export { default as Logo } from '@/components/Logo';
+export { default as Version } from '@/components/Version';
