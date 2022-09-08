@@ -2,13 +2,6 @@ import { Color as TColor } from 'three/src/math/Color';
 
 export namespace Color
 {
-  export type RGB = { r: number, g: number, b: number };
-
-  export const BLACK = 0x000000;
-  export const DARK  = 0x222222;
-  export const LIGHT = 0xBBBBBB;
-  export const WHITE = 0xFFFFFF;
-
   export const blend = (initial: string, target: string, p = 0.5): string => {
     const iColor: RGB = hexToRGB(initial);
     const tColor: RGB = hexToRGB(target);
@@ -38,5 +31,15 @@ export namespace Color
       g: (color >> 8) & 255,
       b: color & 255
     };
+  };
+
+  export const BLACK = 0x000000;
+  export const FOG   = 0xE8E8E8;
+  export const WHITE = 0xFFFFFF;
+
+  export type RGB = {
+    r: number,
+    g: number,
+    b: number
   };
 }
