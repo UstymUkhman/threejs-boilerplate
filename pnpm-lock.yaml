@@ -12,6 +12,7 @@ specifiers:
   eslint: ^8.23.0
   jest-canvas-mock: ^2.4.0
   jsdom: ^20.0.0
+  lil-gui: ^0.17.0
   postcss: ^8.4.16
   postcss-scss: ^4.0.4
   sass: ^1.54.9
@@ -42,6 +43,7 @@ devDependencies:
   eslint: 8.23.0
   jest-canvas-mock: 2.4.0
   jsdom: 20.0.0
+  lil-gui: 0.17.0
   postcss: 8.4.16
   postcss-scss: 4.0.4_postcss@8.4.16
   sass: 1.54.9
@@ -2152,6 +2154,10 @@ packages:
     dependencies:
       prelude-ls: 1.2.1
       type-check: 0.4.0
+    dev: true
+
+  /lil-gui/0.17.0:
+    resolution: {integrity: sha512-MVBHmgY+uEbmJNApAaPbtvNh1RCAeMnKym82SBjtp5rODTYKWtM+MXHCifLe2H2Ti1HuBGBtK/5SyG4ShQ3pUQ==}
     dev: true
 
   /lines-and-columns/1.2.4:
