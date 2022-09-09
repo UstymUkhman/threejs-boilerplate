@@ -1,5 +1,5 @@
 import './App.scss';
-import Playground from '@/Playground';
+import Playground from '@/playground';
 import { createSignal } from 'solid-js';
 import type { AppProps } from './types.d';
 import { Logo, Version } from '@/components';

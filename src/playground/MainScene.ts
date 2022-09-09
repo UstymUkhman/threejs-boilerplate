@@ -8,21 +8,24 @@ import { AmbientLight } from 'three/src/lights/AmbientLight';
 import Stats from 'three/examples/jsm/libs/stats.module';
 
 import { Scene } from 'three/src/scenes/Scene';
-import GroundMaterial from '@/GroundMaterial';
+import GroundMaterial from './GroundMaterial';
 import { Mesh } from 'three/src/objects/Mesh';
 import { Fog } from 'three/src/scenes/Fog';
+import GUIControls from './GUIControls';
 import Viewport from '@/utils/Viewport';
 import { Color } from '@/utils/Color';
 import { PI } from '@/utils/Number';
 
-export default class Playground {
-  private raf: number;
-  private stats?: Stats;
-  private scene = new Scene();
+export default class MainScene
+{
+  private orbitControls!: OrbitControls;
+  private camera!: PerspectiveCamera;
+  private guiControls!: GUIControls;
+  private renderer!: WebGLRenderer;
 
-  private renderer = new WebGLRenderer({ antialias: true, alpha: false });
-  private camera   = new PerspectiveCamera(45, Viewport.size.ratio, 1, 500);
-  private controls = new OrbitControls(this.camera, this.renderer.domElement);
+  public scene = new Scene();
+  private stats?: Stats;
+  private raf: number;
 
   public constructor () {
     this.createScene();
@@ -40,12 +43,13 @@ export default class Playground {
 
   private createScene (): void {
     this.scene.background = Color.getClass(Color.FOG);
-    this.scene.fog = new Fog(Color.FOG, 100, 250);
+    this.scene.fog = new Fog(Color.FOG, 100.0, 250.0);
   }
 
   private createCamera (): void {
-    this.camera.position.set(0, 25, -50);
-    this.camera.lookAt(0, 0, 0);
+    this.camera = new PerspectiveCamera(45.0, Viewport.size.ratio, 1.0, 500.0);
+    this.camera.position.set(0.0, 25.0, -50.0);
+    this.camera.lookAt(0.0, 0.0, 0.0);
   }
 
   private createLights (): void {
@@ -73,9 +77,7 @@ export default class Playground {
   private createGround (): void {
     const ground = new Mesh(
       new BoxGeometry(500, 500, 0),
-      new GroundMaterial({
-        color: Color.WHITE
-      })
+      new GroundMaterial({ color: Color.WHITE })
     );
 
     ground.receiveShadow = true;
@@ -84,27 +86,28 @@ export default class Playground {
   }
 
   private createRenderer (): void {
-    const { width, height } = Viewport.size;
+    this.renderer = new WebGLRenderer({ powerPreference: 'high-performance', antialias: true });
 
+    this.renderer.setSize(Viewport.size.width, Viewport.size.height);
     this.renderer.shadowMap.type = PCFSoftShadowMap;
+    this.renderer.setClearColor(Color.BLACK, 1.0);
+
     this.renderer.setPixelRatio(devicePixelRatio);
     this.renderer.outputEncoding = sRGBEncoding;
-
-    this.renderer.setClearColor(0x222222, 1);
     this.renderer.shadowMap.enabled = true;
-    this.renderer.setSize(width, height);
   }
 
   private createControls (): void {
-    this.controls.target.set(0, 0, 25);
-    this.controls.update();
+    this.orbitControls = new OrbitControls(this.camera, this.domElement);
+    this.orbitControls.target.set(0.0, 0.0, 25.0);
+    this.guiControls = new GUIControls(this);
+    this.orbitControls.update();
   }
 
   private createStats (): void {
     if (document.body.lastElementChild?.id !== 'stats') {
       this.stats = Stats();
       this.stats.showPanel(0);
-
       this.stats.domElement.id = 'stats';
       document.body.appendChild(this.stats.domElement);
     }
@@ -118,7 +121,7 @@ export default class Playground {
 
   public render (): void {
     this.stats?.begin();
-    this.controls.update();
+    this.orbitControls.update();
     this.renderer.render(this.scene, this.camera);
 
     this.raf = requestAnimationFrame(this.render.bind(this));
@@ -128,10 +131,10 @@ export default class Playground {
   public destroy (): void {
     this.renderer.domElement.remove();
     this.stats?.domElement.remove();
-
     cancelAnimationFrame(this.raf);
 
-    this.controls.dispose();
+    this.orbitControls.dispose();
+    this.guiControls.dispose();
     this.renderer.dispose();
     this.scene.clear();
   }
