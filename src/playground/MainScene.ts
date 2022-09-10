@@ -2,11 +2,14 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera';
 import { PCFSoftShadowMap, sRGBEncoding } from 'three/src/constants';
 import { DirectionalLight } from 'three/src/lights/DirectionalLight';
+import { PlaneGeometry } from 'three/src/geometries/PlaneGeometry';
 import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer';
-import { BoxGeometry } from 'three/src/geometries/BoxGeometry';
+import type { Color as ThreeColor } from 'three/src/math/Color';
 import { AmbientLight } from 'three/src/lights/AmbientLight';
 import Stats from 'three/examples/jsm/libs/stats.module';
+import type { Vector3 } from 'three/src/math/Vector3';
 
+import { DoubleSide } from 'three/src/constants';
 import { Scene } from 'three/src/scenes/Scene';
 import GroundMaterial from './GroundMaterial';
 import { Mesh } from 'three/src/objects/Mesh';
@@ -15,6 +18,7 @@ import GUIControls from './GUIControls';
 import Viewport from '@/utils/Viewport';
 import { Color } from '@/utils/Color';
 import { PI } from '@/utils/Number';
+import { Config } from './Config';
 
 export default class MainScene
 {
@@ -23,7 +27,9 @@ export default class MainScene
   private guiControls!: GUIControls;
   private renderer!: WebGLRenderer;
 
-  public scene = new Scene();
+  private paused = false;
+  private ground!: Mesh;
+  private scene!: Scene;
   private stats?: Stats;
   private raf: number;
 
@@ -42,19 +48,22 @@ export default class MainScene
   }
 
   private createScene (): void {
-    this.scene.background = Color.getClass(Color.FOG);
-    this.scene.fog = new Fog(Color.FOG, 100.0, 250.0);
+    this.scene = new Scene();
+    const { visible, color, near, far } = Config.Fog;
+
+    if (visible) this.scene.fog = new Fog(color, near, far);
+    this.scene.background = Color.getClass(Config.Background);
   }
 
   private createCamera (): void {
-    this.camera = new PerspectiveCamera(45.0, Viewport.size.ratio, 1.0, 500.0);
-    this.camera.position.set(0.0, 25.0, -50.0);
-    this.camera.lookAt(0.0, 0.0, 0.0);
+    const { fov, near, far, position } = Config.Camera;
+    this.camera = new PerspectiveCamera(fov, Viewport.size.ratio, near, far);
+    this.camera.position.copy(position);
   }
 
   private createLights (): void {
-    const directional = new DirectionalLight(Color.WHITE, 1);
-    const ambient = new AmbientLight(Color.WHITE);
+    const directional = new DirectionalLight(Color.WHITE);
+    const ambient = new AmbientLight(Color.WHITE, 0.25);
 
     directional.position.set(-5, 10, 15);
     directional.castShadow = true;
@@ -75,14 +84,14 @@ export default class MainScene
   }
 
   private createGround (): void {
-    const ground = new Mesh(
-      new BoxGeometry(500, 500, 0),
-      new GroundMaterial({ color: Color.WHITE })
+    this.ground = new Mesh(
+      new PlaneGeometry(500, 500),
+      new GroundMaterial({ color: Color.WHITE, side: DoubleSide })
     );
 
-    ground.receiveShadow = true;
-    ground.rotateX(- PI.d2);
-    this.scene.add(ground);
+    this.ground.receiveShadow = true;
+    this.ground.rotateX(-PI.d2);
+    this.scene.add(this.ground);
   }
 
   private createRenderer (): void {
@@ -121,8 +130,12 @@ export default class MainScene
 
   public render (): void {
     this.stats?.begin();
-    this.orbitControls.update();
-    this.renderer.render(this.scene, this.camera);
+
+    if (!this.paused) {
+      this.orbitControls.update();
+      this.renderer.render(this.scene, this.camera);
+      this.guiControls.update(this.camera.position);
+    }
 
     this.raf = requestAnimationFrame(this.render.bind(this));
     this.stats?.end();
@@ -141,5 +154,46 @@ export default class MainScene
 
   public get domElement (): HTMLCanvasElement {
     return this.renderer.domElement;
+  }
+
+  public set background (color: number) {
+    (this.scene.background as ThreeColor).set(color);
+  }
+
+  public set controls (enabled: boolean) {
+    this.orbitControls.enabled = enabled;
+  }
+
+  public set pause (paused: boolean) {
+    this.controls = !paused;
+    this.paused = paused;
+  }
+
+  public updateFog (fog: typeof Config.Fog): void {
+    this.scene.fog = fog.visible ? new Fog(fog.color, fog.near, fog.far) : null;
+
+    if (!this.scene.fog) return;
+    this.scene.fog.color.set(fog.color);
+    (this.scene.fog as Fog).near = fog.near;
+    (this.scene.fog as Fog).far = fog.far;
+  }
+
+  public updateCamera (camera: typeof Config.Camera): void {
+    this.camera.fov = camera.fov;
+    this.camera.near = camera.near;
+    this.camera.far = camera.far;
+    this.camera.updateProjectionMatrix();
+  }
+
+  public updateCameraPosition (position: Vector3): void {
+    this.camera.position.copy(position);
+  }
+
+  public set groundColor (color: number) {
+    (this.ground.material as GroundMaterial).color.set(color);
+  }
+
+  public set groundSize (size: number) {
+    this.ground.scale.setScalar(size);
   }
 }
