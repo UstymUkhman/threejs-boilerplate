@@ -84,9 +84,11 @@ export default class MainScene
   }
 
   private createGround (): void {
+    const { color, scale } = Config.Ground;
+
     this.ground = new Mesh(
-      new PlaneGeometry(500, 500),
-      new GroundMaterial({ color: Color.WHITE, side: DoubleSide })
+      new PlaneGeometry(scale, scale),
+      new GroundMaterial({ side: DoubleSide, color })
     );
 
     this.ground.receiveShadow = true;
@@ -108,7 +110,7 @@ export default class MainScene
 
   private createControls (): void {
     this.orbitControls = new OrbitControls(this.camera, this.domElement);
-    this.orbitControls.target.set(0.0, 0.0, 25.0);
+    this.orbitControls.target.copy(Config.Camera.target);
     this.guiControls = new GUIControls(this);
     this.orbitControls.update();
   }
@@ -134,7 +136,7 @@ export default class MainScene
     if (!this.paused) {
       this.orbitControls.update();
       this.renderer.render(this.scene, this.camera);
-      this.guiControls.update(this.camera.position);
+      this.guiControls.update(this.camera.position, this.orbitControls.target);
     }
 
     this.raf = requestAnimationFrame(this.render.bind(this));
@@ -185,7 +187,8 @@ export default class MainScene
     this.camera.updateProjectionMatrix();
   }
 
-  public updateCameraPosition (position: Vector3): void {
+  public updateCameraPosition (position: Vector3, target: Vector3): void {
+    this.orbitControls.target.copy(target);
     this.camera.position.copy(position);
   }
 
@@ -195,5 +198,9 @@ export default class MainScene
 
   public set groundSize (size: number) {
     this.ground.scale.setScalar(size);
+  }
+
+  public set cellSize (size: number) {
+    (this.ground.material as GroundMaterial).size = size;
   }
 }

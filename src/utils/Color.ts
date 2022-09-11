@@ -1,4 +1,4 @@
-import { Color as TColor } from 'three/src/math/Color';
+import { Color as ThreeColor } from 'three/src/math/Color';
 
 export namespace Color
 {
@@ -13,8 +13,8 @@ export namespace Color
     ).toString(16).slice(3)}`.toUpperCase();
   };
 
-  export const getClass = (color: number | string): TColor => {
-    return new TColor(color);
+  export const getClass = (color: number | string): ThreeColor => {
+    return new ThreeColor(color);
   };
 
   export const rgbToHEX = (rgb: RGB): string => {

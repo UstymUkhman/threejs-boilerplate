@@ -4,13 +4,14 @@ import type { Shader } from 'three/src/renderers/shaders/ShaderLib';
 
 import fragPars from '@/shaders/ground/pars.frag';
 import vertPars from '@/shaders/ground/pars.vert';
-
 import fragment from '@/shaders/ground/main.frag';
 import vertex from '@/shaders/ground/main.vert';
 
+import { Config } from '@/playground/Config';
+
 export default class GroundMaterial extends MeshPhongMaterial
 {
-  private readonly cellSize = 25.0;
+  private cellSize = { value: Config.Ground.cell };
 
   public constructor (parameters: MeshPhongMaterialParameters = {}) {
     super(parameters);
@@ -36,11 +37,15 @@ export default class GroundMaterial extends MeshPhongMaterial
   }
 
   public override onBeforeCompile (shader: Shader) {
-    shader.uniforms.cellSize = { value: this.cellSize };
+    shader.uniforms.cellSize = this.cellSize;
 
     this.updateDefaultFragmentShader(shader);
     this.updateDefaultVertexShader(shader);
 
     this.needsUpdate = true;
+  }
+
+  public set size (cellSize: number) {
+    this.cellSize.value = cellSize;
   }
 }

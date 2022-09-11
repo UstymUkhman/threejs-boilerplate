@@ -1,5 +1,5 @@
-import { Vector2 as TVector2 } from 'three/src/math/Vector2';
-import { Vector3 as TVector3 } from 'three/src/math/Vector3';
+import { Vector2 as ThreeVector2 } from 'three/src/math/Vector2';
+import { Vector3 as ThreeVector3 } from 'three/src/math/Vector3';
 
 export namespace Elastic
 {
@@ -29,11 +29,11 @@ export namespace Elastic
 
   export class Vector2
   {
-    private readonly current = new TVector2();
-    private readonly target = new TVector2();
+    private readonly current = new ThreeVector2();
+    private readonly target = new ThreeVector2();
     public speed = 10;
 
-    public constructor (value: TVector2) {
+    public constructor (value: ThreeVector2) {
       this.current.copy(value);
       this.target.copy(value);
     }
@@ -42,7 +42,7 @@ export namespace Elastic
       this.target.set(x, y);
     }
 
-    public copy (target: TVector2): void {
+    public copy (target: ThreeVector2): void {
       this.target.copy(target);
     }
 
@@ -54,7 +54,7 @@ export namespace Elastic
       this.current.y += y * (this.speed * delta);
     }
 
-    public get value (): TVector2 {
+    public get value (): ThreeVector2 {
       return this.current;
     }
 
@@ -69,11 +69,11 @@ export namespace Elastic
 
   export class Vector3
   {
-    private readonly current = new TVector3();
-    private readonly target = new TVector3();
+    private readonly current = new ThreeVector3();
+    private readonly target = new ThreeVector3();
     public speed = 10;
 
-    public constructor (value: TVector3) {
+    public constructor (value: ThreeVector3) {
       this.current.copy(value);
       this.target.copy(value);
     }
@@ -82,7 +82,7 @@ export namespace Elastic
       this.target.set(x, y, z);
     }
 
-    public copy (target: TVector3): void {
+    public copy (target: ThreeVector3): void {
       this.target.copy(target);
     }
 
@@ -96,7 +96,7 @@ export namespace Elastic
       this.current.z += z * (this.speed * delta);
     }
 
-    public get value (): TVector3 {
+    public get value (): ThreeVector3 {
       return this.current;
     }
 

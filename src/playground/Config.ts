@@ -16,6 +16,13 @@ export namespace Config
     fov: 50.0,
     near: 0.1,
     far: 500.0,
-    position: new Vector3(0.0, 25.0, -50.0)
+    position: new Vector3(0.0, 25.0, -50.0),
+    target: new Vector3(0.0, 0.0, 25.0)
+  };
+
+  export const Ground = {
+    color: Color.WHITE,
+    scale: 500.0,
+    cell: 25.0
   };
 }
