@@ -1,2 +1,2 @@
-export { default as Logo } from '@/components/Logo';
-export { default as Version } from '@/components/Version';
+export { Logo } from '@/components/Logo';
+export { Version } from '@/components/Version';

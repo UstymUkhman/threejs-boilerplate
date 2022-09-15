@@ -8,13 +8,14 @@ export class Event extends CustomEvent<unknown> {
 
 export class CustomEvents
 {
+  private static readonly target = new EventTarget();
   private static readonly events: Events = new Map();
   private static readonly callbacks: Callbacks = new Map();
 
   public static add (name: string, callback: Callback): void {
     this.callbacks.set(name, callback);
     this.events.set(name, new Event(name));
-    document.addEventListener(name, callback as EventListener, false);
+    this.target.addEventListener(name, callback as EventListener, false);
   }
 
   public static dispatch (name: string, data: unknown = null): void {
@@ -22,13 +23,13 @@ export class CustomEvents
 
     if (event) {
       event.data = data;
-      document.dispatchEvent(event);
+      this.target.dispatchEvent(event);
     }
   }
 
   public static remove (name: string): void {
     const callback = this.callbacks.get(name) as EventListener;
-    document.removeEventListener(name, callback, false);
+    this.target.removeEventListener(name, callback, false);
 
     this.callbacks.delete(name);
     this.events.delete(name);

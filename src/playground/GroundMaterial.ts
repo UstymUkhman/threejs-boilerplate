@@ -28,8 +28,7 @@ export default class GroundMaterial extends MeshPhongMaterial
   }
 
   private updateDefaultFragmentShader (shader: Shader): void {
-    shader.fragmentShader = `
-    ${fragPars}
+    shader.fragmentShader = `${fragPars}
     ${shader.fragmentShader.replace(
       '#include <output_fragment>', `
       ${fragment}`
@@ -45,7 +44,7 @@ export default class GroundMaterial extends MeshPhongMaterial
     this.needsUpdate = true;
   }
 
-  public set size (cellSize: number) {
-    this.cellSize.value = cellSize;
+  public set cell (size: number) {
+    this.cellSize.value = size;
   }
 }

@@ -1,6 +1,6 @@
 import type { Vector3 } from 'three/src/math/Vector3';
-import type MainScene from './MainScene';
 import { Config } from './Config';
+import type Playground from './';
 import GUI from 'lil-gui';
 
 export default class GUIControls
@@ -9,7 +9,7 @@ export default class GUIControls
   private readonly cameraPosition = Config.Camera.position.clone();
   private readonly cameraTarget = Config.Camera.target.clone();
 
-  public constructor (private readonly main: MainScene) {
+  public constructor (private readonly main: Playground) {
     this.createSceneControls();
     this.createCameraControls();
     this.createLightsControls();
@@ -89,21 +89,98 @@ export default class GUIControls
     const groundFolder = this.gui.addFolder('Ground');
     const ground = { ...Config.Ground };
 
-    groundFolder.addColor(ground, 'color').name('Color').onChange((color: number) =>
-      this.main.groundColor = color
+    groundFolder.addColor(ground, 'color').name('Color').onChange(() =>
+      this.main.updateGround(ground)
     );
 
-    groundFolder.add(ground, 'scale', 1, 1e3).name('Size').onChange((size: number) =>
-      this.main.groundSize = size / 500.0
+    groundFolder.add(ground, 'size', 1, 1e3).name('Size').onChange(() =>
+      this.main.updateGround(ground)
     );
 
-    groundFolder.add(ground, 'cell', 2, 1e2).name('Cell').onChange((cell: number) =>
-      this.main.cellSize = cell
+    groundFolder.add(ground, 'cell', 2, 1e2).name('Cell').onChange(() =>
+      this.main.updateGround(ground)
     ).step(2);
   }
 
   private createLightsControls (): void {
-    /* const lightsFolder = */ this.gui.addFolder('Lights');
+    const ambient = { ...Config.Lights.ambient };
+    const lightsFolder = this.gui.addFolder('Lights');
+    const directional = { ...Config.Lights.directional };
+
+    const ambientFolder = lightsFolder.addFolder('Ambient');
+    const directionalFolder = lightsFolder.addFolder('Directional');
+
+    ambientFolder.addColor(ambient, 'color').name('Color').onChange(() =>
+      this.main.updateAmbient(ambient)
+    );
+
+    ambientFolder.add(ambient, 'intensity', 0.0, 1.0).name('Intensity').onChange(() =>
+      this.main.updateAmbient(ambient)
+    );
+
+    directionalFolder.addColor(directional, 'color').name('Color').onChange(() =>
+      this.main.updateDirectional(directional)
+    );
+
+    directionalFolder.add(directional, 'intensity', 0.0, 1.0).name('Intensity').onChange(() =>
+      this.main.updateDirectional(directional)
+    );
+
+    directionalFolder.add(directional.shadow, 'cast').name('Cast Shadow').onChange(() =>
+      this.main.updateDirectional(directional)
+    );
+
+    const position = directionalFolder.addFolder('Position');
+
+    position.add(directional.position, 'x').onChange(() =>
+      this.main.updateDirectional(directional)
+    ).decimals(3);
+
+    position.add(directional.position, 'y').onChange(() =>
+      this.main.updateDirectional(directional)
+    ).decimals(3);
+
+    position.add(directional.position, 'z').onChange(() =>
+      this.main.updateDirectional(directional)
+    ).decimals(3);
+
+    const shadowFolder = directionalFolder.addFolder('Shadow');
+
+    const cameraFolder = shadowFolder.addFolder('Camera');
+
+    cameraFolder.add(directional.shadow.camera, 'top').onChange(() =>
+      this.main.updateDirectional(directional)
+    ).decimals(3);
+
+    cameraFolder.add(directional.shadow.camera, 'right').onChange(() =>
+      this.main.updateDirectional(directional)
+    ).decimals(3);
+
+    cameraFolder.add(directional.shadow.camera, 'bottom').onChange(() =>
+      this.main.updateDirectional(directional)
+    ).decimals(3);
+
+    cameraFolder.add(directional.shadow.camera, 'left').onChange(() =>
+      this.main.updateDirectional(directional)
+    ).decimals(3);
+
+    cameraFolder.add(directional.shadow.camera, 'near').onChange(() =>
+      this.main.updateDirectional(directional)
+    ).decimals(3);
+
+    cameraFolder.add(directional.shadow.camera, 'far').onChange(() =>
+      this.main.updateDirectional(directional)
+    ).decimals(3);
+
+    const mapSize = shadowFolder.addFolder('Map Size');
+
+    mapSize.add(directional.shadow.mapSize, 'x').onChange(() =>
+      this.main.updateDirectional(directional)
+    ).decimals(3);
+
+    mapSize.add(directional.shadow.mapSize, 'y').onChange(() =>
+      this.main.updateDirectional(directional)
+    ).decimals(3);
   }
 
   private createFogControls (): void {

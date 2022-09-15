@@ -4,7 +4,7 @@ import { createSignal } from 'solid-js';
 import type { AppProps } from './types.d';
 import { Logo, Version } from '@/components';
 
-export default ({ root }: AppProps) =>
+export const App = ({ root }: AppProps) =>
 {
   const scene = new Playground().domElement;
   const [visibleLogo, setVisibleLogo] = createSignal(true);
