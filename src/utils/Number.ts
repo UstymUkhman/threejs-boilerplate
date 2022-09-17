@@ -13,3 +13,8 @@ export const toFixed = (value: number, mantissa = 2) => {
   const pow10 = Math.pow(10, mantissa);
   return ~~(pow10 * value) / pow10;
 };
+
+export const PHI = Math.sqrt(5.0) * 0.5 + 0.5;
+
+export const DELTA_UPDATE = 1.0 / 0.06;
+export const DELTA_FRAME = 1.0 / 60.0;
