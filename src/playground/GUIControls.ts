@@ -1,11 +1,11 @@
 import type { Vector3 } from 'three/src/math/Vector3';
-import { Config } from './Config';
-import type Playground from './';
+import { Config } from '@/playground/Config';
+import type Playground from '@/playground';
 import GUI from 'lil-gui';
 
 export default class GUIControls
 {
-  private readonly gui = new GUI({ width: 245, injectStyles: true });
+  private readonly gui = new GUI({ width: 245.0, injectStyles: true });
   private readonly cameraPosition = Config.Camera.position.clone();
   private readonly cameraTarget = Config.Camera.target.clone();
 
@@ -15,16 +15,12 @@ export default class GUIControls
     this.createLightsControls();
     this.createGroundControls();
     this.createFogControls();
+    this.gui.close();
   }
 
   private createSceneControls (): void {
-    const sceneFolder = this.gui.addFolder('Scene');
-
-    const scene = {
-      color: Config.Background,
-      controls: true,
-      pause: false
-    };
+    const sceneFolder = this.gui.addFolder('Scene').close();
+    const scene = { color: Config.Background, controls: true, pause: false };
 
     sceneFolder.addColor(scene, 'color').name('Background').onChange((color: number) =>
       this.main.background = color
@@ -41,8 +37,8 @@ export default class GUIControls
   }
 
   private createCameraControls (): void {
-    const cameraFolder = this.gui.addFolder('Camera');
     const camera = { ...Config.Camera };
+    const cameraFolder = this.gui.addFolder('Camera').close();
 
     cameraFolder.add(camera, 'fov', 1.0, 100.0).name('Field of View').onChange(() =>
       this.main.updateCamera(camera)
@@ -56,7 +52,7 @@ export default class GUIControls
       this.main.updateCamera(camera)
     );
 
-    const position = cameraFolder.addFolder('Position');
+    const position = cameraFolder.addFolder('Position').close();
 
     position.add(this.cameraPosition, 'x').onChange(() =>
       this.main.updateCameraPosition(this.cameraPosition, this.cameraTarget)
@@ -70,7 +66,7 @@ export default class GUIControls
       this.main.updateCameraPosition(this.cameraPosition, this.cameraTarget)
     ).decimals(3).listen();
 
-    const target = cameraFolder.addFolder('Target');
+    const target = cameraFolder.addFolder('Target').close();
 
     target.add(this.cameraTarget, 'x').onChange(() =>
       this.main.updateCameraPosition(this.cameraPosition, this.cameraTarget)
@@ -86,8 +82,8 @@ export default class GUIControls
   }
 
   private createGroundControls (): void {
-    const groundFolder = this.gui.addFolder('Ground');
     const ground = { ...Config.Ground };
+    const groundFolder = this.gui.addFolder('Ground').close();
 
     groundFolder.addColor(ground, 'color').name('Color').onChange(() =>
       this.main.updateGround(ground)
@@ -104,11 +100,11 @@ export default class GUIControls
 
   private createLightsControls (): void {
     const ambient = { ...Config.Lights.ambient };
-    const lightsFolder = this.gui.addFolder('Lights');
     const directional = { ...Config.Lights.directional };
 
-    const ambientFolder = lightsFolder.addFolder('Ambient');
-    const directionalFolder = lightsFolder.addFolder('Directional');
+    const lightsFolder = this.gui.addFolder('Lights').close();
+    const ambientFolder = lightsFolder.addFolder('Ambient').close();
+    const directionalFolder = lightsFolder.addFolder('Directional').close();
 
     ambientFolder.addColor(ambient, 'color').name('Color').onChange(() =>
       this.main.updateAmbient(ambient)
@@ -130,7 +126,11 @@ export default class GUIControls
       this.main.updateDirectional(directional)
     );
 
-    const position = directionalFolder.addFolder('Position');
+    directionalFolder.add(directional.helper, 'visible').name('Helper').onChange(() =>
+      this.main.updateDirectional(directional)
+    );
+
+    const position = directionalFolder.addFolder('Position').close();
 
     position.add(directional.position, 'x').onChange(() =>
       this.main.updateDirectional(directional)
@@ -144,9 +144,22 @@ export default class GUIControls
       this.main.updateDirectional(directional)
     ).decimals(3);
 
-    const shadowFolder = directionalFolder.addFolder('Shadow');
+    const rotation = directionalFolder.addFolder('Rotation').close();
 
-    const cameraFolder = shadowFolder.addFolder('Camera');
+    rotation.add(directional.rotation, 'x').onChange(() =>
+      this.main.updateDirectional(directional)
+    ).decimals(3);
+
+    rotation.add(directional.rotation, 'y').onChange(() =>
+      this.main.updateDirectional(directional)
+    ).decimals(3);
+
+    rotation.add(directional.rotation, 'z').onChange(() =>
+      this.main.updateDirectional(directional)
+    ).decimals(3);
+
+    const shadowFolder = directionalFolder.addFolder('Shadow').close();
+    const cameraFolder = shadowFolder.addFolder('Camera').close();
 
     cameraFolder.add(directional.shadow.camera, 'top').onChange(() =>
       this.main.updateDirectional(directional)
@@ -172,7 +185,7 @@ export default class GUIControls
       this.main.updateDirectional(directional)
     ).decimals(3);
 
-    const mapSize = shadowFolder.addFolder('Map Size');
+    const mapSize = shadowFolder.addFolder('Map Size').close();
 
     mapSize.add(directional.shadow.mapSize, 'x').onChange(() =>
       this.main.updateDirectional(directional)
@@ -184,8 +197,8 @@ export default class GUIControls
   }
 
   private createFogControls (): void {
-    const fogFolder = this.gui.addFolder('Fog');
     const fog = { ...Config.Fog };
+    const fogFolder = this.gui.addFolder('Fog').close();
 
     fogFolder.addColor(fog, 'color').name('Color').onChange(() =>
       this.main.updateFog(fog)

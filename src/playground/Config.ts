@@ -1,5 +1,6 @@
 import { Vector2 } from 'three/src/math/Vector2';
 import { Vector3 } from 'three/src/math/Vector3';
+import { Euler } from 'three/src/math/Euler';
 import { Color } from '@/utils/Color';
 
 export namespace Config
@@ -28,7 +29,8 @@ export namespace Config
     },
 
     directional: {
-      position: new Vector3(-5.0, 10.0, 15.0),
+      position: new Vector3(-15.0, 25.0, 50.0),
+      rotation: new Euler(0.785, 0.0, 0.25),
       color: Color.WHITE,
       intensity: 1.0,
 
@@ -44,6 +46,12 @@ export namespace Config
           far: 50.0,
           top: 15.0
         }
+      },
+
+      helper: {
+        color: Color.WHITE,
+        visible: true,
+        size: 10.0
       }
     }
   };

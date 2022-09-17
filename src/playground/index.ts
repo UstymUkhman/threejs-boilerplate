@@ -1,3 +1,4 @@
+import { DirectionalLightHelper } from 'three/src/helpers/DirectionalLightHelper';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera';
 import { PCFSoftShadowMap, sRGBEncoding } from 'three/src/constants';
@@ -24,6 +25,7 @@ export default class Playground
 {
   private readonly groundSize = Config.Ground.size;
 
+  private helper!: DirectionalLightHelper;
   private directional!: DirectionalLight;
   private orbitControls!: OrbitControls;
   private camera!: PerspectiveCamera;
@@ -66,12 +68,15 @@ export default class Playground
 
   private createLights (): void {
     const { ambient, directional } = Config.Lights;
+
     this.ambient = new AmbientLight(ambient.color, ambient.intensity);
     this.directional = new DirectionalLight(directional.color, directional.intensity);
+    this.helper = new DirectionalLightHelper(this.directional, directional.helper.size, directional.helper.color);
 
     this.updateDirectional(directional);
     this.scene.add(this.directional);
     this.scene.add(this.ambient);
+    this.scene.add(this.helper);
   }
 
   private createGround (): void {
@@ -170,9 +175,11 @@ export default class Playground
 
   public updateDirectional (directional: typeof Config.Lights.directional): void {
     const { bottom, right, left, top, near, far } = directional.shadow.camera;
-    const { color, intensity, position, shadow } = directional;
+    const { color, intensity, position, rotation, shadow } = directional;
 
     this.directional.shadow.mapSize.copy(shadow.mapSize);
+    this.helper.visible = directional.helper.visible;
+
     this.directional.shadow.camera.bottom = bottom;
     this.directional.shadow.camera.right = right;
     this.directional.shadow.camera.left = left;
@@ -183,6 +190,7 @@ export default class Playground
     this.directional.shadow.camera.far = far;
 
     this.directional.position.copy(position);
+    this.directional.rotation.copy(rotation);
     this.directional.intensity = intensity;
     this.directional.color.set(color);
   }

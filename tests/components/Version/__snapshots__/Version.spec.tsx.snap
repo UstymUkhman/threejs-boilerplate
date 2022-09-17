@@ -1,3 +1,3 @@
 // Vitest Snapshot v1
 
-exports[`<Version /> > Render 1`] = `"<aside class=\\"_version_2c80ef\\">v2.0.0</aside>"`;
+exports[`<Version /> > Render 1`] = `"<aside class=\\"_version_2c80ef\\">v3.0.0</aside>"`;
