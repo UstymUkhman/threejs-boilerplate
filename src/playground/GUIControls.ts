@@ -5,7 +5,7 @@ import GUI from 'lil-gui';
 
 export default class GUIControls
 {
-  private readonly gui = new GUI({ width: 245.0, injectStyles: true });
+  private readonly gui = new GUI({ width: 250.0, injectStyles: true });
   private readonly cameraPosition = Config.Camera.position.clone();
   private readonly cameraTarget = Config.Camera.target.clone();
 

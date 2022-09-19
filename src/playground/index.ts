@@ -20,10 +20,12 @@ import Viewport from '@/utils/Viewport';
 import { Color } from '@/utils/Color';
 import { PI } from '@/utils/Number';
 import { Config } from './Config';
+import RAF from '@/utils/RAF';
 
 export default class Playground
 {
   private readonly groundSize = Config.Ground.size;
+  private readonly update = this.render.bind(this);
 
   private helper!: DirectionalLightHelper;
   private directional!: DirectionalLight;
@@ -35,10 +37,8 @@ export default class Playground
   private ambient!: AmbientLight;
   private scene = new Scene();
 
-  private paused = false;
   private ground!: Mesh;
   private stats?: Stats;
-  private raf: number;
 
   public constructor () {
     this.createScene();
@@ -50,8 +50,8 @@ export default class Playground
     this.createControls();
     this.createStats();
 
-    Viewport.addResizeCallback(this.resize.bind(this));
-    this.raf = requestAnimationFrame(this.render.bind(this));
+    RAF.add(this.update);
+    RAF.pause = false;
   }
 
   private createScene (): void {
@@ -107,6 +107,9 @@ export default class Playground
   private createControls (): void {
     this.orbitControls = new OrbitControls(this.camera, this.domElement);
     this.orbitControls.target.copy(Config.Camera.target);
+
+    Viewport.addResizeCallback(this.resize.bind(this));
+
     this.guiControls = new GUIControls(this);
     this.orbitControls.update();
   }
@@ -126,28 +129,25 @@ export default class Playground
     this.renderer.setSize(width, height);
   }
 
-  public render (): void {
+  private render (): void {
     this.stats?.begin();
 
-    if (!this.paused) {
-      this.orbitControls.update();
-      this.renderer.render(this.scene, this.camera);
-      this.guiControls.update(this.camera.position, this.orbitControls.target);
-    }
+    this.orbitControls.update();
+    this.renderer.render(this.scene, this.camera);
+    this.guiControls.update(this.camera.position, this.orbitControls.target);
 
-    this.raf = requestAnimationFrame(this.render.bind(this));
     this.stats?.end();
   }
 
   public destroy (): void {
     this.renderer.domElement.remove();
     this.stats?.domElement.remove();
-    cancelAnimationFrame(this.raf);
-
     this.orbitControls.dispose();
     this.guiControls.dispose();
+
     this.renderer.dispose();
     this.scene.clear();
+    RAF.dispose();
   }
 
   public get domElement (): HTMLCanvasElement {
@@ -164,7 +164,7 @@ export default class Playground
 
   public set pause (paused: boolean) {
     this.controls = !paused;
-    this.paused = paused;
+    RAF.pause = paused;
   }
 
   public updateAmbient (ambient: typeof Config.Lights.ambient): void {

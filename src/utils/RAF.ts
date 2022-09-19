@@ -1,6 +1,6 @@
 type Callback = (delta?: number) => void;
 
-class RequestAnimationFrame
+class RAF
 {
   private raf!: number;
   private paused = true;
@@ -37,4 +37,4 @@ class RequestAnimationFrame
   }
 }
 
-export default new RequestAnimationFrame();
+export default new RAF();

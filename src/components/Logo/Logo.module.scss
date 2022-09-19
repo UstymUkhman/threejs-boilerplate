@@ -37,6 +37,22 @@
     color: var.$dark;
     font-size: 20px;
   }
+
+  @media only screen and (max-width: 767px) {
+    padding: 20px 25px;
+    max-width: 300px;
+
+    height: 40px;
+    width: 90vw;
+
+    img {
+      max-width: 40px;
+    }
+
+    h1 {
+      font-size: 16px;
+    }
+  }
 }
 
 @keyframes fade-out {
