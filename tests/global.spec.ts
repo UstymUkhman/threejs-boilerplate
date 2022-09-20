@@ -1,7 +1,7 @@
 import { version } from '../package.json';
 import { describe, test, expect } from 'vitest';
 
-describe('Constants', () => {
+describe('Global', () => {
   test('VERSION', () => {
     expect(VERSION).toStrictEqual(version);
   });

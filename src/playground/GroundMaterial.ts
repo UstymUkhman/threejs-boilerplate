@@ -2,10 +2,10 @@ import type { MeshPhongMaterialParameters } from 'three/src/materials/MeshPhongM
 import { MeshPhongMaterial } from 'three/src/materials/MeshPhongMaterial';
 import type { Shader } from 'three/src/renderers/shaders/ShaderLib';
 
-import fragPars from '@/shaders/ground/pars.frag';
-import vertPars from '@/shaders/ground/pars.vert';
-import fragment from '@/shaders/ground/main.frag';
-import vertex from '@/shaders/ground/main.vert';
+import parsVert from '@/shaders/ground/pars.vert';
+import mainVert from '@/shaders/ground/main.vert';
+import parsFrag from '@/shaders/ground/pars.frag';
+import mainFrag from '@/shaders/ground/main.frag';
 
 import { Config } from '@/playground/Config';
 
@@ -19,19 +19,19 @@ export default class GroundMaterial extends MeshPhongMaterial
   }
 
   private updateDefaultVertexShader (shader: Shader): void {
-    shader.vertexShader = `${vertPars}
+    shader.vertexShader = `${parsVert}
     ${shader.vertexShader.replace(
       'void main() {',
       `void main() {
-        ${vertex}`
+        ${mainVert}`
     )}`;
   }
 
   private updateDefaultFragmentShader (shader: Shader): void {
-    shader.fragmentShader = `${fragPars}
+    shader.fragmentShader = `${parsFrag}
     ${shader.fragmentShader.replace(
       '#include <output_fragment>', `
-      ${fragment}`
+      ${mainFrag}`
     )}`;
   }
 
