@@ -135,8 +135,8 @@ export default (event: LegacyWheelEvent) => {
   pX = sX * PIXEL_STEP;
   pY = sY * PIXEL_STEP;
 
-  if (event.deltaY) pY = event.deltaY;
   if (event.deltaX) pX = event.deltaX;
+  if (event.deltaY) pY = event.deltaY;
 
   if ((pX || pY) && event.deltaMode) {
     if (event.deltaMode === 1.0) {
