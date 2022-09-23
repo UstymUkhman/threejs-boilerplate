@@ -1,5 +1,19 @@
+import {
+  smoothstep,
+  mix,
+  map,
+  randomInt,
+  clamp,
+  random,
+  lerp,
+  PI,
+  toFixed,
+  PHI,
+  DELTA_UPDATE,
+  DELTA_FRAME
+} from '@/utils/Number';
+
 import { describe, test, expect } from 'vitest';
-import { smoothstep, mix, map, randomInt, clamp, random, lerp, toFixed, PI } from '@/utils/Number';
 
 describe('Number', () => {
   test('smoothstep', () => {
@@ -46,15 +60,27 @@ describe('Number', () => {
     expect(lerp(1, 2, 1)).toStrictEqual(2);
   });
 
+  test('PI', () => {
+    expect(PI.m2).toStrictEqual(Math.PI * 2);
+    expect(PI.d2).toStrictEqual(Math.PI / 2);
+    expect(Object.isFrozen(PI)).toStrictEqual(true);
+  });
+
   test('toFixed', () => {
     expect(toFixed(12)).toStrictEqual(12);
     expect(toFixed(1.123456789)).toStrictEqual(1.12);
     expect(toFixed(-0.987654321, 3)).toStrictEqual(-0.987);
   });
 
-  test('PI', () => {
-    expect(PI.m2).toStrictEqual(Math.PI * 2);
-    expect(PI.d2).toStrictEqual(Math.PI / 2);
-    expect(Object.isFrozen(PI)).toStrictEqual(true);
+  test('PHI', () => {
+    expect(PHI).toBeCloseTo(1.618, 3);
+  });
+
+  test('DELTA_UPDATE', () => {
+    expect(DELTA_UPDATE).toBeCloseTo(16.667, 3);
+  });
+
+  test('DELTA_FRAME', () => {
+    expect(DELTA_FRAME).toBeCloseTo(0.017, 3);
   });
 });

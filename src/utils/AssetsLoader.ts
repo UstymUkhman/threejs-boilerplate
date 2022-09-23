@@ -23,7 +23,7 @@ export namespace Assets
   type Assets = Texture | CubeTexture | GLTFModel | AudioBuffer;
   type Reject = (error: ErrorEvent) => void;
 
-  export interface Callbacks {
+  type Callbacks = {
     onProgress: (event: ProgressEvent<EventTarget>) => void;
     onLoad: (asset: Assets) => void;
     onError: Reject;

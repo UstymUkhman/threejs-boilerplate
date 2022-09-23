@@ -1,66 +1,50 @@
 import { Assets } from '@/utils/AssetsLoader';
-// import { Group } from 'three/src/objects/Group';
-// import { RGBAFormat } from 'three/src/constants';
-
+import { RGBAFormat } from 'three/src/constants';
 import { describe, test, expect, vi } from 'vitest';
-// import { Texture } from 'three/src/textures/Texture';
-// import { CubeTexture } from 'three/src/textures/CubeTexture';
+import { CubeTexture } from 'three/src/textures/CubeTexture';
 import { LoadingManager } from 'three/src/loaders/LoadingManager';
 
 describe('AssetsLoader', () => {
   const loader = new Assets.Loader();
+
+  Object.assign(loader, {
+    getPromiseCallbacks: (
+      resolve: (asset?: unknown | PromiseLike<unknown>) => void,
+      reject: (error: ErrorEvent) => void
+    ) => ({
+      onLoad: (asset: unknown) => {
+        if (asset instanceof CubeTexture) {
+          asset.format = RGBAFormat;
+        }
+
+        resolve(asset);
+      },
+
+      onProgress: vi.fn,
+      onError: (error: ErrorEvent) => reject(error)
+    })
+  });
 
   test('Create', () => {
     expect(Assets.Loader).toBeDefined();
     expect(loader).toBeInstanceOf(LoadingManager);
   });
 
-  /* test('getPromiseCallbacks', () => {
-    const loaderPrototype = Object.getPrototypeOf(loader);
-    const getPromiseCallbacks = vi.fn(loaderPrototype.getPromiseCallbacks.bind(loader));
+  test.fails('loadCubeTexture', async () => {
+    await expect(loader.loadCubeTexture('')).rejects.toBe(Error);
+  }, 500);
 
-    new Promise((resolve, reject) => {
-      const callbacks = getPromiseCallbacks(resolve, reject) as Assets.Callbacks;
-      expect(callbacks.onLoad(new CubeTexture())).toHaveReturnedWith(undefined);
-    }).then(asset => {
-      expect(asset).toBeInstanceOf(CubeTexture);
-      expect((asset as CubeTexture).format).toStrictEqual(RGBAFormat);
-    });
+  test.fails('loadTexture', async () => {
+    await expect(loader.loadTexture('')).rejects.toBe(Error);
+  }, 500);
 
-    new Promise((resolve, reject) => {
-      const callbacks = getPromiseCallbacks(resolve, reject) as Assets.Callbacks;
-      expect(callbacks.onProgress(new ProgressEvent('loading'))).toHaveReturnedWith(undefined);
-    });
+  test.fails('loadGLTF', async () => {
+    await expect(loader.loadGLTF('')).rejects.toBe(Error);
+  }, 500);
 
-    new Promise((resolve, reject) => {
-      const error = new ErrorEvent('loading');
-      const callbacks = getPromiseCallbacks(resolve, reject) as Assets.Callbacks;
-      expect(callbacks.onError(error)).rejects.toStrictEqual(error);
-    });
-  }); */
-
-  /* test('loadCubeTexture', async () => {
-    const cubeTexture = await loader.loadCubeTexture('');
-    expect(cubeTexture).toBeInstanceOf(CubeTexture);
-    expect(cubeTexture.images.length).toStrictEqual(6);
-  }); */
-
-  /* test('loadTexture', async () => {
-    const texture = await loader.loadTexture('');
-    expect(texture).toBeInstanceOf(Texture);
-    expect(texture.image).toBeInstanceOf(Image);
-  }); */
-
-  /* test('loadGLTF', async () => {
-    const model = await loader.loadGLTF('');
-    expect(model.scene).toBeInstanceOf(Group);
-    expect(model).toEqual({ scene: new Group() });
-  }); */
-
-  /* test('loadAudio', async () => {
-    const audio = await loader.loadAudio('');
-    expect(audio).toBeInstanceOf(AudioBuffer);
-  }); */
+  test.fails('loadAudio', async () => {
+    await expect(loader.loadAudio('')).rejects.toBe(Error);
+  }, 500);
 
   test('onProgress', () => {
     const onProgress = vi.fn(loader.onProgress);
