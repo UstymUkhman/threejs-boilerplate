@@ -2,7 +2,7 @@ import { MeshPhongMaterial } from 'three/src/materials/MeshPhongMaterial';
 import GroundMaterial from '@/playground/GroundMaterial';
 import { describe, test, expect, vi } from 'vitest';
 
-interface PublicGroundMaterial {
+export interface PublicGroundMaterial {
   cellSize: { value: number };
   set cell (size: number);
 }

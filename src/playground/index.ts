@@ -8,18 +8,18 @@ import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer';
 import type { Color as ThreeColor } from 'three/src/math/Color';
 import { AmbientLight } from 'three/src/lights/AmbientLight';
 import Stats from 'three/examples/jsm/libs/stats.module';
-import type { Vector3 } from 'three/src/math/Vector3';
+import GroundMaterial from '@/playground/GroundMaterial';
 
+import type { Vector3 } from 'three/src/math/Vector3';
+import GUIControls from '@/playground/GUIControls';
 import { DoubleSide } from 'three/src/constants';
 import { Scene } from 'three/src/scenes/Scene';
-import GroundMaterial from './GroundMaterial';
 import { Mesh } from 'three/src/objects/Mesh';
+import { Config } from '@/playground/Config';
 import { Fog } from 'three/src/scenes/Fog';
-import GUIControls from './GUIControls';
 import Viewport from '@/utils/Viewport';
 import { Color } from '@/utils/Color';
 import { PI } from '@/utils/Number';
-import { Config } from './Config';
 import RAF from '@/utils/RAF';
 
 export default class Playground

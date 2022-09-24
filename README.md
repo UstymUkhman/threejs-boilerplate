@@ -2,17 +2,15 @@
 
 *[Three.js](https://threejs.org/) + [TypeScript](https://www.typescriptlang.org/) + [SolidJS](https://www.solidjs.com/) + [Vite](https://vitejs.dev/) + [Vitest](https://vitest.dev/)*
 
-![](https://img.shields.io/github/package-json/dependency-version/UstymUkhman/threejs-boilerplate/animejs?style=flat-square)
-![](https://img.shields.io/github/package-json/dependency-version/UstymUkhman/threejs-boilerplate/solid-js?style=flat-square)
 ![](https://img.shields.io/github/package-json/dependency-version/UstymUkhman/threejs-boilerplate/three?style=flat-square)
-
-<!-- ![](https://img.shields.io/github/release-date/UstymUkhman/threejs-boilerplate?color=yellow&style=flat-square) -->
-<!-- ![](https://img.shields.io/github/commit-activity/m/UstymUkhman/threejs-boilerplate?style=flat-square) -->
-<!-- ![](https://img.shields.io/github/last-commit/UstymUkhman/threejs-boilerplate?style=flat-square) -->
+![](https://img.shields.io/github/package-json/dependency-version/UstymUkhman/threejs-boilerplate/dev/typescript?style=flat-square)
+![](https://img.shields.io/github/package-json/dependency-version/UstymUkhman/threejs-boilerplate/solid-js?style=flat-square)
+![](https://img.shields.io/github/package-json/dependency-version/UstymUkhman/threejs-boilerplate/dev/vite?style=flat-square)
+![](https://img.shields.io/github/package-json/dependency-version/UstymUkhman/threejs-boilerplate/dev/vitest?style=flat-square)
 
 ![](https://img.shields.io/github/deployments/UstymUkhman/threejs-boilerplate/github-pages?style=flat-square)
-![](https://img.shields.io/github/repo-size/UstymUkhman/threejs-boilerplate?style=flat-square)
-![](https://img.shields.io/badge/coverage-99.2%25-green?style=flat-square)
+![](https://img.shields.io/github/repo-size/UstymUkhman/threejs-boilerplate?color=green&style=flat-square)
+![](https://img.shields.io/badge/coverage-98.5%25-green?style=flat-square)
 ![](https://img.shields.io/github/package-json/v/UstymUkhman/threejs-boilerplate?color=brightgreen&style=flat-square)
 ![](https://img.shields.io/github/license/UstymUkhman/threejs-boilerplate?color=brightgreen&style=flat-square)
 
