@@ -23,7 +23,7 @@ specifiers:
   three: ^0.145.0
   typescript: ^4.8.4
   vite: ^3.1.7
-  vite-plugin-glsl: ^0.4.0
+  vite-plugin-glsl: ^0.5.1
   vite-plugin-solid: ^2.3.9
   vitest: ^0.24.1
 
@@ -52,7 +52,7 @@ devDependencies:
   stylelint-config-standard: 28.0.0_stylelint@14.13.0
   typescript: 4.8.4
   vite: 3.1.7_sass@1.55.0
-  vite-plugin-glsl: 0.4.0
+  vite-plugin-glsl: 0.5.1_vite@3.1.7
   vite-plugin-solid: 2.3.9_solid-js@1.5.7+vite@3.1.7
   vitest: 0.24.1_jsdom@20.0.1+sass@1.55.0
 
@@ -3167,11 +3167,14 @@ packages:
       - terser
     dev: true
 
-  /vite-plugin-glsl/0.4.0:
-    resolution: {integrity: sha512-Q+g008AWOGOm1Ng63A2YoLEUkONFRNtzwTmK0mgL2V9Pf/omsd2TSrRHCVXa24CmEAxT1VtV5nH2+u/uCNTR9Q==}
+  /vite-plugin-glsl/0.5.1_vite@3.1.7:
+    resolution: {integrity: sha512-r4zKN8dlOVIB30whl4rlGgiUTnDk4DHDpDMfUwAERkkoJVf7yXqiNCcGCe4SRgi/GLekAyP4ShW4dSyfycvwfA==}
     engines: {node: '>= 14.18.0', npm: '>= 6.14.17'}
+    peerDependencies:
+      vite: ^3.0.0
     dependencies:
       '@rollup/pluginutils': 4.2.1
+      vite: 3.1.7_sass@1.55.0
     dev: true
 
   /vite-plugin-solid/2.3.9_solid-js@1.5.7+vite@3.1.7:
