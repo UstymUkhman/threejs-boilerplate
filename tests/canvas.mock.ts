@@ -1,6 +1,11 @@
+/// <reference types="./canvas.mock" />
 import { afterAll, vi } from 'vitest';
 
-global.jest = vi;
+type GlobalTest = typeof globalThis & {
+  jest?: typeof vi
+};
+
+(global as GlobalTest).jest = vi;
 
 import getCanvasWindow from 'jest-canvas-mock/lib/window';
 const canvasWindow = getCanvasWindow({ document: window.document });
@@ -22,4 +27,4 @@ apis.forEach(api => {
   global.window[api] = canvasWindow[api];
 });
 
-afterAll(() => { delete global.jest; });
+afterAll(() => { delete (global as GlobalTest).jest; });

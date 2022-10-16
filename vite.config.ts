@@ -1,12 +1,10 @@
-/// <reference types="vitest" />
-
 import { resolve } from 'path';
+import { defineConfig } from 'vite';
 import glsl from 'vite-plugin-glsl';
 import solid from 'vite-plugin-solid';
 import { version } from './package.json';
-import { UserConfigExport, defineConfig } from 'vite';
 
-export default ({ mode }: { mode: string }): UserConfigExport =>
+export default ({ mode }: { mode: string }) =>
   defineConfig({
     base: './',
     plugins: [solid(), glsl()],
@@ -24,14 +22,6 @@ export default ({ mode }: { mode: string }): UserConfigExport =>
     define: {
       DEBUG: mode !== 'production' && false,
       VERSION: JSON.stringify(version)
-    },
-
-    test: {
-      setupFiles: ['vitest-canvas-mock.ts'],
-      transformMode: { web: [/.[jt]sx?/] },
-      deps: { inline: [/solid-js/] },
-      environment: 'jsdom',
-      isolate: false
     },
 
     css: {
