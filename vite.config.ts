@@ -9,7 +9,7 @@ export default ({ mode }: { mode: string }) =>
     base: './',
     plugins: [solid(), glsl()],
     build: { target: 'esnext' },
-    assetsInclude: ['fbx', 'glb', 'gltf'],
+    assetsInclude: ['**/*.fbx', '**/*.glb', '**/*.gltf'],
 
     resolve: {
       alias: {
