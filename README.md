@@ -14,7 +14,7 @@
 ![](https://img.shields.io/github/package-json/v/UstymUkhman/threejs-boilerplate?color=brightgreen&style=flat-square)
 ![](https://img.shields.io/github/license/UstymUkhman/threejs-boilerplate?color=brightgreen&style=flat-square)
 
-[![](./public/img/preview.jpg)](https://ustymukhman.github.io/threejs-boilerplate/dist)
+[![](./public/assets/images/preview.jpg)](https://ustymukhman.github.io/threejs-boilerplate/dist)
 
 ## Download ##
 

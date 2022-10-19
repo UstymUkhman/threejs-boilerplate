@@ -11,17 +11,17 @@ export default ({ mode }: { mode: string }) =>
     build: { target: 'esnext' },
     assetsInclude: ['**/*.fbx', '**/*.glb', '**/*.gltf'],
 
-    resolve: {
-      alias: {
-        '@assets': resolve(__dirname, 'src/assets'),
-        '@scss': resolve(__dirname, 'src/scss'),
-        '@': resolve(__dirname, 'src')
-      }
-    },
-
     define: {
       DEBUG: mode !== 'production' && false,
       VERSION: JSON.stringify(version)
+    },
+
+    resolve: {
+      alias: {
+        '@assets': resolve('src/assets'),
+        '@scss': resolve('src/scss'),
+        '@': resolve('src')
+      }
     },
 
     css: {
