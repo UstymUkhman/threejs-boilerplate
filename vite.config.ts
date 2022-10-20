@@ -8,7 +8,6 @@ export default ({ mode }: { mode: string }) =>
   defineConfig({
     base: './',
     plugins: [solid(), glsl()],
-    build: { target: 'esnext' },
     assetsInclude: ['**/*.fbx', '**/*.glb', '**/*.gltf'],
 
     define: {
@@ -28,6 +27,11 @@ export default ({ mode }: { mode: string }) =>
       modules: {
         localsConvention: 'camelCaseOnly'
       }
+    },
+
+    build: {
+      target: 'esnext',
+      sourcemap: true
     },
 
     server: {
