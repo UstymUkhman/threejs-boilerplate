@@ -6,8 +6,8 @@ export default mergeConfig(
   viteConfig({ mode: 'test' }),
   defineConfig({
     test: {
+      transformMode: { web: [/\.[jt]sx?$/] },
       setupFiles: ['tests/canvas.mock.ts'],
-      transformMode: { web: [/.[jt]sx?/] },
       deps: { inline: [/solid-js/] },
       environment: 'jsdom',
       isolate: false
