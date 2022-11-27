@@ -1,6 +1,6 @@
 import { Logo } from '@/components';
-import { render } from 'solid-testing-library';
 import { describe, expect, test } from 'vitest';
+import { render } from '@solidjs/testing-library';
 
 describe('<Logo />', () => {
   test('Render', () => {

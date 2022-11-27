@@ -9,10 +9,10 @@
 ![](https://img.shields.io/github/package-json/dependency-version/UstymUkhman/threejs-boilerplate/dev/vitest?style=flat-square)
 
 ![](https://img.shields.io/github/deployments/UstymUkhman/threejs-boilerplate/github-pages?style=flat-square)
-![](https://img.shields.io/github/repo-size/UstymUkhman/threejs-boilerplate?color=green&style=flat-square)
-![](https://img.shields.io/badge/coverage-98.5%25-green?style=flat-square)
-![](https://img.shields.io/github/package-json/v/UstymUkhman/threejs-boilerplate?color=brightgreen&style=flat-square)
-![](https://img.shields.io/github/license/UstymUkhman/threejs-boilerplate?color=brightgreen&style=flat-square)
+![](https://img.shields.io/github/repo-size/UstymUkhman/threejs-boilerplate?color=yellowgreen&style=flat-square)
+![](https://img.shields.io/badge/coverage-97.27%25-yellow?style=flat-square)
+![](https://img.shields.io/github/package-json/v/UstymUkhman/threejs-boilerplate?color=orange&style=flat-square)
+![](https://img.shields.io/github/license/UstymUkhman/threejs-boilerplate?color=lightgrey&style=flat-square)
 
 [![](./public/assets/images/preview.jpg)](https://ustymukhman.github.io/threejs-boilerplate/dist)
 

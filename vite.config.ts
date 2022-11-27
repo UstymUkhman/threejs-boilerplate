@@ -16,6 +16,8 @@ export default ({ mode }: { mode: string }) =>
     },
 
     resolve: {
+      conditions: ['development', 'browser'],
+
       alias: {
         '@assets': resolve('src/assets'),
         '@scss': resolve('src/scss'),
