@@ -7,7 +7,6 @@ import { version } from './package.json';
 export default ({ mode }: { mode: string }) =>
   defineConfig({
     base: './',
-    plugins: [solid(), glsl()],
     assetsInclude: ['**/*.fbx', '**/*.glb', '**/*.gltf'],
 
     define: {
@@ -30,6 +29,12 @@ export default ({ mode }: { mode: string }) =>
         localsConvention: 'camelCaseOnly'
       }
     },
+
+    plugins: [
+      solid(), glsl({
+      compress: mode === 'production',
+      root: '/src/shaders/'
+    })],
 
     build: {
       target: 'esnext',

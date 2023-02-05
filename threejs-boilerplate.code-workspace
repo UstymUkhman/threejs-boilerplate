@@ -1,16 +1,15 @@
 {
 	"settings": {
-		"js-import.plainFileSuffix": "css,fbx,frag,fs,glb,glsl,gltf,less,sass,scss,svg,vert,vs,wasm,wat",
-    "js-import.filesToScan": "**/*.{ts,tsx,js,jsx,vs,fs,vert,frag,glsl}",
+		"js-import.plainFileSuffix": "css,fbx,frag,fs,glb,glsl,gltf,less,sass,scss,svg,vert,vs,wasm,wat,wgsl",
+    "js-import.filesToScan": "**/*.{ts,tsx,js,jsx,glsl,wgsl,vert,frag,vs,fs}",
 		"editor.bracketPairColorization.enabled": false,
-
-		"vetur.validation.template": false,
-		"git.ignoreLimitWarning": true,
-		"js-import.semicolon": true,
 
 		"editor.codeActionsOnSave": {
 			"source.fixAll.eslint": false
 		},
+
+		"git.ignoreLimitWarning": true,
+		"js-import.semicolon": true,
 
 		"js-import.alias": {
 			"@assets": "/src/assets",
