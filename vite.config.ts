@@ -9,11 +9,6 @@ export default ({ mode }: { mode: string }) =>
     base: './',
     assetsInclude: ['**/*.fbx', '**/*.glb', '**/*.gltf'],
 
-    define: {
-      DEBUG: mode !== 'production' && false,
-      VERSION: JSON.stringify(version)
-    },
-
     resolve: {
       conditions: ['development', 'browser'],
 
@@ -22,6 +17,11 @@ export default ({ mode }: { mode: string }) =>
         '@scss': resolve('src/scss'),
         '@': resolve('src')
       }
+    },
+
+    define: {
+      DEBUG: mode !== 'production' && false,
+      VERSION: JSON.stringify(version)
     },
 
     css: {

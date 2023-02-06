@@ -13,7 +13,7 @@
   "prefer_related_applications": false,
   "background_color": "#222222",
   "related_applications": [],
-  "theme_color": "#222222",
+  "theme_color": "#bbbbbb",
 
   "icons": [{
     "src": ".\/favicons\/android-icon-36x36.png",
