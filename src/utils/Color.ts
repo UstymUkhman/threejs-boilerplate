@@ -1,29 +1,36 @@
-import { Color as ThreeColor } from 'three/src/math/Color';
+import type { ColorRepresentation } from 'three/src/utils';
+import type { ColorSpace } from 'three/src/constants';
+import { Color } from 'three/src/math/Color';
 
-export namespace Color
+export default class extends Color
 {
-  export const blend = (initial: string, target: string, p = 0.5): string => {
-    const iColor: RGB = hexToRGB(initial);
-    const tColor: RGB = hexToRGB(target);
+  public constructor(r?: ColorRepresentation, g?: number, b?: number) {
+    r && g && b ? super(r as number, g, b) : super(r);
+  }
 
-    return `#${(0x100000000 +
-      (Math.round(((tColor.r - iColor.r) * p) + iColor.r) * 0x10000) +
-      (Math.round(((tColor.g - iColor.g) * p) + iColor.g) * 0x100) +
-      Math.round(((tColor.b - iColor.b) * p) + iColor.b)
-    ).toString(16).slice(3)}`.toUpperCase();
-  };
+  public blend (target: typeof this | string, p = 0.5, colorSpace?: ColorSpace): Color {
+    const tColor = typeof target === 'string'
+      ? this.hexToRGB(target) : {
+        r: target.r,
+        g: target.g,
+        b: target.b
+      };
 
-  export const getClass = (color: number | string): ThreeColor => {
-    return new ThreeColor(color);
-  };
+    return this.setStyle(
+      `#${(0x100000000 +
+        (Math.round(((tColor.r - this.r) * p) + this.r) * 0x10000) +
+        (Math.round(((tColor.g - this.g) * p) + this.g) * 0x100) +
+        Math.round(((tColor.b - this.b) * p) + this.b)
+      ).toString(16).slice(3)}`.toUpperCase(),
+      colorSpace
+    );
+  }
 
-  export const rgbToHEX = (rgb: RGB): string => {
-    return `#${(
-      (1 << 24) + (rgb.r << 16) + (rgb.g << 8) + rgb.b
-    ).toString(16).slice(1)}`.toUpperCase();
-  };
+  public override getHexString (colorSpace?: ColorSpace): string {
+    return `#${super.getHexString(colorSpace)}`;
+  }
 
-  export const hexToRGB = (hex: string): RGB => {
+  public hexToRGB (hex: string) {
     const color = parseInt(hex.slice(1), 16);
 
     return {
@@ -31,15 +38,5 @@ export namespace Color
       g: (color >> 8) & 255,
       b: color & 255
     };
-  };
-
-  export const BLACK = 0x000000;
-  export const FOG   = 0xE8E8E8;
-  export const WHITE = 0xFFFFFF;
-
-  export type RGB = {
-    r: number,
-    g: number,
-    b: number
-  };
+  }
 }

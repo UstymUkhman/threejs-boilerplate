@@ -28,9 +28,7 @@ export default class Worker
 
   private onMessage (event: MessageEvent): void {
     const { name, response } = event.data;
-    const callback = this.events?.get(name)?.callback;
-
-    callback?.(response);
+    this.events?.get(name)?.callback?.(response);
   }
 
   private onError (error: ErrorEvent): void {
@@ -39,5 +37,9 @@ export default class Worker
 
   public remove (event: string): void {
     this.events.delete(event);
+  }
+
+  public dispose(): void {
+    this.events.clear();
   }
 }

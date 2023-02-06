@@ -2,7 +2,7 @@ import { lerp as defaultLerp } from '@/utils/Number';
 
 export default class Spline
 {
-  private length = 0.0;
+  private length = 0;
   private readonly points: [number, number][] = [];
   public constructor (private readonly lerp = defaultLerp) {}
 
