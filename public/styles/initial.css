@@ -1,27 +1,34 @@
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
 html,
 body {
   -webkit-text-rendering: optimizeLegibility;
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-overflow-scrolling: touch;
-  -webkit-touch-callout: none;
-
   text-rendering: optimizeLegibility;
+  -webkit-overflow-scrolling: touch;
   font-family: 'Inter', sans-serif;
-  font-variant-ligatures: none;
-  backface-visibility: hidden;
-  background-color: #222;
 
+  font-variant-ligatures: none;
+  overscroll-behavior: contain;
+  -webkit-touch-callout: none;
+  backface-visibility: hidden;
+  background-color: #222222;
+
+  -webkit-user-select: none;
+  -ms-overflow-style: none;
   text-size-adjust: none;
   letter-spacing: normal;
-  line-height: normal;
 
+  line-height: normal;
   font-weight: normal;
   font-kerning: none;
   font-style: normal;
-  font-size: 18px;
-  color: #bbb;
 
   user-select: none;
   appearance: none;
@@ -32,6 +39,9 @@ body {
 
   max-width: 100%;
   min-width: 100%;
+
+  font-size: 16px;
+  color: #bbbbbb;
 
   height: 100%;
   width: 100%;

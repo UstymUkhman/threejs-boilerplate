@@ -6,7 +6,6 @@ import { version } from './package.json';
 
 export default ({ mode }: { mode: string }) =>
   defineConfig({
-    base: './',
     assetsInclude: ['**/*.fbx', '**/*.glb', '**/*.gltf'],
 
     resolve: {
@@ -45,5 +44,7 @@ export default ({ mode }: { mode: string }) =>
       host: '0.0.0.0',
       port: 8080,
       open: true
-    }
+    },
+
+    base: './'
   });

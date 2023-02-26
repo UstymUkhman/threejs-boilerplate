@@ -14,18 +14,18 @@ describe('Viewport', () => {
     expect(addResizeCallback).toHaveReturnedWith(undefined);
   });
 
-  test('updateScreen', () => {
-    const viewportPrototype = Object.getPrototypeOf(Viewport);
-    const updateScreen = vi.fn(viewportPrototype.updateScreen.bind(Viewport));
-
-    updateScreen();
-    expect(updateScreen).toHaveReturnedWith(undefined);
-  });
-
   test('removeResizeCallback', () => {
     const removeResizeCallback = vi.fn(Viewport.removeResizeCallback.bind(Viewport));
     removeResizeCallback(callback);
     expect(removeResizeCallback).toHaveReturnedWith(undefined);
+  });
+
+  test('updateSize', () => {
+    const viewportPrototype = Object.getPrototypeOf(Viewport);
+    const updateSize = vi.fn(viewportPrototype.updateSize.bind(Viewport));
+
+    updateSize();
+    expect(updateSize).toHaveReturnedWith(undefined);
   });
 
   test('dispose', () => {

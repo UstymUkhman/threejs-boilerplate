@@ -1,24 +1,25 @@
 import { CubeTextureLoader } from 'three/src/loaders/CubeTextureLoader';
+import type { AnimationClip } from 'three/src/animation/AnimationClip';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { LoadingManager } from 'three/src/loaders/LoadingManager';
 
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import { CubeTexture } from 'three/src/textures/CubeTexture';
 import { AudioLoader } from 'three/src/loaders/AudioLoader';
+import type { Texture } from 'three/src/textures/Texture';
 
 import { generateUUID } from 'three/src/math/MathUtils';
-import { CustomEvents } from '@/utils/CustomEvents';
+import type { Group } from 'three/src/objects/Group';
+import { EventEmitter } from '@/utils/EventEmitter';
 import { RGBAFormat } from 'three/src/constants';
 
 export namespace Assets
 {
-  export type Animations = Array<import('three/src/animation/AnimationClip').AnimationClip>;
-  type Resolve<Asset> = (asset?: Asset | PromiseLike<Asset>) => void;
-
-  export type Texture = import ('three/src/textures/Texture').Texture;
+  export type GLTF = Group;
+  export type Animations = Array<AnimationClip>;
   export type GLTFModel = { scene: GLTF, animations?: Animations };
-  export type GLTF = import('three/src/objects/Group').Group;
 
+  type Resolve<Asset> = (asset?: Asset | PromiseLike<Asset>) => void;
   type ProgressEventTarget = EventTarget & { responseURL: string };
   type Assets = Texture | CubeTexture | GLTFModel | AudioBuffer;
   type Reject = (error: ErrorEvent) => void;
@@ -31,14 +32,14 @@ export namespace Assets
 
   export class Loader extends LoadingManager
   {
+    private readonly audioBasePath = './assets/sounds/';
+    private readonly modelBasePath = './assets/models/';
+    private readonly textureBasePath = './assets/images';
+
     private readonly cubeTexture = new CubeTextureLoader(this);
     private readonly texture = new TextureLoader(this);
     private readonly audio = new AudioLoader(this);
     private readonly gltf = new GLTFLoader(this);
-
-    private readonly textureBasePath = './assets/images';
-    private readonly modelBasePath = './assets/models/';
-    private readonly audioBasePath = './assets/sounds/';
 
     private readonly uuid = generateUUID();
 
@@ -47,6 +48,8 @@ export namespace Assets
       'py.jpg', 'ny.jpg',
       'pz.jpg', 'nz.jpg'
     ];
+
+    private publicFolder = true;
 
     private getPromiseCallbacks (resolve: Resolve<Assets>, reject: Reject): Callbacks {
       return {
@@ -68,10 +71,12 @@ export namespace Assets
 
     public async loadCubeTexture (folder: string): Promise<CubeTexture> {
       return await new Promise((resolve, reject) => {
+        const path = this.publicFolder ? `${this.textureBasePath}/` : '';
         const promise = this.getPromiseCallbacks(resolve as Resolve<Assets>, reject);
 
-        this.cubeTexture.setPath(`${this.textureBasePath}/${folder}/`);
-        this.cubeTexture.load(this.cubeTextures, promise.onLoad, promise.onProgress, promise.onError);
+        this.cubeTexture.setPath(`${path}${folder}/`).load(
+          this.cubeTextures, promise.onLoad, promise.onProgress, promise.onError
+        );
       });
     }
 
@@ -79,7 +84,7 @@ export namespace Assets
       return await new Promise((resolve, reject) => {
         const promise = this.getPromiseCallbacks(resolve as Resolve<Assets>, reject);
 
-        this.texture.setPath(`${this.textureBasePath}/`);
+        this.publicFolder && this.texture.setPath(`${this.textureBasePath}/`);
         this.texture.load(file, promise.onLoad, promise.onProgress, promise.onError);
       });
     }
@@ -88,7 +93,7 @@ export namespace Assets
       return await new Promise((resolve, reject) => {
         const promise = this.getPromiseCallbacks(resolve as Resolve<Assets>, reject);
 
-        this.gltf.setPath(this.modelBasePath);
+        this.publicFolder && this.gltf.setPath(this.modelBasePath);
         this.gltf.load(file, promise.onLoad, promise.onProgress, promise.onError);
       });
     }
@@ -97,7 +102,7 @@ export namespace Assets
       return await new Promise((resolve, reject) => {
         const promise = this.getPromiseCallbacks(resolve as Resolve<Assets>, reject);
 
-        this.audio.setPath(this.audioBasePath);
+        this.publicFolder && this.audio.setPath(this.audioBasePath);
         this.audio.load(file, promise.onLoad, promise.onProgress, promise.onError);
       });
     }
@@ -105,22 +110,26 @@ export namespace Assets
     public override onProgress = (url: string, loaded: number, total: number): void => {
       const progress = loaded * 100 / total;
 
-      CustomEvents.dispatch('loading:progress', {
+      EventEmitter.dispatch('Loading::Progress', {
         uuid: this.uuid,
         progress
       });
-    };
-
-    public override onStart = (): void => {
-      CustomEvents.dispatch('loading:start', this.uuid);
     };
 
     public override onError = (url: string): void => {
       console.error(`Error occurred loading ${url}.`);
     };
 
-    public override onLoad = (): void => {
-      CustomEvents.dispatch('loading:end', this.uuid);
+    public override onStart = (): void => {
+      EventEmitter.dispatch('Loading::Start', this.uuid);
     };
+
+    public override onLoad = (): void => {
+      EventEmitter.dispatch('Loading::Complete', this.uuid);
+    };
+
+    public set usePublicFolder (use: boolean) {
+      this.publicFolder = use;
+    }
   }
 }

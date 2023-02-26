@@ -5,7 +5,6 @@ import { PCFSoftShadowMap, sRGBEncoding } from 'three/src/constants';
 import { DirectionalLight } from 'three/src/lights/DirectionalLight';
 import { PlaneGeometry } from 'three/src/geometries/PlaneGeometry';
 import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer';
-import type { Color as ThreeColor } from 'three/src/math/Color';
 import { AmbientLight } from 'three/src/lights/AmbientLight';
 import Stats from 'three/examples/jsm/libs/stats.module';
 import GroundMaterial from '@/playground/GroundMaterial';
@@ -16,9 +15,9 @@ import { DoubleSide } from 'three/src/constants';
 import { Scene } from 'three/src/scenes/Scene';
 import { Mesh } from 'three/src/objects/Mesh';
 import { Config } from '@/playground/Config';
+import { Color } from 'three/src/math/Color';
 import { Fog } from 'three/src/scenes/Fog';
 import Viewport from '@/utils/Viewport';
-import { Color } from '@/utils/Color';
 import { PI } from '@/utils/Number';
 import RAF from '@/utils/RAF';
 
@@ -55,7 +54,7 @@ export default class Playground
   }
 
   private createScene (): void {
-    this.scene.background = Color.getClass(0);
+    this.scene.background = new Color();
     this.background = Config.Background;
     this.updateFog(Config.Fog);
   }
@@ -96,8 +95,8 @@ export default class Playground
     this.renderer = new WebGLRenderer({ powerPreference: 'high-performance', antialias: true });
 
     this.renderer.setSize(Viewport.size.width, Viewport.size.height);
+    this.renderer.setClearColor(Color.NAMES.BLACK, 1.0);
     this.renderer.shadowMap.type = PCFSoftShadowMap;
-    this.renderer.setClearColor(Color.BLACK, 1.0);
 
     this.renderer.setPixelRatio(devicePixelRatio);
     this.renderer.outputEncoding = sRGBEncoding;
@@ -155,7 +154,7 @@ export default class Playground
   }
 
   public set background (color: number) {
-    (this.scene.background as ThreeColor).set(color);
+    (this.scene.background as Color).set(color);
   }
 
   public set controls (enabled: boolean) {
