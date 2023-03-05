@@ -45,4 +45,10 @@ describe('Worker', () => {
     remove('message');
     expect(remove).toHaveReturnedWith(undefined);
   });
+
+  test('dispose', () => {
+    const dispose = vi.fn(worker.dispose.bind(worker));
+    dispose();
+    expect(dispose).toHaveReturnedWith(undefined);
+  });
 });

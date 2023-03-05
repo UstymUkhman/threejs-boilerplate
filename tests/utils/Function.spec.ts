@@ -17,13 +17,13 @@ describe('Function', () => {
     vi.advanceTimersByTime(600);
 
     expect(callback).toHaveBeenCalledOnce();
-    debounced = vi.fn(debounce(callback, 500, true));
+    debounced = vi.fn(debounce(callback, 500, false));
 
     debounced();
     debounced();
     debounced();
 
-    expect(callback).toHaveBeenCalledTimes(2);
+    expect(callback).toHaveBeenCalledTimes(1);
 
     vi.advanceTimersByTime(1000);
     expect(callback).toHaveBeenCalledTimes(2);

@@ -46,7 +46,7 @@
     "sizes": "192x192",
     "density": "4.0"
   }, {
-    "src": ".\/assets\/images\/logo.png",
+    "src": ".\/favicons\/favicon-512x512.png",
     "purpose": "any maskable",
     "type": "image\/png",
     "sizes": "512x512",
