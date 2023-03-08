@@ -1,6 +1,17 @@
 import type { Vector3 } from 'three/src/math/Vector3';
 import { Config } from '@/playground/Config';
 import type Playground from '@/playground';
+
+import {
+  sRGBEncoding,
+  NoToneMapping,
+  LinearEncoding,
+  LinearToneMapping,
+  CineonToneMapping,
+  // CustomToneMapping,
+  ReinhardToneMapping,
+  ACESFilmicToneMapping
+} from 'three/src/constants';
 import GUI from 'lil-gui';
 
 export default class GUIControls
@@ -9,7 +20,7 @@ export default class GUIControls
   private readonly cameraPosition = Config.Camera.position.clone();
   private readonly cameraTarget = Config.Camera.target.clone();
 
-  public constructor (private readonly main: Playground) {
+  public constructor (private readonly scene: Playground) {
     this.createSceneControls();
     this.createCameraControls();
     this.createLightsControls();
@@ -19,19 +30,45 @@ export default class GUIControls
   }
 
   private createSceneControls (): void {
-    const sceneFolder = this.gui.addFolder('Scene').close();
-    const scene = { color: Config.Background, controls: true, pause: false };
+    const toneMapping = {
+      NoToneMapping: NoToneMapping,
+      LinearToneMapping: LinearToneMapping,
+      CineonToneMapping: CineonToneMapping,
+      // CustomToneMapping: CustomToneMapping,
+      ReinhardToneMapping: ReinhardToneMapping,
+      ACESFilmicToneMapping: ACESFilmicToneMapping
+    };
 
-    sceneFolder.addColor(scene, 'color').name('Background').onChange((color: number) =>
-      this.main.background = color
+    const sceneFolder = this.gui.addFolder('Scene').close();
+    const scene = { ...Config.Scene, controls: true, pause: false };
+    const outputEncoding = { Linear: LinearEncoding, sRGB: sRGBEncoding };
+
+    sceneFolder.addColor(scene, 'background').name('Background').onChange((color: number) =>
+      this.scene.background = color
     );
 
+    sceneFolder.add(toneMapping, 'toneMapping', Object.keys(toneMapping)).name('Tone Mapping')
+      .setValue('ACESFilmicToneMapping').onChange((mapping: keyof typeof toneMapping) => {
+        scene.toneMapping = toneMapping[mapping];
+        this.scene.updateRenderer(scene);
+      });
+
+    sceneFolder.add(scene, 'toneMappingExposure', 0.0, 2.5).name('Tone Mapping Exposure').onChange(() =>
+      this.scene.updateRenderer(scene)
+    );
+
+    sceneFolder.add(outputEncoding, 'outputEncoding', Object.keys(outputEncoding)).name('Output Encoding')
+      .setValue('Linear').onChange((encoding: keyof typeof outputEncoding) => {
+        scene.outputEncoding = outputEncoding[encoding];
+        this.scene.updateRenderer(scene);
+      });
+
     sceneFolder.add(scene, 'controls').name('Controls').onChange((enabled: boolean) =>
-      this.main.controls = enabled
+      this.scene.controls = enabled
     ).listen();
 
     sceneFolder.add(scene, 'pause').name('Pause').onChange((pause: boolean) => {
-      this.main.pause = pause;
+      this.scene.pause = pause;
       scene.controls = !pause;
     });
   }
@@ -41,43 +78,43 @@ export default class GUIControls
     const cameraFolder = this.gui.addFolder('Camera').close();
 
     cameraFolder.add(camera, 'fov', 1.0, 100.0).name('Field of View').onChange(() =>
-      this.main.updateCamera(camera)
+      this.scene.updateCamera(camera)
     );
 
     cameraFolder.add(camera, 'near', 0.1, 1.0).name('Near Plane').onChange(() =>
-      this.main.updateCamera(camera)
+      this.scene.updateCamera(camera)
     );
 
     cameraFolder.add(camera, 'far', 1.0, 2e3).name('Far Plane').onChange(() =>
-      this.main.updateCamera(camera)
+      this.scene.updateCamera(camera)
     );
 
     const position = cameraFolder.addFolder('Position').close();
 
     position.add(this.cameraPosition, 'x').onChange(() =>
-      this.main.updateCameraPosition(this.cameraPosition, this.cameraTarget)
+      this.scene.updateCameraPosition(this.cameraPosition, this.cameraTarget)
     ).decimals(3).listen();
 
     position.add(this.cameraPosition, 'y').onChange(() =>
-      this.main.updateCameraPosition(this.cameraPosition, this.cameraTarget)
+      this.scene.updateCameraPosition(this.cameraPosition, this.cameraTarget)
     ).decimals(3).listen();
 
     position.add(this.cameraPosition, 'z').onChange(() =>
-      this.main.updateCameraPosition(this.cameraPosition, this.cameraTarget)
+      this.scene.updateCameraPosition(this.cameraPosition, this.cameraTarget)
     ).decimals(3).listen();
 
     const target = cameraFolder.addFolder('Target').close();
 
     target.add(this.cameraTarget, 'x').onChange(() =>
-      this.main.updateCameraPosition(this.cameraPosition, this.cameraTarget)
+      this.scene.updateCameraPosition(this.cameraPosition, this.cameraTarget)
     ).decimals(3).listen();
 
     target.add(this.cameraTarget, 'y').onChange(() =>
-      this.main.updateCameraPosition(this.cameraPosition, this.cameraTarget)
+      this.scene.updateCameraPosition(this.cameraPosition, this.cameraTarget)
     ).decimals(3).listen();
 
     target.add(this.cameraTarget, 'z').onChange(() =>
-      this.main.updateCameraPosition(this.cameraPosition, this.cameraTarget)
+      this.scene.updateCameraPosition(this.cameraPosition, this.cameraTarget)
     ).decimals(3).listen();
   }
 
@@ -86,15 +123,15 @@ export default class GUIControls
     const groundFolder = this.gui.addFolder('Ground').close();
 
     groundFolder.addColor(ground, 'color').name('Color').onChange(() =>
-      this.main.updateGround(ground)
+      this.scene.updateGround(ground)
     );
 
     groundFolder.add(ground, 'size', 1, 1e3).name('Size').onChange(() =>
-      this.main.updateGround(ground)
+      this.scene.updateGround(ground)
     );
 
     groundFolder.add(ground, 'cell', 2, 1e2).name('Cell').onChange(() =>
-      this.main.updateGround(ground)
+      this.scene.updateGround(ground)
     ).step(2);
   }
 
@@ -107,92 +144,92 @@ export default class GUIControls
     const directionalFolder = lightsFolder.addFolder('Directional').close();
 
     ambientFolder.addColor(ambient, 'color').name('Color').onChange(() =>
-      this.main.updateAmbient(ambient)
+      this.scene.updateAmbient(ambient)
     );
 
     ambientFolder.add(ambient, 'intensity', 0.0, 1.0).name('Intensity').onChange(() =>
-      this.main.updateAmbient(ambient)
+      this.scene.updateAmbient(ambient)
     );
 
     directionalFolder.addColor(directional, 'color').name('Color').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     );
 
     directionalFolder.add(directional, 'intensity', 0.0, 1.0).name('Intensity').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     );
 
     directionalFolder.add(directional.shadow, 'cast').name('Cast Shadow').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     );
 
     directionalFolder.add(directional.helper, 'visible').name('Helper').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     );
 
     const position = directionalFolder.addFolder('Position').close();
 
     position.add(directional.position, 'x').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     ).decimals(3);
 
     position.add(directional.position, 'y').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     ).decimals(3);
 
     position.add(directional.position, 'z').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     ).decimals(3);
 
     const rotation = directionalFolder.addFolder('Rotation').close();
 
     rotation.add(directional.rotation, 'x').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     ).decimals(3);
 
     rotation.add(directional.rotation, 'y').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     ).decimals(3);
 
     rotation.add(directional.rotation, 'z').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     ).decimals(3);
 
     const shadowFolder = directionalFolder.addFolder('Shadow').close();
     const cameraFolder = shadowFolder.addFolder('Camera').close();
 
     cameraFolder.add(directional.shadow.camera, 'top').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     ).decimals(3);
 
     cameraFolder.add(directional.shadow.camera, 'right').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     ).decimals(3);
 
     cameraFolder.add(directional.shadow.camera, 'bottom').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     ).decimals(3);
 
     cameraFolder.add(directional.shadow.camera, 'left').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     ).decimals(3);
 
     cameraFolder.add(directional.shadow.camera, 'near').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     ).decimals(3);
 
     cameraFolder.add(directional.shadow.camera, 'far').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     ).decimals(3);
 
     const mapSize = shadowFolder.addFolder('Map Size').close();
 
     mapSize.add(directional.shadow.mapSize, 'x').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     ).decimals(3);
 
     mapSize.add(directional.shadow.mapSize, 'y').onChange(() =>
-      this.main.updateDirectional(directional)
+      this.scene.updateDirectional(directional)
     ).decimals(3);
   }
 
@@ -201,19 +238,19 @@ export default class GUIControls
     const fogFolder = this.gui.addFolder('Fog').close();
 
     fogFolder.addColor(fog, 'color').name('Color').onChange(() =>
-      this.main.updateFog(fog)
+      this.scene.updateFog(fog)
     );
 
     fogFolder.add(fog, 'near', 1.0, 1e3).name('Near').onChange(() =>
-      this.main.updateFog(fog)
+      this.scene.updateFog(fog)
     );
 
     fogFolder.add(fog, 'far', 1.0, 1e3).name('Far').onChange(() =>
-      this.main.updateFog(fog)
+      this.scene.updateFog(fog)
     );
 
     fogFolder.add(fog, 'visible').name('Visible').onChange(() =>
-      this.main.updateFog(fog)
+      this.scene.updateFog(fog)
     );
   }
 

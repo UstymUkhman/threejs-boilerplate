@@ -1,3 +1,4 @@
+import { ACESFilmicToneMapping, LinearEncoding } from 'three/src/constants';
 import { Vector2 } from 'three/src/math/Vector2';
 import { Vector3 } from 'three/src/math/Vector3';
 import { Euler } from 'three/src/math/Euler';
@@ -5,7 +6,12 @@ import { Color } from 'three/src/math/Color';
 
 export namespace Config
 {
-  export const Background = Color.NAMES.whitesmoke;
+  export const Scene = {
+    background: Color.NAMES.whitesmoke,
+    toneMapping: ACESFilmicToneMapping,
+    outputEncoding: LinearEncoding,
+    toneMappingExposure: 1.5
+  };
 
   export const Camera = {
     position: new Vector3(0.0, 25.0, 50.0),
