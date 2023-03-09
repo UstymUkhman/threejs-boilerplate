@@ -1,6 +1,7 @@
 import type { Vector3 } from 'three/src/math/Vector3';
 import { Config } from '@/playground/Config';
 import type Playground from '@/playground';
+import '@/playground/CustomToneMapping';
 
 import {
   sRGBEncoding,
@@ -8,7 +9,7 @@ import {
   LinearEncoding,
   LinearToneMapping,
   CineonToneMapping,
-  // CustomToneMapping,
+  CustomToneMapping,
   ReinhardToneMapping,
   ACESFilmicToneMapping
 } from 'three/src/constants';
@@ -31,12 +32,12 @@ export default class GUIControls
 
   private createSceneControls (): void {
     const toneMapping = {
-      NoToneMapping: NoToneMapping,
-      LinearToneMapping: LinearToneMapping,
-      CineonToneMapping: CineonToneMapping,
-      // CustomToneMapping: CustomToneMapping,
-      ReinhardToneMapping: ReinhardToneMapping,
-      ACESFilmicToneMapping: ACESFilmicToneMapping
+      NoToneMapping,
+      LinearToneMapping,
+      CineonToneMapping,
+      CustomToneMapping,
+      ReinhardToneMapping,
+      ACESFilmicToneMapping
     };
 
     const sceneFolder = this.gui.addFolder('Scene').close();
