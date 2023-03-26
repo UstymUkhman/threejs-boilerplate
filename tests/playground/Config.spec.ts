@@ -5,15 +5,11 @@ import { Config } from '@/playground/Config';
 import { Euler } from 'three/src/math/Euler';
 
 describe('Config', () => {
-  test('Background', () => {
-    expect(Config.Background).toBeTypeOf('number');
-  });
-
-  test('Fog', () => {
-    expect(Config.Fog.color).toBeTypeOf('number');
-    expect(Config.Fog.visible).toBeTypeOf('boolean');
-    expect(Config.Fog.near).toBeTypeOf('number');
-    expect(Config.Fog.far).toBeTypeOf('number');
+  test('Scene', () => {
+    expect(Config.Scene.background).toBeTypeOf('number');
+    expect(Config.Scene.toneMapping).toBeTypeOf('number');
+    expect(Config.Scene.outputEncoding).toBeTypeOf('number');
+    expect(Config.Scene.toneMappingExposure).toBeTypeOf('number');
   });
 
   test('Camera', () => {
@@ -52,5 +48,12 @@ describe('Config', () => {
     expect(Config.Ground.color).toBeTypeOf('number');
     expect(Config.Ground.size).toBeTypeOf('number');
     expect(Config.Ground.cell).toBeTypeOf('number');
+  });
+
+  test('Fog', () => {
+    expect(Config.Fog.color).toBeTypeOf('number');
+    expect(Config.Fog.visible).toBeTypeOf('boolean');
+    expect(Config.Fog.near).toBeTypeOf('number');
+    expect(Config.Fog.far).toBeTypeOf('number');
   });
 });
