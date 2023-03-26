@@ -1,60 +1,38 @@
-import Color from '@/utils/Color';
+import { Color } from 'three/src/math/Color';
 import { describe, test, expect } from 'vitest';
-import { Color as TColor } from 'three/src/math/Color';
+import { blend, getRGB, getHex, getInt } from '@/utils/Color';
 
 describe('Color', () => {
-  const color = new Color(0x000000);
-
-  test('Create', () => {
-    expect(color).toBeInstanceOf(TColor);
-    expect(new Color(1.0, 1.0, 1.0)).toBeInstanceOf(TColor);
-  });
+  const lightGray = new Color(0xbbbbbb);
+  const gray = { r: 0.5, g: 0.5, b: 0.5 };
 
   test('blend', () => {
-    expect(color.blend('#ffffff', 0.0).getHexString()).toStrictEqual('#000000');
+    expect(blend({ r: 0, g: 0, b: 0 }, gray, 0)).toStrictEqual('#000000');
+    expect(blend(gray, { r: 1, g: 1, b: 1 }, 1)).toStrictEqual('#ffffff');
 
-    color.set(0xffffff);
-    expect(color.blend(new Color(0.0), 0.25).getHexString()).toStrictEqual('#bfbfbf');
+    expect(blend(lightGray, gray, 0)).toStrictEqual('#bbbbbb');
+    expect(blend(lightGray, gray, 1)).toStrictEqual('#7f7f7f');
 
-    color.set(0x8a0707);
-    expect(color.blend('#ffffff', 0.25).getHexString()).toStrictEqual('#a74545');
-
-    color.set(0x8a0707);
-    expect(color.blend(new Color(0.0), 0.25).getHexString()).toStrictEqual('#680505');
-
-    color.set(0x8a0707);
-    expect(color.blend('#000000').getHexString()).toStrictEqual('#450404');
-
-    color.set(0x8a0707);
-    expect(color.blend(new Color(0xffffff)).getHexString()).toStrictEqual('#c58383');
-
-    color.set(0xffffff);
-    expect(color.blend('#8a0707').getHexString()).toStrictEqual('#c58383');
-
-    color.set(0x000000);
-    expect(color.blend(new Color(0x8a0707)).getHexString()).toStrictEqual('#450404');
-
-    color.set(0x8a0707);
-    expect(color.blend('#ffffff', 0.75).getHexString()).toStrictEqual('#e2c1c1');
-
-    color.set(0x8a0707);
-    expect(color.blend(new Color(0.0), 0.75).getHexString()).toStrictEqual('#230202');
-
-    color.set(0xffffff);
-    expect(color.blend('#000000', 0.75).getHexString()).toStrictEqual('#404040');
-
-    color.set(0x000000);
-    expect(color.blend(new Color(0x8a0707), 1.0).getHexString()).toStrictEqual('#8a0707');
+    expect(blend('#ffffff', '#000000')).toStrictEqual('#808080');
+    expect(blend(0x000000, 0xffffff)).toStrictEqual('#808080');
   });
 
-  test('getHexString', () => {
-    color.set(0.0);
-    expect(color.getHexString()).toStrictEqual('#000000');
+  test('getRGB', () => {
+    expect(getRGB(Color.NAMES.gray, 255)).toStrictEqual({ r: 128, g: 128, b: 128 });
+    expect(getRGB('#bbbbbb', 255)).toStrictEqual({ r: 187, g: 187, b: 187 });
+    expect(getRGB(Color.NAMES.white)).toStrictEqual({ r: 1, g: 1, b: 1 });
+    expect(getRGB('#000000')).toStrictEqual({ r: 0, g: 0, b: 0 });
   });
 
-  test('hexToRGB', () => {
-    expect(color.hexToRGB('#8a0707')).toStrictEqual({
-      r: 138.0, g: 7.0, b: 7.0
-    });
+  test('getHex', () => {
+    expect(getHex(Color.NAMES.white)).toStrictEqual('#ffffff');
+    expect(getHex(lightGray)).toStrictEqual('#bbbbbb');
+    expect(getHex(gray)).toStrictEqual('#7f7f7f');
+  });
+
+  test('getInt', () => {
+    expect(getInt('#ffffff')).toStrictEqual(Color.NAMES.white);
+    expect(getInt(lightGray)).toStrictEqual(0xbbbbbb);
+    expect(getInt(gray)).toStrictEqual(0x7f7f7f);
   });
 });
