@@ -6,7 +6,7 @@ import { version } from './package.json';
 
 export default ({ mode }: { mode: string }) =>
   defineConfig({
-    assetsInclude: ['**/*.fbx', '**/*.glb', '**/*.gltf'],
+    assetsInclude: ['**/*.bin', '**/*.fbx', '**/*.glb', '**/*.gltf'],
 
     resolve: {
       conditions: ['development', 'browser'],

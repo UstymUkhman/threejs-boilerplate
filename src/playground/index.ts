@@ -114,9 +114,18 @@ export default class Playground
     this.orbitControls = new OrbitControls(this.camera, this.domElement);
     this.orbitControls.target.copy(Config.Camera.target);
 
-    Viewport.addResizeCallback(this.resize.bind(this));
+    this.orbitControls.enableZoom = import.meta.env.DEV;
+    this.orbitControls.enablePan = import.meta.env.DEV;
 
+    Viewport.addResizeCallback(this.resize.bind(this));
     this.guiControls = new GUIControls(this);
+
+    this.orbitControls.enableDamping = true;
+    this.orbitControls.maxPolarAngle = 1.5;
+
+    this.orbitControls.minPolarAngle = 0.5;
+    this.orbitControls.rotateSpeed = -0.5;
+
     this.orbitControls.update();
   }
 

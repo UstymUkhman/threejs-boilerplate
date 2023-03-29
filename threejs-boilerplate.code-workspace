@@ -1,6 +1,6 @@
 {
 	"settings": {
-		"js-import.plainFileSuffix": "css,fbx,frag,fs,glb,glsl,gltf,less,sass,scss,svg,vert,vs,wasm,wat,wgsl",
+		"js-import.plainFileSuffix": "bin,css,fbx,frag,fs,glb,glsl,gltf,less,sass,scss,svg,vert,vs,wasm,wat,wgsl",
     "js-import.filesToScan": "**/*.{ts,tsx,js,jsx,glsl,wgsl,vert,frag,vs,fs}",
 		"editor.bracketPairColorization.enabled": false,
 

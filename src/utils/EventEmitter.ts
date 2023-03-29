@@ -1,7 +1,7 @@
 type Callback = (event: Event) => unknown;
 
 class Event extends CustomEvent<unknown> {
-  public data: unknown = null;
+  public data?: unknown;
 }
 
 class EventEmitter
@@ -21,7 +21,7 @@ class EventEmitter
     this.target.addEventListener(name, callback as EventListener, false);
   }
 
-  public dispatch (name: string, data: unknown = null): void {
+  public dispatch (name: string, data?: unknown): void {
     const event = this.events.get(name);
     if (!event) return;
 

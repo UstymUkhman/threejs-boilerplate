@@ -3,3 +3,8 @@
 
 declare const VERSION: string;
 declare const DEBUG: boolean;
+
+declare module '*.gltf';
+declare module '*.glb';
+declare module '*.fbx';
+declare module '*.bin';
