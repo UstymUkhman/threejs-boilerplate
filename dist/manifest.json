@@ -1,0 +1,55 @@
+{
+  "scope": "/",
+  "start_url": "/",
+
+  "display": "standalone",
+  "author": "Ustym Ukhman",
+  "orientation": "portrait",
+
+  "name": "Three.js Boilerplate",
+  "short_name": "Three.js Boilerplate",
+  "description": "Three.js + TypeScript + SolidJS + Vite + Vitest",
+
+  "prefer_related_applications": false,
+  "background_color": "#222222",
+  "related_applications": [],
+  "theme_color": "#bbbbbb",
+
+  "icons": [{
+    "src": ".\/favicons\/android-icon-36x36.png",
+    "type": "image\/png",
+    "sizes": "36x36",
+    "density": "0.75"
+  }, {
+    "src": ".\/favicons\/android-icon-48x48.png",
+    "type": "image\/png",
+    "sizes": "48x48",
+    "density": "1.0"
+  }, {
+    "src": ".\/favicons\/android-icon-72x72.png",
+    "type": "image\/png",
+    "sizes": "72x72",
+    "density": "1.5"
+  }, {
+    "src": ".\/favicons\/android-icon-96x96.png",
+    "type": "image\/png",
+    "sizes": "96x96",
+    "density": "2.0"
+  }, {
+    "src": ".\/favicons\/android-icon-144x144.png",
+    "type": "image\/png",
+    "sizes": "144x144",
+    "density": "3.0"
+  }, {
+    "src": ".\/favicons\/favicon-192x192.png",
+    "type": "image\/png",
+    "sizes": "192x192",
+    "density": "4.0"
+  }, {
+    "src": ".\/favicons\/favicon-512x512.png",
+    "purpose": "any maskable",
+    "type": "image\/png",
+    "sizes": "512x512",
+    "density": "10.6"
+  }]
+}
