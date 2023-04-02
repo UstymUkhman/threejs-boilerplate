@@ -7,8 +7,8 @@ import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import { CubeTexture } from 'three/src/textures/CubeTexture';
 import { AudioLoader } from 'three/src/loaders/AudioLoader';
 import type { Texture } from 'three/src/textures/Texture';
-import { EventEmitter } from '@/utils/EventEmitter';
 import { RGBAFormat } from 'three/src/constants';
+import { Emitter } from '@/utils/Events';
 
 export namespace Assets
 {
@@ -22,8 +22,10 @@ export namespace Assets
     onLoad: (asset: Asset) => void;
   }
 
-  export class Loader extends LoadingManager
+  class Manager extends LoadingManager
   {
+    private readonly textures = ['px', 'nx', 'py', 'ny', 'pz', 'nz'];
+
     private readonly cubeTexture = new CubeTextureLoader(this);
     private readonly texture = new TextureLoader(this);
     private readonly audio = new AudioLoader(this);
@@ -33,17 +35,10 @@ export namespace Assets
     private readonly audioBasePath = './assets/sounds/';
     private readonly textureBasePath = './assets/images/';
 
-    private readonly cubeTextures = [
-      'px.jpg', 'nx.jpg',
-      'py.jpg', 'ny.jpg',
-      'pz.jpg', 'nz.jpg'
-    ];
-
     private publicFolder = true;
 
     private getPromiseCallbacks (
-      resolve: Resolve<Asset>,
-      reject: (error: ErrorEvent) => void
+      resolve: Resolve<Asset>, reject: (error: ErrorEvent) => void
     ): Callbacks {
       return {
         onLoad: asset => {
@@ -60,6 +55,26 @@ export namespace Assets
 
         onError: error => reject(error)
       };
+    }
+
+    public async loadCubeTexture (
+      images: string | string[], textures?: string[], ext = 'png'
+    ): Promise<CubeTexture> {
+      return await new Promise((resolve, reject) => {
+        if (Array.isArray(images)) textures = images;
+
+        else {
+          if (!this.publicFolder) throw TypeError(
+            '"images" must be a "string[]" when "publicFolder" option is disabled.'
+          );
+
+          this.cubeTexture.setPath(`${this.textureBasePath}${images}/`);
+          textures ??= this.textures.map(name => `${name}.${ext}`);
+        }
+
+        const promise = this.getPromiseCallbacks(resolve as Resolve<Asset>, reject);
+        this.cubeTexture.load(textures, promise.onLoad, promise.onProgress, promise.onError);
+      });
     }
 
     public async loadGLTF (file: string): Promise<GLTF> {
@@ -89,19 +104,8 @@ export namespace Assets
       });
     }
 
-    public async loadCubeTexture (folder: string): Promise<CubeTexture> {
-      return await new Promise((resolve, reject) => {
-        const path = this.publicFolder && this.textureBasePath || '';
-        const promise = this.getPromiseCallbacks(resolve as Resolve<Asset>, reject);
-
-        this.cubeTexture.setPath(`${path}${folder}/`).load(
-          this.cubeTextures, promise.onLoad, promise.onProgress, promise.onError
-        );
-      });
-    }
-
     public override onProgress = (url: string, loaded: number, total: number): void => {
-      url && EventEmitter.dispatch('Loading::Progress', loaded * 100 / total);
+      url && Emitter.dispatch(Loading.Progress, loaded * 100 / total);
     };
 
     public override onError = (url: string): void => {
@@ -109,17 +113,23 @@ export namespace Assets
     };
 
     public override onStart = (): void => {
-      EventEmitter.dispatch('Loading::Start');
+      Emitter.dispatch(Loading.Start);
     };
 
     public override onLoad = (): void => {
-      EventEmitter.dispatch('Loading::Complete');
+      Emitter.dispatch(Loading.Complete);
     };
 
     public set usePublicFolder (use: boolean) {
       this.publicFolder = use;
     }
   }
-}
 
-export default new Assets.Loader();
+  export const Loader = new Manager();
+
+  export enum Loading {
+    Complete = 'Loading::Complete',
+    Progress = 'Loading::Progress',
+    Start    = 'Loading::Start'
+  }
+}

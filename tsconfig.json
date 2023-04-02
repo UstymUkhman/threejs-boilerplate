@@ -3,10 +3,10 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "typeRoots": ["node_modules/@types"],
-    "importsNotUsedAsValues": "error",
     "types": ["vite/client", "node"],
-
     "jsxImportSource": "solid-js",
+
+    "verbatimModuleSyntax": true,
     "noUnusedParameters": false,
     "noImplicitOverride": true,
     "moduleResolution": "node",
@@ -17,7 +17,6 @@
     "lib": ["esnext", "dom"],
     
     "esModuleInterop": true,
-    "isolatedModules": true,
     "noUnusedLocals": true,
     "importHelpers": true,
     "noImplicitAny": true,

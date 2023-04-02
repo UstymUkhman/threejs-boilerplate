@@ -1,6 +1,6 @@
 import { Color } from 'three/src/math/Color';
 import { describe, test, expect } from 'vitest';
-import { blend, getRGB, getHex, getInt } from '@/utils/Color';
+import { blend, getRGB, getHex, getInt, random } from '@/utils/Color';
 
 describe('Color', () => {
   const lightGray = new Color(0xbbbbbb);
@@ -34,5 +34,11 @@ describe('Color', () => {
     expect(getInt('#ffffff')).toStrictEqual(Color.NAMES.white);
     expect(getInt(lightGray)).toStrictEqual(0xbbbbbb);
     expect(getInt(gray)).toStrictEqual(0x7f7f7f);
+  });
+
+  test('random', () => {
+    const color = random();
+    expect(color).toBeLessThan(0xffffff);
+    expect(color).toBeGreaterThanOrEqual(0);
   });
 });

@@ -1,4 +1,4 @@
-import { clamp } from '@/utils/Number';
+import { clamp, randomInt } from '@/utils/Number';
 import type { Color } from 'three/src/math/Color';
 
 export type RGB = Color | { r: number; g: number; b: number; };
@@ -36,3 +36,5 @@ export const getInt = (color: RGB | string) => {
   color = typeof color === 'string' ? color : getHex(color);
   return parseInt(color.slice(1), 16);
 };
+
+export const random = () => randomInt(0, 0xffffff);

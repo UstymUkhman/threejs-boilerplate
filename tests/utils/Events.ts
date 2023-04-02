@@ -1,5 +1,5 @@
 import { describe, test, expect, vi } from 'vitest';
-import { EventEmitter, Event } from '@/utils/EventEmitter';
+import { Event, Emitter } from '@/utils/Events';
 
 describe('Event', () => {
   const event = new Event('event');
@@ -13,7 +13,7 @@ describe('Event', () => {
   });
 });
 
-describe('EventEmitter', () => {
+describe('Emitter', () => {
   const event = new Event('time');
   const timestamp = Date.now();
   event.data = timestamp;
@@ -24,12 +24,12 @@ describe('EventEmitter', () => {
     expect(event.data).toStrictEqual(timestamp);
   });
 
-  test('Create', () => expect(EventEmitter).toBeDefined());
+  test('Create', () => expect(Emitter).toBeDefined());
 
   test('add & dispatch', () => {
-    EventEmitter.add('time', cb);
-    EventEmitter.add('time', callback);
-    EventEmitter.dispatch('time', timestamp);
+    Emitter.add('time', cb);
+    Emitter.add('time', callback);
+    Emitter.dispatch('time', timestamp);
 
     expect(callback).toHaveBeenCalledWith(event);
     expect(cb).toHaveBeenCalled();
@@ -38,12 +38,12 @@ describe('EventEmitter', () => {
   test('remove', () => {
     vi.useFakeTimers();
 
-    EventEmitter.remove('time', cb);
-    EventEmitter.dispatch('time', timestamp);
+    Emitter.remove('time', cb);
+    Emitter.dispatch('time', timestamp);
     setTimeout(() => expect(cb).not.toHaveBeenCalled());
 
-    EventEmitter.remove('time');
-    EventEmitter.dispatch('time', timestamp);
+    Emitter.remove('time');
+    Emitter.dispatch('time', timestamp);
     setTimeout(() => expect(callback).not.toHaveBeenCalled());
 
     vi.useRealTimers();
@@ -51,10 +51,10 @@ describe('EventEmitter', () => {
 
   test('dispose', () => {
     const cb = vi.fn();
-    EventEmitter.add('event', cb);
-    EventEmitter.dispose();
+    Emitter.add('event', cb);
+    Emitter.dispose();
 
-    EventEmitter.dispatch('event');
+    Emitter.dispatch('event');
     expect(cb).not.toHaveBeenCalled();
   });
 });

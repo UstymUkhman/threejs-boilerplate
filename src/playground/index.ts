@@ -124,7 +124,7 @@ export default class Playground
     this.orbitControls.maxPolarAngle = 1.5;
 
     this.orbitControls.minPolarAngle = 0.5;
-    this.orbitControls.rotateSpeed = -0.5;
+    this.orbitControls.rotateSpeed = 0.5;
 
     this.orbitControls.update();
   }

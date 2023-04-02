@@ -57,4 +57,4 @@ class EventEmitter
 }
 
 const Emitter = new EventEmitter();
-export { Event, Emitter as EventEmitter };
+export { Event, Emitter };
