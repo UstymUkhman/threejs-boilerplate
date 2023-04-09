@@ -4,7 +4,7 @@ import { describe, test, expect, vi } from 'vitest';
 describe('Spline', () => {
   const spline = new Spline();
 
-  test('Create', () => {
+  test('Defined', () => {
     expect(spline).toBeDefined();
     expect(spline).toBeInstanceOf(Spline);
   });

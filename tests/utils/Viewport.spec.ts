@@ -4,7 +4,7 @@ import { describe, test, expect, vi } from 'vitest';
 describe('Viewport', () => {
   const callback = () => void 0;
 
-  test('Create', () => {
+  test('Defined', () => {
     expect(Viewport).toBeDefined();
   });
 

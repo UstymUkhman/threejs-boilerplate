@@ -6,7 +6,7 @@ describe('Event', () => {
   const timestamp = Date.now();
   event.data = timestamp;
 
-  test('Create', () => {
+  test('Defined', () => {
     expect(Event).toBeDefined();
     expect(event).toBeInstanceOf(Event);
     expect(event.data).toStrictEqual(timestamp);
@@ -24,7 +24,7 @@ describe('Emitter', () => {
     expect(event.data).toStrictEqual(timestamp);
   });
 
-  test('Create', () => expect(Emitter).toBeDefined());
+  test('Defined', () => expect(Emitter).toBeDefined());
 
   test('add & dispatch', () => {
     Emitter.add('time', cb);

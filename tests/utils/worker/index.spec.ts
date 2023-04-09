@@ -5,7 +5,7 @@ import { describe, test, expect, vi } from 'vitest';
 describe('Worker', () => {
   const worker = new Worker();
 
-  test('Create', () => {
+  test('Defined', () => {
     expect(worker).toBeInstanceOf(Worker);
   });
 

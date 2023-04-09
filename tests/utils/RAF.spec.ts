@@ -4,7 +4,7 @@ import { describe, test, expect, vi } from 'vitest';
 describe('RAF', () => {
   const call = () => void 0;
 
-  test('Create', () => {
+  test('Defined', () => {
     expect(RAF).toBeDefined();
   });
 

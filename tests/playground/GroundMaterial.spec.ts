@@ -10,7 +10,7 @@ export interface PublicGroundMaterial {
 describe('GroundMaterial', () => {
   const ground = new GroundMaterial() as unknown as PublicGroundMaterial;
 
-  test('Create', () => {
+  test('Defined', () => {
     expect(ground).toBeDefined();
     expect(ground).toBeInstanceOf(GroundMaterial);
     expect(ground).toBeInstanceOf(MeshPhongMaterial);
