@@ -1,5 +1,5 @@
 import './App.scss';
-import Playground from '@/playground';
+import Sandbox from '@/sandbox';
 import { createSignal } from 'solid-js';
 import type { AppProps } from './types.d';
 import { Logo, Version } from '@/components';
@@ -7,7 +7,7 @@ import { Logo, Version } from '@/components';
 export const App = ({ root }: AppProps) =>
 {
   const [visibleLogo, setVisibleLogo] = createSignal(true);
-  const scene = new Playground().domElement;
+  const scene = new Sandbox().domElement;
 
   setTimeout(setVisibleLogo, 2500);
   root.appendChild(scene);

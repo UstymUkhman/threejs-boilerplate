@@ -1,7 +1,7 @@
 import type { Vector3 } from 'three/src/math/Vector3';
-import { Config } from '@/playground/Config';
-import type Playground from '@/playground';
-import '@/playground/CustomToneMapping';
+import { Config } from '@/sandbox/Config';
+import type Sandbox from '@/sandbox';
+import '@/sandbox/CustomToneMapping';
 
 import {
   sRGBEncoding,
@@ -21,7 +21,7 @@ export default class GUIControls
   private readonly cameraPosition = Config.Camera.position.clone();
   private readonly cameraTarget = Config.Camera.target.clone();
 
-  public constructor (private readonly scene: Playground) {
+  public constructor (private readonly scene: Sandbox) {
     this.createSceneControls();
     this.createCameraControls();
     this.createLightsControls();

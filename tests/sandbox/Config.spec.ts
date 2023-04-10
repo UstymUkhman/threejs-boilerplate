@@ -1,8 +1,8 @@
 import { Vector2 } from 'three/src/math/Vector2';
 import { Vector3 } from 'three/src/math/Vector3';
 import { describe, test, expect } from 'vitest';
-import { Config } from '@/playground/Config';
 import { Euler } from 'three/src/math/Euler';
+import { Config } from '@/sandbox/Config';
 
 describe('Config', () => {
   test('Scene', () => {

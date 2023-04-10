@@ -7,7 +7,7 @@ import mainVert from '@/shaders/ground/main.vert';
 import parsFrag from '@/shaders/ground/pars.frag';
 import mainFrag from '@/shaders/ground/main.frag';
 
-import { Config } from '@/playground/Config';
+import { Config } from '@/sandbox/Config';
 
 export default class GroundMaterial extends MeshPhongMaterial
 {

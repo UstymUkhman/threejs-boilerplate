@@ -14,9 +14,9 @@ describe('Worker', () => {
     expect(add).toStrictEqual(undefined);
   });
 
-  test('get', () => {
-    const get = worker.get('event');
-    expect(get).toStrictEqual(undefined);
+  test('post', () => {
+    const post = worker.post('event');
+    expect(post).toStrictEqual(undefined);
   });
 
   test('onMessage', () => {

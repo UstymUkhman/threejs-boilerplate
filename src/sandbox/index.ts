@@ -7,22 +7,22 @@ import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer';
 import { AmbientLight } from 'three/src/lights/AmbientLight';
 
 import Stats from 'three/examples/jsm/libs/stats.module';
-import GroundMaterial from '@/playground/GroundMaterial';
 import { PCFSoftShadowMap } from 'three/src/constants';
 import type { Vector3 } from 'three/src/math/Vector3';
-import GUIControls from '@/playground/GUIControls';
+import GroundMaterial from '@/sandbox/GroundMaterial';
 import { DoubleSide } from 'three/src/constants';
+import GUIControls from '@/sandbox/GUIControls';
 import { Scene } from 'three/src/scenes/Scene';
 
 import { Mesh } from 'three/src/objects/Mesh';
-import { Config } from '@/playground/Config';
 import { Color } from 'three/src/math/Color';
 import { Fog } from 'three/src/scenes/Fog';
+import { Config } from '@/sandbox/Config';
 import Viewport from '@/utils/Viewport';
 import { PI } from '@/utils/Number';
 import RAF from '@/utils/RAF';
 
-export default class Playground
+export default class Sandbox
 {
   private readonly groundSize = Config.Ground.size;
   private readonly update = this.render.bind(this);

@@ -1,5 +1,5 @@
 import { MeshPhongMaterial } from 'three/src/materials/MeshPhongMaterial';
-import GroundMaterial from '@/playground/GroundMaterial';
+import GroundMaterial from '@/sandbox/GroundMaterial';
 import { describe, test, expect, vi } from 'vitest';
 
 export interface PublicGroundMaterial {
