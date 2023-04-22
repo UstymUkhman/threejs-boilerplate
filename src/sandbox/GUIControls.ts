@@ -119,23 +119,6 @@ export default class GUIControls
     ).decimals(3).listen();
   }
 
-  private createGroundControls (): void {
-    const ground = { ...Config.Ground };
-    const groundFolder = this.gui.addFolder('Ground').close();
-
-    groundFolder.addColor(ground, 'color').name('Color').onChange(() =>
-      this.scene.updateGround(ground)
-    );
-
-    groundFolder.add(ground, 'size', 1, 1e3).name('Size').onChange(() =>
-      this.scene.updateGround(ground)
-    );
-
-    groundFolder.add(ground, 'cell', 2, 1e2).name('Cell').onChange(() =>
-      this.scene.updateGround(ground)
-    ).step(2);
-  }
-
   private createLightsControls (): void {
     const ambient = { ...Config.Lights.ambient };
     const directional = { ...Config.Lights.directional };
@@ -232,6 +215,23 @@ export default class GUIControls
     mapSize.add(directional.shadow.mapSize, 'y').onChange(() =>
       this.scene.updateDirectional(directional)
     ).decimals(3);
+  }
+
+  private createGroundControls (): void {
+    const ground = { ...Config.Ground };
+    const groundFolder = this.gui.addFolder('Ground').close();
+
+    groundFolder.addColor(ground, 'color').name('Color').onChange(() =>
+      this.scene.updateGround(ground)
+    );
+
+    groundFolder.add(ground, 'size', 1, 1e3).name('Size').onChange(() =>
+      this.scene.updateGround(ground)
+    );
+
+    groundFolder.add(ground, 'cell', 2, 1e2).name('Cell').onChange(() =>
+      this.scene.updateGround(ground)
+    ).step(2);
   }
 
   private createFogControls (): void {
