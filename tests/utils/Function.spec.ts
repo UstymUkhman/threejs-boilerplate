@@ -31,7 +31,16 @@ describe('Function', () => {
 
   test('throttle', () => {
     callback.mockClear();
-    const throttled = vi.fn(throttle(callback, 500));
+    let throttled = vi.fn(throttle(callback, 500));
+
+    throttled();
+    throttled();
+    throttled();
+
+    expect(callback).toHaveBeenCalledOnce();
+
+    callback.mockClear();
+    throttled = vi.fn(throttle(callback, Infinity));
 
     throttled();
     throttled();

@@ -2,8 +2,19 @@ import '@vitest/web-worker';
 import Worker from '@/utils/worker';
 import { describe, test, expect, vi } from 'vitest';
 
+type EventParams = Record<string, unknown>;
+type Callback = (data: unknown) => void;
+
+interface PublicWorker {
+  add(event: string, callback: Callback, params?: EventParams): void;
+  post (event: string, params?: EventParams): void;
+  onMessage(event: MessageEvent): void;
+  remove (event: string): void;
+  dispose(): void;
+}
+
 describe('Worker', () => {
-  const worker = new Worker();
+  const worker = new Worker() as unknown as PublicWorker;
 
   test('Defined', () => {
     expect(worker).toBeInstanceOf(Worker);
@@ -21,14 +32,14 @@ describe('Worker', () => {
 
   test('onMessage', () => {
     const event = new MessageEvent('message', {
-      data: { name: 'message', response: null }
+      data: { name: 'event', response: null }
     });
 
-    const workerPrototype = Object.getPrototypeOf(worker);
-    const onMessage = vi.fn(workerPrototype.onMessage.bind(workerPrototype, event));
+    const callback = vi.fn();
+    worker.add('event', callback);
 
-    onMessage(event);
-    expect(onMessage).toHaveReturnedWith(undefined);
+    worker.onMessage(event);
+    expect(callback).toHaveBeenCalledWith(null);
   });
 
   test('onError', () => {

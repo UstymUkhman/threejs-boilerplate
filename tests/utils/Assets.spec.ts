@@ -58,6 +58,10 @@ describe('Assets Loader', () => {
     await expect(Assets.Loader.loadCubeTexture('')).rejects.toBe(Error);
   }, 500);
 
+  test.fails('loadCubeTexture [public] (Array)', async () => {
+    await expect(Assets.Loader.loadCubeTexture([''])).rejects.toBe(Error);
+  }, 500);
+
   test.fails('loadGLTF [public]', async () => {
     await expect(Assets.Loader.loadGLTF('')).rejects.toBe(Error);
   }, 500);
@@ -73,6 +77,11 @@ describe('Assets Loader', () => {
   test.fails('loadCubeTexture [assets]', async () => {
     Assets.Loader.usePublicFolder = false;
     await expect(Assets.Loader.loadCubeTexture('')).rejects.toBe(TypeError);
+  }, 500);
+
+  test.fails('loadCubeTexture [assets] (Array)', async () => {
+    Assets.Loader.usePublicFolder = false;
+    await expect(Assets.Loader.loadCubeTexture([''])).rejects.toBe(Error);
   }, 500);
 
   test.fails('loadGLTF [assets]', async () => {
@@ -92,7 +101,10 @@ describe('Assets Loader', () => {
 
   test('onProgress', () => {
     const onProgress = vi.fn(Assets.Loader.onProgress);
-    onProgress('', 1, 1);
+    onProgress('', 0, 1);
+    expect(onProgress).toHaveReturnedWith(undefined);
+
+    onProgress('https://threejs.org/', 1, 1);
     expect(onProgress).toHaveReturnedWith(undefined);
   });
 

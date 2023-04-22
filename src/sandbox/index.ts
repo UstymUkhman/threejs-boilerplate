@@ -154,7 +154,7 @@ export default class Sandbox
     this.stats?.end();
   }
 
-  public destroy (): void {
+  public dispose (): void {
     this.renderer.domElement.remove();
     this.stats?.domElement.remove();
     this.orbitControls.dispose();
