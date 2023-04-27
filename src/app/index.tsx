@@ -1,20 +1,22 @@
 import './App.scss';
 import Sandbox from '@/sandbox';
-import { createSignal } from 'solid-js';
 import type { AppProps } from './types.d';
 import { Logo, Version } from '@/components';
+import { createSignal, onCleanup } from 'solid-js';
 
 export const App = ({ root }: AppProps) =>
 {
-  const [visibleLogo, setVisibleLogo] = createSignal(true);
-  const scene = new Sandbox().domElement;
+  const sandbox = new Sandbox();
+  const [logo, hideLogo] = createSignal(true);
 
-  setTimeout(setVisibleLogo, 2500);
-  root.appendChild(scene);
-  scene.focus();
+  onCleanup(sandbox.dispose.bind(sandbox));
+  root.appendChild(sandbox.domElement);
+
+  setTimeout(hideLogo, 2500.0);
+  sandbox.domElement.focus();
 
   return <>
-    {visibleLogo() && <Logo />}
+    {logo() && <Logo />}
     {import.meta.env.DEV && <Version />}
   </>;
 };

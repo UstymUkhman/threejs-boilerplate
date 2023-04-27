@@ -9,8 +9,8 @@
 ![](https://img.shields.io/github/package-json/dependency-version/UstymUkhman/threejs-boilerplate/dev/vitest?style=flat-square)
 
 ![](https://img.shields.io/github/deployments/UstymUkhman/threejs-boilerplate/github-pages?style=flat-square)
+![](https://img.shields.io/badge/coverage-100%25-brightgreen?style=flat-square)
 ![](https://img.shields.io/github/repo-size/UstymUkhman/threejs-boilerplate?color=yellowgreen&style=flat-square)
-![](https://img.shields.io/badge/coverage-97.27%25-yellow?style=flat-square)
 ![](https://img.shields.io/github/package-json/v/UstymUkhman/threejs-boilerplate?color=orange&style=flat-square)
 ![](https://img.shields.io/github/license/UstymUkhman/threejs-boilerplate?color=lightgrey&style=flat-square)
 

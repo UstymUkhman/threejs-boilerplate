@@ -1,15 +1,25 @@
-import { ACESFilmicToneMapping, LinearEncoding } from 'three/src/constants';
-import { Vector2 } from 'three/src/math/Vector2';
-import { Vector3 } from 'three/src/math/Vector3';
-import { Euler } from 'three/src/math/Euler';
+import {
+  type ToneMapping,
+  type SRGBColorSpace,
+  LinearSRGBColorSpace,
+  ACESFilmicToneMapping
+} from 'three/src/constants';
+
 import { Color } from 'three/src/math/Color';
+import { Euler } from 'three/src/math/Euler';
+import { Vector3 } from 'three/src/math/Vector3';
+import { Vector2 } from 'three/src/math/Vector2';
+
+type OutputColorSpace =
+  typeof SRGBColorSpace |
+  typeof LinearSRGBColorSpace;
 
 export namespace Config
 {
   export const Scene = {
+    outputColorSpace: LinearSRGBColorSpace as OutputColorSpace,
+    toneMapping: ACESFilmicToneMapping as ToneMapping,
     background: Color.NAMES.whitesmoke,
-    toneMapping: ACESFilmicToneMapping,
-    outputEncoding: LinearEncoding,
     toneMappingExposure: 1.5
   };
 

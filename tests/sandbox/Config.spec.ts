@@ -8,7 +8,7 @@ describe('Config', () => {
   test('Scene', () => {
     expect(Config.Scene.background).toBeTypeOf('number');
     expect(Config.Scene.toneMapping).toBeTypeOf('number');
-    expect(Config.Scene.outputEncoding).toBeTypeOf('number');
+    expect(Config.Scene.outputColorSpace).toBeTypeOf('string');
     expect(Config.Scene.toneMappingExposure).toBeTypeOf('number');
   });
 

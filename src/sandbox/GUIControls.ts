@@ -4,13 +4,13 @@ import type Sandbox from '@/sandbox';
 import '@/sandbox/CustomToneMapping';
 
 import {
-  sRGBEncoding,
   NoToneMapping,
-  LinearEncoding,
+  SRGBColorSpace,
   LinearToneMapping,
   CineonToneMapping,
   CustomToneMapping,
   ReinhardToneMapping,
+  LinearSRGBColorSpace,
   ACESFilmicToneMapping
 } from 'three/src/constants';
 import GUI from 'lil-gui';
@@ -42,7 +42,7 @@ export default class GUIControls
 
     const sceneFolder = this.gui.addFolder('Scene').close();
     const scene = { ...Config.Scene, controls: true, pause: false };
-    const outputEncoding = { Linear: LinearEncoding, sRGB: sRGBEncoding };
+    const outputColorSpace = { Linear: LinearSRGBColorSpace, SRGB: SRGBColorSpace };
 
     sceneFolder.addColor(scene, 'background').name('Background').onChange((color: number) =>
       this.scene.background = color
@@ -58,9 +58,9 @@ export default class GUIControls
       this.scene.updateRenderer(scene)
     );
 
-    sceneFolder.add(outputEncoding, 'outputEncoding', Object.keys(outputEncoding)).name('Output Encoding')
-      .setValue('Linear').onChange((encoding: keyof typeof outputEncoding) => {
-        scene.outputEncoding = outputEncoding[encoding];
+    sceneFolder.add(outputColorSpace, 'outputColorSpace', Object.keys(outputColorSpace)).name('Output Color Space')
+      .setValue('Linear').onChange((encoding: keyof typeof outputColorSpace) => {
+        scene.outputColorSpace = outputColorSpace[encoding];
         this.scene.updateRenderer(scene);
       });
 

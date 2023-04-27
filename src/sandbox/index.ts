@@ -94,15 +94,15 @@ export default class Sandbox
   }
 
   private createRenderer (): void {
-    const { toneMappingExposure, outputEncoding, background, toneMapping } = Config.Scene;
+    const { toneMappingExposure, outputColorSpace, background, toneMapping } = Config.Scene;
     this.renderer = new WebGLRenderer({ powerPreference: 'high-performance', antialias: true });
 
     this.renderer.setSize(Viewport.size.width, Viewport.size.height);
     this.renderer.debug.checkShaderErrors = import.meta.env.DEV;
     this.renderer.toneMappingExposure = toneMappingExposure;
 
+    this.renderer.outputColorSpace = outputColorSpace;
     this.renderer.shadowMap.type = PCFSoftShadowMap;
-    this.renderer.outputEncoding = outputEncoding;
     this.renderer.setPixelRatio(devicePixelRatio);
 
     this.renderer.setClearColor(background, 1.0);
@@ -114,27 +114,27 @@ export default class Sandbox
     this.orbitControls = new OrbitControls(this.camera, this.domElement);
     this.orbitControls.target.copy(Config.Camera.target);
 
-    this.orbitControls.enableZoom = import.meta.env.DEV;
     this.orbitControls.enablePan = import.meta.env.DEV;
-
     Viewport.addResizeCallback(this.resize.bind(this));
+
     this.guiControls = new GUIControls(this);
-
     this.orbitControls.enableDamping = true;
-    this.orbitControls.maxPolarAngle = 1.5;
 
+    this.orbitControls.maxPolarAngle = 1.5;
     this.orbitControls.minPolarAngle = 0.5;
+
     this.orbitControls.rotateSpeed = 0.5;
+    this.orbitControls.enableZoom = true;
 
     this.orbitControls.update();
   }
 
   private createStats (): void {
     if (document.body.lastElementChild?.id !== 'stats') {
-      this.stats = Stats();
+      this.stats = new Stats();
       this.stats.showPanel(0);
-      this.stats.domElement.id = 'stats';
-      document.body.appendChild(this.stats.domElement);
+      this.stats.dom.id = 'stats';
+      document.body.appendChild(this.stats.dom);
     }
   }
 
@@ -156,13 +156,13 @@ export default class Sandbox
 
   public dispose (): void {
     this.renderer.domElement.remove();
-    this.stats?.domElement.remove();
     this.orbitControls.dispose();
     this.guiControls.dispose();
+    this.stats?.dom.remove();
 
+    RAF.remove(this.update);
     this.renderer.dispose();
     this.scene.clear();
-    RAF.dispose();
   }
 
   public get domElement (): HTMLCanvasElement {
@@ -185,7 +185,7 @@ export default class Sandbox
 
   public updateRenderer (scene: typeof Config.Scene): void {
     this.renderer.toneMappingExposure = scene.toneMappingExposure;
-    this.renderer.outputEncoding = scene.outputEncoding;
+    this.renderer.outputColorSpace = scene.outputColorSpace;
     this.renderer.toneMapping = scene.toneMapping;
   }
 

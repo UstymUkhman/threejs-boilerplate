@@ -5,6 +5,7 @@
 
   "rules": {
     "declaration-empty-line-before": null,
+    "media-feature-range-notation": null,
     "selector-no-qualifying-type": null,
     "comment-empty-line-before": null,
     "at-rule-empty-line-before": null,
