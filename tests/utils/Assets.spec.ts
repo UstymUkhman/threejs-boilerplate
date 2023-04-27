@@ -30,6 +30,14 @@ describe('Assets Loader', () => {
   }, 500);
 
   test('getPromiseCallbacks.onProgress', () => {
+    const target = new EventTarget();
+
+    const event = new ProgressEvent(
+      Assets.Loading.Progress, { loaded: 0, total: 1 }
+    );
+
+    target.addEventListener(Assets.Loading.Progress, vi.fn());
+
     new Promise((resolve, reject) => {
       const callbacks = (
         Assets.Loader as unknown as {
@@ -40,9 +48,8 @@ describe('Assets Loader', () => {
         })
         .getPromiseCallbacks(resolve, reject);
 
-      expect(callbacks.onProgress(new ProgressEvent(
-        Assets.Loading.Progress, { loaded: 0, total: 1 }
-      ))).toThrow(TypeError);
+      target.dispatchEvent(event);
+      expect(callbacks.onProgress(event)).toThrow(TypeError);
     });
   }, 500);
 
