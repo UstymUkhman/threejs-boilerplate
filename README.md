@@ -16,11 +16,7 @@
 ![](https://img.shields.io/github/package-json/v/UstymUkhman/threejs-boilerplate?color=orange&style=flat-square)
 ![](https://img.shields.io/github/license/UstymUkhman/threejs-boilerplate?color=lightgrey&style=flat-square)
 
-<br />
-
 [![](./public/assets/images/preview.jpg)](https://ustymukhman.github.io/threejs-boilerplate/dist)
-
-<br />
 
 ## 📂 Structure ##
 
@@ -78,7 +74,6 @@ Three.js Boilerplate
   <summary>
     <h2 style="display: inline-block;">✨ Features</h2>
   </summary>
-
   <h3>&emsp;&emsp;&ensp;⚙️ Basic</h3>
   &emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&bull; Cross-platform <a href="./public/favicons" target="_blank">Favicons</a><br />
   &emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&bull; Meta tags for sharing on <a href="./index.html#L29-L34" target="_blank">Facebook</a> and <a href="./index.html#L36-L40" target="_blank">Twitter</a><br />
