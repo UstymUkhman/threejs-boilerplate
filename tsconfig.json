@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
+    "types": ["node", "./src/global.d.ts"],
     "allowSyntheticDefaultImports": true,
     "typeRoots": ["node_modules/@types"],
-    "types": ["vite/client", "node"],
     "jsxImportSource": "solid-js",
 
     "verbatimModuleSyntax": true,

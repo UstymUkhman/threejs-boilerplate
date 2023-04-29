@@ -46,13 +46,13 @@
   "dependencies": {
     "animejs": "^3.2.1",
     "solid-js": "^1.7.3",
-    "three": "^0.152.0"
+    "three": "^0.152.2"
   },
   "devDependencies": {
     "@solidjs/testing-library": "^0.7.0",
     "@types/animejs": "^3.1.7",
-    "@types/node": "^18.16.1",
-    "@types/three": "^0.150.2",
+    "@types/node": "^18.16.3",
+    "@types/three": "^0.151.0",
     "@typescript-eslint/eslint-plugin": "^5.59.1",
     "@typescript-eslint/parser": "^5.59.1",
     "@vitest/coverage-c8": "^0.28.4",
