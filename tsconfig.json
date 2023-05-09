@@ -27,8 +27,8 @@
     "sourceMap": true,
     "jsx": "preserve",
 
-    "checkJs": true,
     "allowJs": true,
+    "checkJs": true,
     "baseUrl": ".",
     "strict": true,
     "noEmit": true,
