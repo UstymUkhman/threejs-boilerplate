@@ -1,21 +1,27 @@
+import type { MeshStandardMaterial } from 'three/src/materials/MeshStandardMaterial';
 import { DirectionalLightHelper } from 'three/src/helpers/DirectionalLightHelper';
+import type { MeshBasicMaterial } from 'three/src/materials/MeshBasicMaterial';
+import type { MeshToonMaterial } from 'three/src/materials/MeshToonMaterial';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { PerspectiveCamera } from 'three/src/cameras/PerspectiveCamera';
 import { DirectionalLight } from 'three/src/lights/DirectionalLight';
 import { PlaneGeometry } from 'three/src/geometries/PlaneGeometry';
 import { WebGLRenderer } from 'three/src/renderers/WebGLRenderer';
-import { AmbientLight } from 'three/src/lights/AmbientLight';
 
+import type { Material } from 'three/src/materials/Material';
+import { AmbientLight } from 'three/src/lights/AmbientLight';
 import Stats from 'three/examples/jsm/libs/stats.module';
+import type { Object3D } from 'three/src/core/Object3D';
 import { PCFSoftShadowMap } from 'three/src/constants';
 import type { Vector3 } from 'three/src/math/Vector3';
 import GroundMaterial from '@/sandbox/GroundMaterial';
+
 import { DoubleSide } from 'three/src/constants';
 import GUIControls from '@/sandbox/GUIControls';
 import { Scene } from 'three/src/scenes/Scene';
-
 import { Mesh } from 'three/src/objects/Mesh';
 import { Color } from 'three/src/math/Color';
+
 import { Fog } from 'three/src/scenes/Fog';
 import { Config } from '@/sandbox/Config';
 import Viewport from '@/utils/Viewport';
@@ -30,12 +36,12 @@ export default class Sandbox
   private helper!: DirectionalLightHelper;
   private directional!: DirectionalLight;
   private orbitControls!: OrbitControls;
-  private camera!: PerspectiveCamera;
+  private readonly scene = new Scene();
 
+  private camera!: PerspectiveCamera;
   private guiControls!: GUIControls;
   private renderer!: WebGLRenderer;
   private ambient!: AmbientLight;
-  private scene = new Scene();
 
   private ground!: Mesh;
   private stats?: Stats;
@@ -111,7 +117,7 @@ export default class Sandbox
   }
 
   private createControls (): void {
-    this.orbitControls = new OrbitControls(this.camera, this.domElement);
+    this.orbitControls = new OrbitControls(this.camera, this.canvas);
     this.orbitControls.target.copy(Config.Camera.target);
 
     this.orbitControls.enablePan = import.meta.env.DEV;
@@ -155,17 +161,56 @@ export default class Sandbox
   }
 
   public dispose (): void {
-    this.renderer.domElement.remove();
+    this.disposeNode(this.scene);
     this.orbitControls.dispose();
     this.guiControls.dispose();
     this.stats?.dom.remove();
 
     RAF.remove(this.update);
     this.renderer.dispose();
+    this.canvas.remove();
     this.scene.clear();
   }
 
-  public get domElement (): HTMLCanvasElement {
+  private disposeNode(node: Object3D): void {
+    node.traverse((child?: Object3D) => {
+      if (child instanceof Mesh) {
+        const mesh = child as Mesh;
+        mesh.geometry?.dispose();
+
+        !mesh.material
+          ? (child = undefined)
+          : !Array.isArray(mesh.material)
+          ? this.disposeMaterial(mesh.material)
+          : mesh.material.forEach(this.disposeMaterial);
+      }
+
+      child = undefined;
+    });
+  }
+
+  private disposeMaterial(material: Material): void {
+    (material as MeshStandardMaterial).displacementMap?.dispose();
+    (material as MeshStandardMaterial).metalnessMap?.dispose();
+    (material as MeshStandardMaterial).roughnessMap?.dispose();
+
+    (material as MeshStandardMaterial).emissiveMap?.dispose();
+    (material as MeshStandardMaterial).normalMap?.dispose();
+    (material as MeshStandardMaterial).alphaMap?.dispose();
+
+    (material as MeshStandardMaterial).lightMap?.dispose();
+    (material as MeshBasicMaterial).specularMap?.dispose();
+    (material as MeshToonMaterial).gradientMap?.dispose();
+
+    (material as MeshStandardMaterial).bumpMap?.dispose();
+    (material as MeshStandardMaterial).envMap?.dispose();
+    (material as MeshStandardMaterial).aoMap?.dispose();
+    (material as MeshStandardMaterial).map?.dispose();
+
+    material.dispose();
+  }
+
+  public get canvas (): HTMLCanvasElement {
     return this.renderer.domElement;
   }
 

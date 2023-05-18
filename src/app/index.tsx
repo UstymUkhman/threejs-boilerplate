@@ -10,10 +10,10 @@ export const App = ({ root }: AppProps) =>
   const [logo, hideLogo] = createSignal(true);
 
   onCleanup(sandbox.dispose.bind(sandbox));
-  root.appendChild(sandbox.domElement);
+  root.appendChild(sandbox.canvas);
 
   setTimeout(hideLogo, 2500.0);
-  sandbox.domElement.focus();
+  sandbox.canvas.focus();
 
   return <>
     {logo() && <Logo />}
