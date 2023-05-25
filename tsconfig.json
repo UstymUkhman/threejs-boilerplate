@@ -50,7 +50,8 @@
     "tests/**/*.js",
     "tests/**/*.ts",
     "tests/**/*.jsx",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx",
+    "tests/**/*.d.ts"
   ],
 
   "exclude": [

@@ -18,10 +18,9 @@ body {
   overscroll-behavior: contain;
   -webkit-touch-callout: none;
   backface-visibility: hidden;
-  background-color: #222222;
 
+  background-color: #222222;
   -webkit-user-select: none;
-  -ms-overflow-style: none;
   text-size-adjust: none;
   letter-spacing: normal;
 
@@ -128,27 +127,13 @@ body {
   font-weight: bold;
 }
 
-.no-js .disabled-js,
-.ms-ie .not-supported,
-.no-webgl .not-supported,
-.no-canvas .not-supported,
-.no-history .not-supported,
-.no-es5object .not-supported,
-.no-canvastext .not-supported,
-.no-csstransforms3d .not-supported,
-.no-csspointerevents .not-supported {
-  display: block !important;
+.no-js #root {
+  display: none !important;
 }
 
-.no-js #root,
-.no-webgl #root,
-.no-canvas #root,
-.no-history #root,
-.no-es5object #root,
-.no-canvastext #root,
-.no-csstransforms3d #root,
-.no-csspointerevents #root {
-  display: none !important;
+.no-js .disabled-js,
+.ms-ie .not-supported {
+  display: block !important;
 }
 
 @media (max-width: 767px) {

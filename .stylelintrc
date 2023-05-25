@@ -9,6 +9,7 @@
     "selector-no-qualifying-type": null,
     "comment-empty-line-before": null,
     "at-rule-empty-line-before": null,
+
     "rule-empty-line-before": null,
     "length-zero-no-unit": null,
     "function-name-case": null,
@@ -23,9 +24,7 @@
     }],
 
     "selector-pseudo-class-no-unknown": [true, {
-      "ignorePseudoClasses": [
-        "global", "export"
-      ]
+      "ignorePseudoClasses": ["global", "export"]
     }]
   }
 }

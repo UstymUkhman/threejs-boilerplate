@@ -2,7 +2,7 @@
   "name": "threejs-boilerplate",
   "description": "Three.js + TypeScript + SolidJS + Vite + Vitest",
   "homepage": "https://github.com/UstymUkhman/threejs-boilerplate#readme",
-  "packageManager": "^pnpm@8.3.1",
+  "packageManager": "^pnpm@8.4.0",
   "main": "src/main.tsx",
   "version": "4.0.0",
   "license": "MIT",
@@ -75,6 +75,6 @@
   },
   "engines": {
     "node": ">= 18.12.1",
-    "pnpm": ">= 8.3.1"
+    "pnpm": ">= 8.4.0"
   }
 }
